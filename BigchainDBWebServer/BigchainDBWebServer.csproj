@@ -132,6 +132,7 @@
     <Content Include="Content\flaticon.css" />
     <Content Include="Content\fontawesome-all.min.css" />
     <Content Include="Content\gijgo.css" />
+    <Content Include="Content\login.css" />
     <Content Include="Content\magnific-popup.css" />
     <Content Include="Content\nice-select.css" />
     <Content Include="Content\owl.carousel.min.css" />
@@ -361,6 +362,7 @@
     <Content Include="Views\Home\Feature.cshtml" />
     <Content Include="Views\Home\Services.cshtml" />
     <Content Include="Views\Pricing.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
