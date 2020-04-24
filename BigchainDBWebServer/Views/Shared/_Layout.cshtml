@@ -21,7 +21,7 @@
 	<link rel="stylesheet" href="~/Content/slick.css">
 	<link rel="stylesheet" href="~/Content/nice-select.css">
 	<link rel="stylesheet" href="~/Content/style.css">
-
+    <link href="~/Content/bootstrap-social.css" rel="stylesheet" />
 </head>
 <body>
 	<!-- Preloader Start -->
@@ -56,7 +56,14 @@
 										<li>@Html.ActionLink("Home", "Index", "Home")</li>
 										<li>@Html.ActionLink("Feature", "Feature", "Home")</li>
 										<li>@Html.ActionLink("Services", "Services", "Home")</li>
-										<li>@Html.ActionLink("Login", "Login", "Home")</li>
+										@if (Session["usernameFB"] == null)
+                                        {
+                                            <li>@Html.ActionLink("Login", "Login", "User")</li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="@Url.Content("/Product/Index")">@Session["usernameFB"] </a></li>
+                                        }
 									</ul>
 								</nav>
 							</div>

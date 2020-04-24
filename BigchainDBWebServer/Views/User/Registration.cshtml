@@ -1,0 +1,181 @@
+﻿
+@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/Registration.cshtml";
+}
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div class="container" style="margin-top:10%;">
+    <form class="form-horizontal" role="form" id="frmInputInsert">
+        <h2>Registration</h2>
+        <div class="form-group">
+            <label for="Address" class="col-sm-3 control-label">Address</label>
+            <div class="col-sm-9">
+                <input type="text" id="Address" placeholder="Address" name="adrs" class="form-control" autofocus>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Telephone" class="col-sm-3 control-label">Telephone</label>
+            <div class="col-sm-9">
+                <input type="tel" id="telephone" placeholder="telephone" name="teleNum1" class="form-control" autofocus>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Mobilephone" class="col-sm-3 control-label">Mobilephone* </label>
+            <div class="col-sm-9">
+                <input type="tel" id="Mobilephone" placeholder="Mobilephone" class="form-control" name="teleNum2">
+            </div>
+        </div>
+        @*<div class="form-group">
+                <label for="password" class="col-sm-3 control-label">Password*</label>
+                <div class="col-sm-9">
+                    <input type="password" id="password" placeholder="Password" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="col-sm-3 control-label">Confirm Password*</label>
+                <div class="col-sm-9">
+                    <input type="password" id="password" placeholder="Password" class="form-control">
+                </div>
+            </div>*@
+        <div class="form-group">
+            <label for="birthDate" class="col-sm-3 control-label">Date of Birth*</label>
+            <div class="col-sm-9">
+                <input type="date" id="birthDate" name="birthday" class="form-control">
+            </div>
+        </div>
+        @*<div class="form-group">
+                <label for="phoneNumber" class="col-sm-3 control-label">Phone number </label>
+                <div class="col-sm-9">
+                    <input type="phoneNumber" id="phoneNumber" placeholder="Phone number" class="form-control">
+                    <span class="help-block">Your phone number won't be disclosed anywhere </span>
+                </div>
+            </div>*@
+        <div class="form-group">
+            <label class="control-label col-sm-3">Vai Trò</label>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="radio-inline">
+                            <input name="rolls" type="radio" id="femaleRadio" value="0">admin
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="radio-inline">
+                            <input name="rolls" type="radio" id="maleRadio" value="1">user
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- /.form-group -->
+        <div class="form-group">
+            <div class="col-sm-9 col-sm-offset-3">
+                <span class="help-block">*Required fields</span>
+            </div>
+        </div>
+        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block">Register</button>
+    </form> <!-- /form -->
+</div> <!-- ./container -->
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thông Báo</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h1>Chờ quản trị viên kiểm duyệt</h1>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="insert()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+<script>
+    $(function (){
+        $.validator.setDefaults({
+            highlight: function(element){
+                $(element)
+                .closest('.form-group')
+                .addClass('has-error')
+            },
+            unhighlight: function(element){
+                $(element)
+                .closest('.form-group')
+                .removeClass('has-error')
+            }
+        });
+
+        $.validate({
+            rules:
+            {
+                password: "required",
+                birthDate: "required",
+                weight: {
+                    required:true,
+                    number:true
+                },
+                height:  {
+                    required:true,
+                    number:true
+                },
+                email: {
+                    required: true,
+                    email: true
+                }
+            },
+            messages:{
+                email: {
+                    required: true,
+                    email: true
+                }
+            },
+            password: {
+                required: " Please enter password"
+            },
+            birthDate: {
+                required: " Please enter birthdate"
+            },
+            email: {
+                required: ' Please enter email',
+                email: ' Please enter valid email'
+            },
+            weight: {
+                required: " Please enter your weight",
+                number: " Only numbers allowed"
+            },
+            height: {
+                required: " Please enter your height",
+                number: " Only numbers allowed"
+            },
+        });
+    });
+</script>
+<script>
+    function insert() {
+        var fd = new FormData(document.getElementById("frmInputInsert"));
+        // fd.append('file', input.files[0]);
+        $.ajax({
+            url: '/User/InsertRegister',
+            data: fd,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function (data) {
+                document.location.href = "/Home/index";
+            }
+        });
+    }
+</script>
+

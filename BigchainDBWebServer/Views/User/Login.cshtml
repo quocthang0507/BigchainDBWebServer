@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/login.css">
+<section style="padding:100px;">
+    <div class="container">
+        <div class="login-form">
+            <form action="/examples/actions/confirmation.php" method="post">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="section-tittle text-center">
+                            <h2>Login</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username" required="required">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" required="required">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Log in</button>
+                </div>
+                <div class="clearfix">
+                    <label class="fa-pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+                    <a href="#" class="fa-pull-right">Forgot Password?</a>
+                </div>
+            </form>
+            <p class="text-center"><a href="#">Create an Account</a></p>
+            <a style="border-radius: 5px;" class="btn btn-lg btn-facebook btn-block text-uppercase" href="/User/LoginFacebook">
+                <i class="fab fa-facebook-f mr-2"></i>
+                Đăng nhập
+            </a>
+            <a class="btn btn-lg btn-google btn-block text-uppercase" href="@Url.Action("LoginGoogle","User", new { type = "Google" })" onclick="LogInFB()">
+                <i class="fab fa-google mr-2"></i>
+                Đăng nhập
+            </a>
+        </div>
+    </div>
+</section>
+<script>
+    function LogInNormal() {
+        var data = {
+            "userid": $("#userid").val(),
+            "password": $("#password").val()
+        };
+        $.ajax({
+            url: "/Home/ValidateUser",
+            type: "POST",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json",
+            success: function (response) {
+                if (response.Success) {
+                    if (response.Success == "Admin")
+                    {
+                        document.location.href = "/Admin";
+                    }
+                    else
+                    {
+                        document.location.href = "/Home/index";
+                    }
+
+                }
+                else {
+                    alert("Sai tên đăng nhập hoặc password");
+                    window.location.href = "@Url.Action("Login", "Home")";
+                }
+            },
+            error: function () {
+                console.log('Login Fail!!!');
+            }
+        });
+    }
+    $("#userid").keyup(function (event) {
+        if (event.keyCode == 13) {
+            $("#btnEnter").click();
+        }
+    });
+    $("#password").keyup(function (event) {
+        if (event.keyCode == 13) {
+            $("#btnEnter").click();
+        }
+    });
+</script>
+
