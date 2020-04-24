@@ -77,7 +77,9 @@ namespace BigchainDBWebServer.Controllers
                 old.teleNum1 = item.teleNum1;
                 old.teleNum2 = item.teleNum2;
                 old.rolls = 0;
-                old.token = item.token;
+                old.deleted = 0;
+                old.pwd = "";
+                old.token = "";
                 dao.Model.amsms.Add(old);
                 dao.Model.SaveChanges();
                 return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
