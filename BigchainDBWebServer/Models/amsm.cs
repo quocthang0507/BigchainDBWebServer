@@ -24,6 +24,7 @@ namespace BigchainDBWebServer.Models
         public string teleNum1 { get; set; }
         public string teleNum2 { get; set; }
         public Nullable<int> rolls { get; set; }
+        public Nullable<int> deleted { get; set; }
         public string token { get; set; }
     }
 }
