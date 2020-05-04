@@ -135,7 +135,7 @@ namespace BigchainDBWebServer.Controllers
                     return RedirectToAction("Registration", "User");
                 }
             }
-            return RedirectToAction("Index", "Product");
+            return RedirectToAction("AddProduct", "Product");
         }
         public ActionResult LogoutFb()
         {
