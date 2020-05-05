@@ -1923,6 +1923,7 @@
     <Content Include="img\adapt_icon\1.svg" />
     <Content Include="img\adapt_icon\2.png" />
     <Content Include="img\adapt_icon\3.png" />
+    <Content Include="img\avatar\AvatarGo.png" />
     <Content Include="img\banner\dog.png" />
     <Content Include="img\banner\img.png" />
     <Content Include="img\blog\author.png" />

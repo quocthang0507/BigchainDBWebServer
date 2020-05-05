@@ -157,8 +157,9 @@ namespace BigchainDBWebServer.Controllers
                 }
             }
         }
-        public ActionResult SignOut()
+        public ActionResult SignOutGO()
         {
+            Session.Remove("usernameGO");
             HttpContext.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Redirect("~/");
         }
@@ -171,12 +172,17 @@ namespace BigchainDBWebServer.Controllers
             {
                 return Redirect("Login");
             }
-            string username = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
-            if (CheckLogin(username) == true)
+            string username = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
+            string email = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+            string Id = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            Session["usernameGO"] = username;
+            //Session["IdFGO"] = Id;
+            //Session["EmailGO"] = email;
+            if (CheckLogin(email) == true)
             {
                 return RedirectToAction("Registration", "User");
             }
-            return RedirectToAction("Index", "Product");
+            return RedirectToAction("AddProduct", "Product");
         }
     }
 }

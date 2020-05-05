@@ -11,7 +11,7 @@ namespace BigchainDBWebServer.Controllers
         // GET: Product
         public ActionResult Manager()
         {
-            if (Session["usernameFB"] != null)
+            if (Session["usernameFB"] != null || Session["usernameGO"] != null)
             {
                     return View();
             }
@@ -19,7 +19,7 @@ namespace BigchainDBWebServer.Controllers
         }
         public ActionResult AddProduct()
         {
-            if (Session["usernameFB"] != null)
+            if (Session["usernameFB"] != null || Session["usernameGO"] != null)
             {
                 return View();
             }

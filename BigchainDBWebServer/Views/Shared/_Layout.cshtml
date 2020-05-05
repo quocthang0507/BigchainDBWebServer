@@ -52,19 +52,24 @@
 							<!-- Main-menu -->
 							<div class="main-menu f-right d-none d-lg-block">
 								<nav>
-									<ul id="navigation">
-										<li>@Html.ActionLink("Home", "Index", "Home")</li>
-										<li>@Html.ActionLink("Feature", "Feature", "Home")</li>
-										<li>@Html.ActionLink("Services", "Services", "Home")</li>
-										@if (Session["usernameFB"] == null)
+                                    <ul id="navigation">
+                                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                                        <li>@Html.ActionLink("Feature", "Feature", "Home")</li>
+                                        <li>@Html.ActionLink("Services", "Services", "Home")</li>
+                                        @if (Session["usernameFB"] == null)
                                         {
                                             <li>@Html.ActionLink("Login", "Login", "User")</li>
+                                        }
+                                        @if (Session["usernameGO"] != null)
+                                        {
+                                            <li><a href="@Url.Content("/Product/Manager")">@Session["usernameGO"] </a></li>
                                         }
                                         else
                                         {
                                             <li><a href="@Url.Content("/Product/Manager")">@Session["usernameFB"] </a></li>
                                         }
-									</ul>
+
+                                    </ul>
 								</nav>
 							</div>
 						</div>
