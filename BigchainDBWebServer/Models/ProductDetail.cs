@@ -12,19 +12,13 @@ namespace BigchainDBWebServer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class amsm
+    public partial class ProductDetail
     {
         public int id { get; set; }
-        public string username { get; set; }
-        public string pwd { get; set; }
-        public string name { get; set; }
-        public Nullable<System.DateTime> birthday { get; set; }
-        public string email { get; set; }
-        public string adrs { get; set; }
-        public string teleNum1 { get; set; }
-        public string teleNum2 { get; set; }
-        public Nullable<int> rolls { get; set; }
-        public Nullable<int> deleted { get; set; }
-        public string token { get; set; }
+        public string idUser { get; set; }
+        public string idProduct { get; set; }
+        public Nullable<System.DateTime> dateCreated { get; set; }
+        public Nullable<System.DateTime> dateReview { get; set; }
+        public Nullable<int> isDeleted { get; set; }
     }
 }

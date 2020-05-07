@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="cfdefb16ce1c4bcaaa3ada6c93ac7edb" Name="Diagram1">
-        <EntityTypeShape EntityType="QLNongSanModel.amsm" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNongSanModel.custommer" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNongSanModel.memberUser" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNongSanModel.theFarm" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
-        <AssociationConnector Association="QLNongSanModel.FK__theFarm__idCusto__1920BF5C" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="QLNongSanModel.AdminBC" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.Product" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.ProductDetail" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.Role" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.UserBC" Width="1.5" PointX="4.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

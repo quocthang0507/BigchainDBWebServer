@@ -12,12 +12,11 @@ namespace BigchainDBWebServer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class theFarm
+    public partial class Product
     {
-        public int id { get; set; }
-        public Nullable<int> idCustommer { get; set; }
-        public string adrs { get; set; }
-    
-        public virtual custommer custommer { get; set; }
+        public string id { get; set; }
+        public string nameProduct { get; set; }
+        public string details { get; set; }
+        public Nullable<int> isDeleted { get; set; }
     }
 }
