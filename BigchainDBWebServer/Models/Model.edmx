@@ -49,7 +49,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="deleted" Type="int" />
         </EntityType>
@@ -70,6 +70,33 @@
           <Property Name="dateCreated" Type="datetime" />
           <Property Name="dateUpdate" Type="datetime" />
           <Property Name="deleted" Type="int" />
+=======
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="pwd" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="birthday" Type="datetime" />
+          <Property Name="email" Type="varchar" MaxLength="500" />
+          <Property Name="adrs" Type="nvarchar" MaxLength="1000" />
+          <Property Name="phone" Type="varchar" MaxLength="15" />
+          <Property Name="idRole" Type="int" />
+          <Property Name="active" Type="int" />
+          <Property Name="dateCreated" Type="datetime" />
+          <Property Name="dateUpdate" Type="datetime" />
+          <Property Name="deleted" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QLNongSan.dbo.ProductDetailView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProductDetailView">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="idUser" Type="varchar" MaxLength="50" />
+          <Property Name="id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nameProduct" Type="nvarchar" MaxLength="1000" />
+          <Property Name="details" Type="nvarchar(max)" />
+          <Property Name="dateCreated" Type="datetime" />
+          <Property Name="dateReview" Type="datetime" />
+>>>>>>> 17a3fbb0520feb6aabeb659686ad2feab59caa60
         </EntityType>
         <EntityContainer Name="QLNongSanModelStoreContainer">
           <EntitySet Name="AdminBC" EntityType="Self.AdminBC" Schema="dbo" store:Type="Tables" />
@@ -77,6 +104,16 @@
           <EntitySet Name="ProductDetail" EntityType="Self.ProductDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBC" EntityType="Self.UserBC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductDetailView" EntityType="Self.ProductDetailView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProductDetailView].[idUser] AS [idUser], 
+    [ProductDetailView].[id] AS [id], 
+    [ProductDetailView].[nameProduct] AS [nameProduct], 
+    [ProductDetailView].[details] AS [details], 
+    [ProductDetailView].[dateCreated] AS [dateCreated], 
+    [ProductDetailView].[dateReview] AS [dateReview]
+    FROM [dbo].[ProductDetailView] AS [ProductDetailView]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -88,6 +125,7 @@
           <EntitySet Name="ProductDetails" EntityType="QLNongSanModel.ProductDetail" />
           <EntitySet Name="Roles" EntityType="QLNongSanModel.Role" />
           <EntitySet Name="UserBCs" EntityType="QLNongSanModel.UserBC" />
+          <EntitySet Name="ProductDetailViews" EntityType="QLNongSanModel.ProductDetailView" />
         </EntityContainer>
         <EntityType Name="AdminBC">
           <Key>
@@ -133,7 +171,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="deleted" Type="Int32" />
         </EntityType>
@@ -154,6 +192,17 @@
           <Property Name="dateCreated" Type="DateTime" Precision="3" />
           <Property Name="dateUpdate" Type="DateTime" Precision="3" />
           <Property Name="deleted" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProductDetailView">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="idUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nameProduct" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dateCreated" Type="DateTime" Precision="3" />
+          <Property Name="dateReview" Type="DateTime" Precision="3" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -227,6 +276,18 @@
                 <ScalarProperty Name="pwd" ColumnName="pwd" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductDetailViews">
+            <EntityTypeMapping TypeName="QLNongSanModel.ProductDetailView">
+              <MappingFragment StoreEntitySet="ProductDetailView">
+                <ScalarProperty Name="dateReview" ColumnName="dateReview" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="details" ColumnName="details" />
+                <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

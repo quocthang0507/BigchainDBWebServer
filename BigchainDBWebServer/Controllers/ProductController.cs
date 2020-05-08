@@ -23,17 +23,24 @@ namespace BigchainDBWebServer.Controllers
         // GET: Product
         public ActionResult Manager()
         {
+            string idUser = null;
             if (Session["usernameFB"] != null)
             {
                 var userFB = Session["usernameFB"].ToString();
                 if (CheckLogin(userFB))
-                    return View();
+                    idUser = userFB;
             }
-            if (Session["usernameGO"] != null)
+            else if (Session["usernameGO"] != null)
             {
                 var userGO = Session["usernameGO"].ToString();
                 if (CheckLogin(userGO))
-                    return View();
+                    idUser = userGO;
+            }
+            if(idUser != null)
+            {
+                ProductDAO dao = new ProductDAO();
+                ViewBag.lst = dao.GetAllByUsername(idUser);
+                return View();
             }
             return RedirectToAction("Login", "User");
         }
@@ -55,59 +62,24 @@ namespace BigchainDBWebServer.Controllers
         }
         public JsonResult InsertProduct(Product pro, ProductDetail item)
         {
-            AccountDAO dao = new AccountDAO();
+            ProductDAO dao = new ProductDAO();
             var UserFb = Session["usernameFB"];
             var UserGO = Session["usernameGO"];
             if (item == null)
                 return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
             var old = dao.Model.Products.FirstOrDefault(f => f.id == pro.id);
-            if (old != null)
+            string idUser = null;
+            if (UserFb != null)
             {
-                var prodetail = dao.Model.ProductDetails.FirstOrDefault(f => f.id == item.id);
-                prodetail = new ProductDetail();
-                if (UserFb != null)
-                {
-                    prodetail.idUser = UserFb.ToString();
-                }
-                if (UserGO != null)
-                {
-                    prodetail.idUser = UserGO.ToString();
-                }
-                prodetail.idProduct = pro.id;
-                prodetail.dateCreated=item.dateCreated;
-                prodetail.dateReview = item.dateReview;
-                prodetail.isDeleted = 0;
-                dao.Model.ProductDetails.Add(prodetail);
-                dao.Model.SaveChanges();
-                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+                idUser = UserFb.ToString();
             }
-            else
+            if (UserGO != null)
             {
-                old = new Product();
-                old.id = pro.id;
-                old.nameProduct = pro.nameProduct;
-                old.details = pro.details;
-                old.isDeleted = 0;
-                dao.Model.Products.Add(old);
-                dao.Model.SaveChanges();
-                var prodetail = dao.Model.ProductDetails.FirstOrDefault(f => f.id == item.id);
-                prodetail = new ProductDetail();
-                if (UserFb != null)
-                {
-                    prodetail.idUser = UserFb.ToString();
-                }
-                if (UserGO != null)
-                {
-                    prodetail.idUser = UserGO.ToString();
-                }
-                prodetail.idProduct = old.id;
-                prodetail.dateCreated = item.dateCreated;
-                prodetail.dateReview = item.dateReview;
-                prodetail.isDeleted = 0;
-                dao.Model.ProductDetails.Add(prodetail);
-                dao.Model.SaveChanges();
-                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+                idUser = UserGO.ToString();
             }
+            dao.InsertProduct(pro, item, idUser);
+
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
     }
 }

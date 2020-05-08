@@ -10,6 +10,7 @@
         <EntityTypeShape EntityType="QLNongSanModel.ProductDetail" Width="1.5" PointX="2.75" PointY="3.75" />
         <EntityTypeShape EntityType="QLNongSanModel.Role" Width="1.5" PointX="4.75" PointY="0.75" />
         <EntityTypeShape EntityType="QLNongSanModel.UserBC" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.ProductDetailView" Width="1.5" PointX="0.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
