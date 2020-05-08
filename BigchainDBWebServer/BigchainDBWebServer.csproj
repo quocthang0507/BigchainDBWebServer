@@ -176,6 +176,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAO\AccountDAO.cs" />
     <Compile Include="DAO\BaseDAO.cs" />
+    <Compile Include="DAO\ProductDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -201,6 +202,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductDetail.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductDetailView.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs">
@@ -2318,9 +2322,12 @@
     <Content Include="Areas\Admin\css\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Areas\Admin\css\vendor\jquery\jquery.min.map" />
     <Content Include="Areas\Admin\css\vendor\jquery\jquery.slim.min.map" />
-    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAD\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Shared.cshtml" />
     <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\HomeAD\Farmer.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAD\Distributor.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAD\Transporters.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\gijgo.min.js" />

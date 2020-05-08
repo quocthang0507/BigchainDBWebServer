@@ -136,7 +136,8 @@ namespace BigchainDBWebServer.Controllers
 				string email = me.email;
 				Session["usernameFB"] = username;
 				Session["NameFB"] = name;
-				if (CheckFirstLogin(username) == true)
+                Session["usernameInTB"] = username;
+                if (CheckFirstLogin(username) == true)
 				{
 					return RedirectToAction("Registration", "User");
 				}
@@ -148,7 +149,8 @@ namespace BigchainDBWebServer.Controllers
 		{
 			Session.Remove("usernameFB");
 			Session.Remove("NameFB");
-			FormsAuthentication.SignOut();
+            Session.Remove("usernameInTB");
+            FormsAuthentication.SignOut();
 			return Redirect("~/");
 		}
 
@@ -167,6 +169,7 @@ namespace BigchainDBWebServer.Controllers
         {
             Session.Remove("usernameGO");
 			Session.Remove("NameGO");
+            Session.Remove("usernameInTB");
 			HttpContext.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Redirect("~/");
         }
@@ -184,11 +187,13 @@ namespace BigchainDBWebServer.Controllers
 			string name = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
 			Session["usernameGO"] = username;
 			Session["NameGO"] = name;
-			if (CheckFirstLogin(username) == true)
+            Session["usernameInTB"] = username;
+            if (CheckFirstLogin(username) == true)
 			{
 				return RedirectToAction("Registration", "User");
 			}
 			return RedirectToAction("AddProduct", "Product");
 		}
+
 	}
 }

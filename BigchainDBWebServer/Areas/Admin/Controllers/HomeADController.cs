@@ -9,5 +9,18 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 		{
 			return View();
 		}
-	}
+        public ActionResult Transporters()
+        {
+            return View();
+        }
+        public ActionResult Distributor()
+        {
+            return View();
+        }
+        public ActionResult Farmer()
+        {
+            return View();
+        }
+
+    }
 }
