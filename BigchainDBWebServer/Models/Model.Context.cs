@@ -25,9 +25,10 @@ namespace BigchainDBWebServer.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<amsm> amsms { get; set; }
-        public virtual DbSet<custommer> custommers { get; set; }
-        public virtual DbSet<memberUser> memberUsers { get; set; }
-        public virtual DbSet<theFarm> theFarms { get; set; }
+        public virtual DbSet<AdminBC> AdminBCs { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductDetail> ProductDetails { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<UserBC> UserBCs { get; set; }
     }
 }

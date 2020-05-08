@@ -56,17 +56,17 @@
                                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
                                         <li>@Html.ActionLink("Feature", "Feature", "Home")</li>
                                         <li>@Html.ActionLink("Services", "Services", "Home")</li>
-                                        @if (Session["usernameFB"] == null)
+                                        @if (Session["usernameFB"] == null && Session["usernameGO"] == null)
                                         {
                                             <li>@Html.ActionLink("Login", "Login", "User")</li>
                                         }
-                                        @if (Session["usernameGO"] != null)
-                                        {
-                                            <li><a href="@Url.Content("/Product/Manager")">@Session["usernameGO"] </a></li>
-                                        }
                                         else
                                         {
-                                            <li><a href="@Url.Content("/Product/Manager")">@Session["usernameFB"] </a></li>
+                                            if (Session["usernameGO"] != null)
+                                            {
+                                                <li><a href="@Url.Content("/Product/Manager")">@Session["NameGO"] </a></li>
+                                            }
+                                            <li><a href="@Url.Content("/Product/Manager")">@Session["NameFB"] </a></li>
                                         }
 
                                     </ul>

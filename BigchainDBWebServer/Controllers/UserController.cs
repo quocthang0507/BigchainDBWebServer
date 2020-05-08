@@ -37,12 +37,12 @@ namespace BigchainDBWebServer.Controllers
 			return View();
 		}
 
-		public JsonResult InsertRegister(amsm item)
+		public JsonResult InsertRegister(UserBC item)
 		{
 			AccountDAO dao = new AccountDAO();
 			if (item == null)
 				return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
-			var old = dao.Model.amsms.FirstOrDefault(f => f.id == item.id);
+			var old = dao.Model.UserBCs.FirstOrDefault(f => f.id == item.id);
 			if (old != null)
 			{
 				return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
@@ -51,48 +51,49 @@ namespace BigchainDBWebServer.Controllers
 			{
 				var claimsPrincipal = HttpContext.User.Identity as ClaimsIdentity;
 				var UserFb = Session["usernameFB"];
-				var IdFb = Session["IdFB"];
-				var emailFb = Session["EmailFB"];
-				old = new amsm();
+				var NameFB = Session["NameFB"];
+				old = new UserBC();
 				if (claimsPrincipal.Claims.Count() != 0)
 				{
-					old.username = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+					old.username = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
 					old.name = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
 					old.email = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+					old.pwd = "";
 				}
 				else if (UserFb != null)
 				{
 					old.username = UserFb.ToString();
-					old.name = IdFb.ToString();
-					old.email = emailFb.ToString();
+					old.name = NameFB.ToString();
+					old.email = item.email;
+					old.pwd = "";
 				}
 				else
 				{
 					old.username = item.username;
 					old.name = item.name;
 					old.email = item.email;
-				}
-				old.pwd = old.pwd;
+					old.pwd = item.pwd;
+				}				
 				old.birthday = item.birthday;
 				old.adrs = item.adrs;
-				old.teleNum1 = item.teleNum1;
-				old.teleNum2 = item.teleNum2;
-				old.rolls = 0;
+				old.phone = item.phone;
 				old.deleted = 0;
-				old.pwd = "";
-				old.token = "";
-				dao.Model.amsms.Add(old);
+				old.idRole = item.idRole;
+				old.dateCreated = DateTime.Now;
+				old.active = 0;
+				old.deleted = 0;
+				dao.Model.UserBCs.Add(old);
 				dao.Model.SaveChanges();
 				return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
 			}
 		}
 
-		public bool CheckLogin(string item)
+		public bool CheckFirstLogin(string item)
 		{
 			AccountDAO dao = new AccountDAO();
 			if (item == null)
 				return false;
-			var old = dao.Model.amsms.FirstOrDefault(f => f.username == item);
+			var old = dao.Model.UserBCs.FirstOrDefault(f => f.username == item);
 			if (old != null)
 			{
 				return false;
@@ -129,14 +130,13 @@ namespace BigchainDBWebServer.Controllers
 			if (!string.IsNullOrEmpty(accessToken))
 			{
 				fb.AccessToken = accessToken;
-				dynamic me = fb.Get("me?fiels=name,id,email");
-				string username = me.name;
-				string Id = me.id;
+				dynamic me = fb.Get("me?fiels=name,id");
+				string username = me.id;
+				string name = me.name;
 				string email = me.email;
 				Session["usernameFB"] = username;
-				Session["IdFB"] = Id;
-				Session["EmailFB"] = email;
-				if (CheckLogin(username) == true)
+				Session["NameFB"] = name;
+				if (CheckFirstLogin(username) == true)
 				{
 					return RedirectToAction("Registration", "User");
 				}
@@ -147,8 +147,7 @@ namespace BigchainDBWebServer.Controllers
 		public ActionResult LogoutFb()
 		{
 			Session.Remove("usernameFB");
-			Session.Remove("IdFB");
-			Session.Remove("EmailFB");
+			Session.Remove("NameFB");
 			FormsAuthentication.SignOut();
 			return Redirect("~/");
 		}
@@ -167,7 +166,8 @@ namespace BigchainDBWebServer.Controllers
 		public ActionResult SignOutGO()
         {
             Session.Remove("usernameGO");
-            HttpContext.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+			Session.Remove("NameGO");
+			HttpContext.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Redirect("~/");
         }
 
@@ -179,13 +179,12 @@ namespace BigchainDBWebServer.Controllers
 			{
 				return Redirect("Login");
 			}
-			string username = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
+			string username = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
 			string email = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
-			string Id = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+			string name = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
 			Session["usernameGO"] = username;
-			//Session["IdFGO"] = Id;
-			//Session["EmailGO"] = email;
-			if (CheckLogin(email) == true)
+			Session["NameGO"] = name;
+			if (CheckFirstLogin(username) == true)
 			{
 				return RedirectToAction("Registration", "User");
 			}

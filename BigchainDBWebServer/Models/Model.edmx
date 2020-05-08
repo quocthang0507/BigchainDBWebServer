@@ -4,8 +4,8 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QLNongSanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="amsm">
+    <Schema Namespace="QLNongSanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdminBC">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -16,12 +16,44 @@
           <Property Name="birthday" Type="datetime" />
           <Property Name="email" Type="varchar" MaxLength="500" />
           <Property Name="adrs" Type="nvarchar" MaxLength="1000" />
-          <Property Name="teleNum1" Type="varchar" MaxLength="15" />
-          <Property Name="teleNum2" Type="varchar" MaxLength="15" />
-          <Property Name="rolls" Type="int" />
+          <Property Name="phone" Type="varchar" MaxLength="15" />
+          <Property Name="mobile" Type="varchar" MaxLength="15" />
           <Property Name="token" Type="varchar" MaxLength="1000" />
+          <Property Name="dateCreated" Type="datetime" />
+          <Property Name="dateUpdate" Type="datetime" />
+          <Property Name="deleted" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="custommer">
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nameProduct" Type="nvarchar" MaxLength="1000" />
+          <Property Name="details" Type="nvarchar(max)" />
+          <Property Name="isDeleted" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductDetail">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="idUser" />
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUser" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idProduct" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="dateCreated" Type="datetime" />
+          <Property Name="dateReview" Type="datetime" />
+          <Property Name="isDeleted" Type="int" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="deleted" Type="int" />
+        </EntityType>
+        <EntityType Name="UserBC">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -32,199 +64,169 @@
           <Property Name="birthday" Type="datetime" />
           <Property Name="email" Type="varchar" MaxLength="500" />
           <Property Name="adrs" Type="nvarchar" MaxLength="1000" />
-          <Property Name="teleNum1" Type="varchar" MaxLength="15" />
-          <Property Name="teleNum2" Type="varchar" MaxLength="15" />
-          <Property Name="token" Type="varchar" MaxLength="1000" />
+          <Property Name="phone" Type="varchar" MaxLength="15" />
+          <Property Name="idRole" Type="int" />
+          <Property Name="active" Type="int" />
+          <Property Name="dateCreated" Type="datetime" />
+          <Property Name="dateUpdate" Type="datetime" />
+          <Property Name="deleted" Type="int" />
         </EntityType>
-        <EntityType Name="memberUser">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="loginType" Type="varchar" MaxLength="100" />
-          <Property Name="username" Type="varchar" MaxLength="50" />
-          <Property Name="pwd" Type="varchar" MaxLength="1000" />
-          <Property Name="name" Type="nvarchar" MaxLength="100" />
-          <Property Name="birthday" Type="datetime" />
-          <Property Name="email" Type="varchar" MaxLength="500" />
-          <Property Name="adrs" Type="nvarchar" MaxLength="1000" />
-          <Property Name="teleNum" Type="varchar" MaxLength="15" />
-          <Property Name="token" Type="varchar" MaxLength="1000" />
-        </EntityType>
-        <EntityType Name="theFarm">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idCustommer" Type="int" />
-          <Property Name="adrs" Type="nvarchar" MaxLength="1000" />
-        </EntityType>
-        <Association Name="FK__theFarm__idCusto__1920BF5C">
-          <End Role="custommer" Type="Self.custommer" Multiplicity="0..1" />
-          <End Role="theFarm" Type="Self.theFarm" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="custommer">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="theFarm">
-              <PropertyRef Name="idCustommer" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="QLNongSanModelStoreContainer">
-          <EntitySet Name="amsm" EntityType="Self.amsm" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="custommer" EntityType="Self.custommer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="memberUser" EntityType="Self.memberUser" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="theFarm" EntityType="Self.theFarm" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__theFarm__idCusto__1920BF5C" Association="Self.FK__theFarm__idCusto__1920BF5C">
-            <End Role="custommer" EntitySet="custommer" />
-            <End Role="theFarm" EntitySet="theFarm" />
-          </AssociationSet>
+          <EntitySet Name="AdminBC" EntityType="Self.AdminBC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductDetail" EntityType="Self.ProductDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserBC" EntityType="Self.UserBC" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QLNongSanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="amsm">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="pwd" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="birthday" Type="DateTime" Precision="3" />
-          <Property Name="email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="adrs" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="teleNum1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="teleNum2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="rolls" Type="Int32" />
-          <Property Name="token" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="custommer">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="pwd" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="birthday" Type="DateTime" Precision="3" />
-          <Property Name="email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="adrs" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="teleNum1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="teleNum2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="token" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="theFarms" Relationship="Self.FK__theFarm__idCusto__1920BF5C" FromRole="custommer" ToRole="theFarm" />
-        </EntityType>
-        <EntityType Name="memberUser">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="loginType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="pwd" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="birthday" Type="DateTime" Precision="3" />
-          <Property Name="email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="adrs" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="teleNum" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="token" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="theFarm">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idCustommer" Type="Int32" />
-          <Property Name="adrs" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="custommer" Relationship="Self.FK__theFarm__idCusto__1920BF5C" FromRole="theFarm" ToRole="custommer" />
-        </EntityType>
-        <Association Name="FK__theFarm__idCusto__1920BF5C">
-          <End Role="custommer" Type="Self.custommer" Multiplicity="0..1" />
-          <End Role="theFarm" Type="Self.theFarm" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="custommer">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="theFarm">
-              <PropertyRef Name="idCustommer" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="QLNongSanEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="amsms" EntityType="Self.amsm" />
-          <EntitySet Name="custommers" EntityType="Self.custommer" />
-          <EntitySet Name="memberUsers" EntityType="Self.memberUser" />
-          <EntitySet Name="theFarms" EntityType="Self.theFarm" />
-          <AssociationSet Name="FK__theFarm__idCusto__1920BF5C" Association="Self.FK__theFarm__idCusto__1920BF5C">
-            <End Role="custommer" EntitySet="custommers" />
-            <End Role="theFarm" EntitySet="theFarms" />
-          </AssociationSet>
+          <EntitySet Name="AdminBCs" EntityType="QLNongSanModel.AdminBC" />
+          <EntitySet Name="Products" EntityType="QLNongSanModel.Product" />
+          <EntitySet Name="ProductDetails" EntityType="QLNongSanModel.ProductDetail" />
+          <EntitySet Name="Roles" EntityType="QLNongSanModel.Role" />
+          <EntitySet Name="UserBCs" EntityType="QLNongSanModel.UserBC" />
         </EntityContainer>
-      </Schema>
+        <EntityType Name="AdminBC">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pwd" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="birthday" Type="DateTime" Precision="3" />
+          <Property Name="email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="adrs" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="token" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="dateCreated" Type="DateTime" Precision="3" />
+          <Property Name="dateUpdate" Type="DateTime" Precision="3" />
+          <Property Name="deleted" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nameProduct" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isDeleted" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProductDetail">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="idUser" />
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idProduct" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dateCreated" Type="DateTime" Precision="3" />
+          <Property Name="dateReview" Type="DateTime" Precision="3" />
+          <Property Name="isDeleted" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="deleted" Type="Int32" />
+        </EntityType>
+        <EntityType Name="UserBC">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pwd" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="birthday" Type="DateTime" Precision="3" />
+          <Property Name="email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="adrs" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="idRole" Type="Int32" />
+          <Property Name="active" Type="Int32" />
+          <Property Name="dateCreated" Type="DateTime" Precision="3" />
+          <Property Name="dateUpdate" Type="DateTime" Precision="3" />
+          <Property Name="deleted" Type="Int32" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="QLNongSanModelStoreContainer" CdmEntityContainer="QLNongSanEntities">
-          <EntitySetMapping Name="amsms">
-            <EntityTypeMapping TypeName="QLNongSanModel.amsm">
-              <MappingFragment StoreEntitySet="amsm">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="pwd" ColumnName="pwd" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="birthday" ColumnName="birthday" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="adrs" ColumnName="adrs" />
-                <ScalarProperty Name="teleNum1" ColumnName="teleNum1" />
-                <ScalarProperty Name="teleNum2" ColumnName="teleNum2" />
-                <ScalarProperty Name="rolls" ColumnName="rolls" />
+          <EntitySetMapping Name="AdminBCs">
+            <EntityTypeMapping TypeName="QLNongSanModel.AdminBC">
+              <MappingFragment StoreEntitySet="AdminBC">
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="dateUpdate" ColumnName="dateUpdate" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
                 <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="adrs" ColumnName="adrs" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="custommers">
-            <EntityTypeMapping TypeName="QLNongSanModel.custommer">
-              <MappingFragment StoreEntitySet="custommer">
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="QLNongSanModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="details" ColumnName="details" />
+                <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="pwd" ColumnName="pwd" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="birthday" ColumnName="birthday" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="adrs" ColumnName="adrs" />
-                <ScalarProperty Name="teleNum1" ColumnName="teleNum1" />
-                <ScalarProperty Name="teleNum2" ColumnName="teleNum2" />
-                <ScalarProperty Name="token" ColumnName="token" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="memberUsers">
-            <EntityTypeMapping TypeName="QLNongSanModel.memberUser">
-              <MappingFragment StoreEntitySet="memberUser">
+          <EntitySetMapping Name="ProductDetails">
+            <EntityTypeMapping TypeName="QLNongSanModel.ProductDetail">
+              <MappingFragment StoreEntitySet="ProductDetail">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="dateReview" ColumnName="dateReview" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="loginType" ColumnName="loginType" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="pwd" ColumnName="pwd" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="birthday" ColumnName="birthday" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="adrs" ColumnName="adrs" />
-                <ScalarProperty Name="teleNum" ColumnName="teleNum" />
-                <ScalarProperty Name="token" ColumnName="token" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="theFarms">
-            <EntityTypeMapping TypeName="QLNongSanModel.theFarm">
-              <MappingFragment StoreEntitySet="theFarm">
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="QLNongSanModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="idCustommer" ColumnName="idCustommer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserBCs">
+            <EntityTypeMapping TypeName="QLNongSanModel.UserBC">
+              <MappingFragment StoreEntitySet="UserBC">
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="dateUpdate" ColumnName="dateUpdate" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="adrs" ColumnName="adrs" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

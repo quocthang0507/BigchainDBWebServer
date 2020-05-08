@@ -31,11 +31,11 @@
                 </div>
             </form>
             <p class="text-center"><a href="#">Create an Account</a></p>
-            <a style="border-radius: 5px;" class="btn btn-lg btn-facebook btn-block text-uppercase" href="/User/LoginFacebook">
+            <a style="border-radius: 5px;" id="btnLoginFB" onclick="LockGO()" class="btn btn-lg btn-facebook btn-block text-uppercase" href="/User/LoginFacebook">
                 <i class="fab fa-facebook-f mr-2"></i>
                 Đăng nhập
             </a>
-            <a class="btn btn-lg btn-google btn-block text-uppercase" href="@Url.Action("LoginGoogle","User", new { type = "Google" })">
+            <a class="btn btn-lg btn-google btn-block text-uppercase" id="btnLoginGO" onclick="LockFB()" href="@Url.Action("LoginGoogle","User", new { type = "Google" })">
                 <i class="fab fa-google mr-2"></i>
                 Đăng nhập
             </a>
@@ -43,6 +43,12 @@
     </div>
 </section>
 <script>
+    function LockFB() {
+        $('#btnLoginFB').addClass('disabled');
+    }
+    function LockGO() {
+        $('#btnLoginGO').addClass('disabled');
+    }
     function LogInNormal() {
         var data = {
             "userid": $("#userid").val(),

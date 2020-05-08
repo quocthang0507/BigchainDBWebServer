@@ -12,17 +12,10 @@ namespace BigchainDBWebServer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class memberUser
+    public partial class Role
     {
         public int id { get; set; }
-        public string loginType { get; set; }
-        public string username { get; set; }
-        public string pwd { get; set; }
         public string name { get; set; }
-        public Nullable<System.DateTime> birthday { get; set; }
-        public string email { get; set; }
-        public string adrs { get; set; }
-        public string teleNum { get; set; }
-        public string token { get; set; }
+        public Nullable<int> deleted { get; set; }
     }
 }

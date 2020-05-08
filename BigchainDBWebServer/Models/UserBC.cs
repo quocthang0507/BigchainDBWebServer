@@ -12,14 +12,8 @@ namespace BigchainDBWebServer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class custommer
+    public partial class UserBC
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public custommer()
-        {
-            this.theFarms = new HashSet<theFarm>();
-        }
-    
         public int id { get; set; }
         public string username { get; set; }
         public string pwd { get; set; }
@@ -27,11 +21,11 @@ namespace BigchainDBWebServer.Models
         public Nullable<System.DateTime> birthday { get; set; }
         public string email { get; set; }
         public string adrs { get; set; }
-        public string teleNum1 { get; set; }
-        public string teleNum2 { get; set; }
-        public string token { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<theFarm> theFarms { get; set; }
+        public string phone { get; set; }
+        public Nullable<int> idRole { get; set; }
+        public Nullable<int> active { get; set; }
+        public Nullable<System.DateTime> dateCreated { get; set; }
+        public Nullable<System.DateTime> dateUpdate { get; set; }
+        public Nullable<int> deleted { get; set; }
     }
 }

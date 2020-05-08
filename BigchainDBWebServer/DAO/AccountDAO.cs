@@ -6,9 +6,9 @@ namespace BigchainDBWebServer.DAO
 {
 	public class AccountDAO : BaseDAO
 	{
-		public List<amsm> GetAllSP()
+		public List<UserBC> GetAllSP()
 		{
-			var lst = Model.amsms.OrderBy(p => p.id).ToList();
+			var lst = Model.UserBCs.OrderBy(p => p.id).ToList();
 			return lst;
 		}
 	}

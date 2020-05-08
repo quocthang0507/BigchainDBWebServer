@@ -5,19 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
-	<link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.ico">
-	<!-- CSS here -->
-	<link rel="stylesheet" href="~/Content/bootstrap.min.css">
-	<link rel="stylesheet" href="~/Content/owl.carousel.min.css">
-	<link rel="stylesheet" href="~/Content/flaticon.css">
-	<link rel="stylesheet" href="~/Content/slicknav.css">
-	<link rel="stylesheet" href="~/Content/animate.min.css">
-	<link rel="stylesheet" href="~/Content/magnific-popup.css">
-	<link rel="stylesheet" href="~/Content/fontawesome-all.min.css">
-	<link rel="stylesheet" href="~/Content/themify-icons.css">
-	<link rel="stylesheet" href="~/Content/slick.css">
-	<link rel="stylesheet" href="~/Content/nice-select.css">
-	<link rel="stylesheet" href="~/Content/style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.ico">
+    <!-- CSS here -->
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Content/flaticon.css">
+    <link rel="stylesheet" href="~/Content/slicknav.css">
+    <link rel="stylesheet" href="~/Content/animate.min.css">
+    <link rel="stylesheet" href="~/Content/magnific-popup.css">
+    <link rel="stylesheet" href="~/Content/fontawesome-all.min.css">
+    <link rel="stylesheet" href="~/Content/themify-icons.css">
+    <link rel="stylesheet" href="~/Content/slick.css">
+    <link rel="stylesheet" href="~/Content/nice-select.css">
+    <link rel="stylesheet" href="~/Content/style.css">
     <link href="~/Content/bootstrap-social.css" rel="stylesheet" />
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="~/Content/Registration/images/icons/favicon.ico" />
@@ -41,6 +41,26 @@
     <link href="~/Content/Registration/css/util.css" rel="stylesheet" />
     <link href="~/Content/Registration/css/main.css" rel="stylesheet" />
     <!--===============================================================================================-->
+    <style>
+        *[role="form"] {
+            max-width: 530px;
+            padding: 15px;
+            margin: 0 auto;
+            border-radius: 0.3em;
+            background-color: #f2f2f2;
+        }
+
+            *[role="form"] h2 {
+                font-family: 'Open Sans', sans-serif;
+                font-size: 40px;
+                font-weight: 600;
+                color: #000000;
+                margin-top: 5%;
+                text-align: center;
+                text-transform: uppercase;
+                letter-spacing: 4px;
+            }
+    </style>
 </head>
 <body>
     <!-- Preloader Start -->
@@ -71,27 +91,23 @@
                             <!-- Main-menu -->
                             <div class="main-menu f-right d-none d-lg-block">
                                 <nav>
-                                    <ul id="navigation">
+                                    @*<ul id="navigation">
                                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
                                         <li>@Html.ActionLink("Feature", "Feature", "Home")</li>
                                         <li>@Html.ActionLink("Services", "Services", "Home")</li>
-                                        @if (Session["usernameFB"] == null)
+                                        @if (Session["usernameFB"] == null && Session["usernameGO"] == null)
                                         {
                                             <li>@Html.ActionLink("Login", "Login", "User")</li>
                                         }
                                         else
                                         {
+                                            if (Session["usernameGO"] != null)
+                                            {
+                                                <li><a href="@Url.Content("/Product/Manager")">@Session["NameGO"] </a></li>
+                                            }
                                             <li><a href="@Url.Content("/Product/Manager")">@Session["usernameFB"] </a></li>
                                         }
-                                        @if (Session["usernameGO"] == null)
-                                        {
-                                            <li>@Html.ActionLink("Login", "Login", "User")</li>
-                                        }
-                                        else
-                                        {
-                                            <li><a href="@Url.Content("/Product/Manager")">@Session["usernameGO"] </a></li>
-                                        }
-                                    </ul>
+                                    </ul>*@
                                 </nav>
                             </div>
                         </div>
@@ -234,15 +250,15 @@
     <script src="~/Scripts/plugins.js"></script>
     <script src="~/Scripts/main.js"></script>
     <script>
-		$(document).ready(function () {
-			var url = window.location;
-			$('#navigation').find('.active').removeClass('active');
-			$('#navigation li a').each(function () {
-				if (this.href == url) {
-					$(this).parent().addClass('active');
-				}
-			});
-		});
+        $(document).ready(function () {
+            var url = window.location;
+            $('#navigation').find('.active').removeClass('active');
+            $('#navigation li a').each(function () {
+                if (this.href == url) {
+                    $(this).parent().addClass('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
