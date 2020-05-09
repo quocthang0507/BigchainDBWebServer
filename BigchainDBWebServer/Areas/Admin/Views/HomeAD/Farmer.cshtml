@@ -43,8 +43,12 @@
                                         <th>@item.email</th>
                                         <th>@item.adrs</th>
                                         <th>@item.phone</th>
-                                        <th>@item.dateCreated</th>
-                                        <th>@item.dateUpdate</th>
+                                        <th>@item.dateCreated.ToString("dd/MM/yyyy")</th>
+                                        <th>@if (item.dateUpdate != null)
+                                        {
+                                            item.dateUpdate.ToString("dd/MM/yyyy");
+                                        }
+                                        else { }</th>
                                         <th>@item.deleted</th>
                                     </tr>
                                 }

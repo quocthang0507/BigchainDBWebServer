@@ -77,8 +77,9 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductDetailView' does not have a p
           <Key>
             <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
           <Property Name="idUser" Type="varchar" MaxLength="50" />
-          <Property Name="id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idProduct" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="nameProduct" Type="nvarchar" MaxLength="1000" />
           <Property Name="details" Type="nvarchar(max)" />
           <Property Name="dateCreated" Type="datetime" />
@@ -92,8 +93,9 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductDetailView' does not have a p
           <EntitySet Name="UserBC" EntityType="Self.UserBC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductDetailView" EntityType="Self.ProductDetailView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [ProductDetailView].[idUser] AS [idUser], 
     [ProductDetailView].[id] AS [id], 
+    [ProductDetailView].[idUser] AS [idUser], 
+    [ProductDetailView].[idProduct] AS [idProduct], 
     [ProductDetailView].[nameProduct] AS [nameProduct], 
     [ProductDetailView].[details] AS [details], 
     [ProductDetailView].[dateCreated] AS [dateCreated], 
@@ -183,8 +185,9 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductDetailView' does not have a p
           <Key>
             <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
           <Property Name="idUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idProduct" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="nameProduct" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="dateCreated" Type="DateTime" Precision="3" />
@@ -272,8 +275,9 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductDetailView' does not have a p
                 <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
                 <ScalarProperty Name="details" ColumnName="details" />
                 <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
