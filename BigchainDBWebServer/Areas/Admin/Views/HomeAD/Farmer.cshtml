@@ -35,20 +35,22 @@
                                 {
                                     <tr>
                                         <th>
-                                        <a href="UserBCDetailsProduct?username=@item.username">
-                                            @item.username
-                                        </a>
+                                            <a href="UserBCDetailsProduct?username=@item.username">
+                                                @item.username
+                                            </a>
                                         </th>
                                         <th>@item.name</th>
                                         <th>@item.email</th>
                                         <th>@item.adrs</th>
                                         <th>@item.phone</th>
                                         <th>@item.dateCreated.ToString("dd/MM/yyyy")</th>
-                                        <th>@if (item.dateUpdate != null)
-                                        {
-                                            item.dateUpdate.ToString("dd/MM/yyyy");
-                                        }
-                                        else { }</th>
+                                        <th>
+                                            @if (item.dateUpdate != null)
+                                            {
+                                                item.dateUpdate.ToString("dd/MM/yyyy");
+                                            }
+                                            else { }
+                                        </th>
                                         <th>@item.deleted</th>
                                     </tr>
                                 }
@@ -71,31 +73,55 @@
                 </table>
             </div>
         </div>
-    </div>
-</div>
-@*<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>*@
-<script>
-    function showModel(id) {
-        $('#myModal').modal('show');
-    }
-</script>
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-                <p>Some text in the modal.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
+        <button onclick="clickMe()">Click me</button>
     </div>
+    <script type="text/javascript">
+        function myFunction() {
+            alert("hahha");
+            //document.getElementById("demo").innerHTML = "Hello World";
+        }
+        function clickMe() {
+            var a = '123';// document.getElementById("Address").value;
+            var b = '123';//document.getElementById("telephone").value;
+            var c = '123';//document.getElementById("Mobilephone").value;
+            var d = '123';//document.getElementById("birthDate").value;
+            // BigchainDB server instance (e.g. https://example.com/api/v1/)
+            const API_PATH = 'https://test.ipdb.io/api/v1/'
+
+            // Create a new keypair.
+            const alice = new BigchainDB.Ed25519Keypair()
+
+            // Construct a transaction payload
+            const tx = BigchainDB.Transaction.makeCreateTransaction(
+                // Define the asset to store, in this example it is the current temperature
+                // (in Celsius) for the city of Berlin.
+                { ID: "KT1", name: a, telphone: b, datetime: d },
+
+                // Metadata contains information about the transaction itself
+                // (can be `null` if not needed)
+                { what: 'My first BigchainDB transaction' },
+
+                // A transaction needs an output
+                [BigchainDB.Transaction.makeOutput(
+                    BigchainDB.Transaction.makeEd25519Condition(alice.publicKey))
+                ],
+                alice.publicKey
+            )
+
+            // Sign the transaction with private keys
+            const txSigned = BigchainDB.Transaction.signTransaction(tx, alice.privateKey)
+
+            // Send the transaction off to BigchainDB
+            let conn = new BigchainDB.Connection(API_PATH)
+
+            conn.postTransactionCommit(txSigned)
+                .then(res => {
+                    const elem = document.getElementById('lastTransaction')
+                    elem.href = API_PATH + 'transactions/' + txSigned.id
+                    elem.innerText = txSigned.id
+                    console.log('Transaction', txSigned.id, 'accepted')
+                });
+        }
+    </script>
 </div>
