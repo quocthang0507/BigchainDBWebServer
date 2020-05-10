@@ -135,7 +135,13 @@
             contentType: false,
             type: 'POST',
             success: function (data) {
-                alert(data.Success);
+                if (data.Success == true) {
+                    alert(data.Message);
+                    document.location.href = "/Product/Manager";
+                }
+                else {
+                    alert(data.Message);
+                }
                 //document.location.href = "/Product/Manager";
             }
         });

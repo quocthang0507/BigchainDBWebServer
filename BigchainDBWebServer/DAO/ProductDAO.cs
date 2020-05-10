@@ -34,7 +34,7 @@ namespace BigchainDBWebServer.DAO
                 prodetail.isDeleted = 0;
                 Model.ProductDetails.Add(prodetail);
                 if (Model.SaveChanges() > 0)
-                    return new ResultOfRequest(true);
+                    return new ResultOfRequest(true, "Thêm thành công!");
                 //return false;
             }
             else
@@ -54,7 +54,7 @@ namespace BigchainDBWebServer.DAO
                 prodetail.isDeleted = 0;
                 Model.ProductDetails.Add(prodetail);
                 if (Model.SaveChanges() > 0)
-                    return new ResultOfRequest(true);
+                    return new ResultOfRequest(true,"Thêm thành công!");
                 //return false;
             }
             return new ResultOfRequest(false,"Lỗi tạo!");
