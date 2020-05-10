@@ -1,7 +1,10 @@
 ﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/Shared.cshtml";
+
 }
+
+<script src="~/Areas/Admin/css/js/functionController.js"></script>
 <!-- Page Wrapper -->
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -51,7 +54,11 @@
                                             }
                                             else { }
                                         </th>
-                                        <th>@item.deleted</th>
+                                        <th>
+                                            <button id="btn-@item.username" class="btn @(item.active == 1 ? "btn-success" : "btn-danger") " onclick="activeUser('@item.username',@item.active)">
+                                                @(item.active == 1 ? "Đã kích hoạt" : "Kích hoạt")
+                                            </button>
+                                        </th>
                                     </tr>
                                 }
                             }
@@ -73,10 +80,9 @@
                 </table>
             </div>
         </div>
-
-        <button onclick="clickMe()">Click me</button>
     </div>
     <script type="text/javascript">
+
         function myFunction() {
             alert("hahha");
             //document.getElementById("demo").innerHTML = "Hello World";

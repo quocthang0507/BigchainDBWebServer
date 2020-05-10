@@ -3,6 +3,8 @@
     Layout = "~/Areas/Admin/Views/Shared/Shared.cshtml";
 }
 <!-- Page Wrapper -->
+
+<script src="~/Areas/Admin/css/js/functionController.js"></script>
 <div class="container-fluid">
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Tables</h1>
@@ -49,8 +51,12 @@
                                                 item.dateUpdate.ToString("dd/MM/yyyy");
                                             }
                                             else { }
-                                                                            </th>
-                                        <th>@item.deleted</th>
+                                        </th>
+                                        <th>
+                                            <button id="btn-@item.username" class="btn @(item.active == 1 ? "btn-success" : "btn-danger") " onclick="activeUser('@item.username',@item.active)">
+                                                @(item.active == 1 ? "Đã kích hoạt" : "Kích hoạt")
+                                            </button>
+                                        </th>
                                     </tr>
                                 }
                             }
