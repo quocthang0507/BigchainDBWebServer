@@ -65,8 +65,14 @@
                                             if (Session["usernameGO"] != null)
                                             {
                                                 <li><a href="@Url.Content("/Product/Manager")">@Session["NameGO"] </a></li>
+                                                <li><a href="@Url.Content("/User/SignOutGO")">Logout</a></li>
                                             }
-                                            <li><a href="@Url.Content("/Product/Manager")">@Session["NameFB"] </a></li>
+                                            else
+                                            {
+                                                <li><a href="@Url.Content("/Product/Manager")">@Session["NameFB"] </a></li>
+                                                <li><a href="@Url.Content("/User/LogoutFb")">Logout</a></li>
+
+                                            }
                                         }
 
                                     </ul>
