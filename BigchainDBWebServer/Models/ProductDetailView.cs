@@ -14,8 +14,9 @@ namespace BigchainDBWebServer.Models
     
     public partial class ProductDetailView
     {
+        public long id { get; set; }
         public string idUser { get; set; }
-        public string id { get; set; }
+        public string idProduct { get; set; }
         public string nameProduct { get; set; }
         public string details { get; set; }
         public Nullable<System.DateTime> dateCreated { get; set; }
