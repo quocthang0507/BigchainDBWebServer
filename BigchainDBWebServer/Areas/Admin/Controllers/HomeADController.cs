@@ -34,5 +34,13 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
             ViewBag.lstPtoduct = dao.GetAllByUsername(username.ToString());
             return View();
         }
+        [HttpPost]
+        public JsonResult ActiveUser(string username,int active = 1)
+        {
+            AccountDAO dao = new AccountDAO();
+            //var result = new ResultOfRequest(true, username);
+            var result = dao.ActiveUser(username, active == 1 ? true : false);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

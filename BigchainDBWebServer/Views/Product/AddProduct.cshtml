@@ -122,6 +122,10 @@
         readURL(this);
     });
     function insertProduct() {
+        //var dateCreated = $("$dateCreated").val();
+        //var dateReview = $("dateReview").val();
+        //if (dateCreated > dateReview)
+        //    alert("Ngày tạo không được sau ngày xem");
         var fd = new FormData(document.getElementById("frmInputProduct"));
         // fd.append('file', input.files[0]);
         $.ajax({
@@ -131,7 +135,14 @@
             contentType: false,
             type: 'POST',
             success: function (data) {
-                document.location.href = "/Product/Manager";
+                if (data.Success == true) {
+                    alert(data.Message);
+                    document.location.href = "/Product/Manager";
+                }
+                else {
+                    alert(data.Message);
+                }
+                //document.location.href = "/Product/Manager";
             }
         });
     }

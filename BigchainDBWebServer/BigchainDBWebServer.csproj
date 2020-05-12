@@ -223,6 +223,7 @@
     <Content Include="Areas\Admin\css\js\demo\chart-bar-demo.js" />
     <Content Include="Areas\Admin\css\js\demo\chart-pie-demo.js" />
     <Content Include="Areas\Admin\css\js\demo\datatables-demo.js" />
+    <Content Include="Areas\Admin\css\js\functionController.js" />
     <Content Include="Areas\Admin\css\js\sb-admin-2.js" />
     <Content Include="Areas\Admin\css\js\sb-admin-2.min.js" />
     <Content Include="Areas\Admin\css\vendor\bootstrap\js\bootstrap.bundle.js" />

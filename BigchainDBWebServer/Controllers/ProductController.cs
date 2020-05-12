@@ -60,6 +60,7 @@ namespace BigchainDBWebServer.Controllers
             }
             return RedirectToAction("Login", "User");
         }
+        [HttpPost]
         public JsonResult InsertProduct(Product pro, ProductDetail item)
         {
             ProductDAO dao = new ProductDAO();
@@ -77,9 +78,10 @@ namespace BigchainDBWebServer.Controllers
             {
                 idUser = UserGO.ToString();
             }
-            dao.InsertProduct(pro, item, idUser);
-
-            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            if (idUser == null)
+                return Json(false, JsonRequestBehavior.AllowGet);
+            var result = dao.InsertProduct(pro, item, idUser);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
