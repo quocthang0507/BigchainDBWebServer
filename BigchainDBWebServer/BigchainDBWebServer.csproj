@@ -2321,8 +2321,6 @@
     <Content Include="Areas\Admin\css\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Areas\Admin\css\vendor\jquery\jquery.min.map" />
     <Content Include="Areas\Admin\css\vendor\jquery\jquery.slim.min.map" />
-    <Content Include="Areas\Admin\Views\HomeAD\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\Shared.cshtml" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\HomeAD\Farmer.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAD\Distributor.cshtml" />
