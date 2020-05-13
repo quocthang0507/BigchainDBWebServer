@@ -6,6 +6,7 @@
 
 <h2>UserBCDetailsProduct</h2>
 
+<script src="https://unpkg.com/bigchaindb-driver@4.0.0/dist/browser/bigchaindb-driver.window.min.js"></script>
 <div class="container-fluid">
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Tables</h1>
@@ -23,6 +24,7 @@
                             <th>Chi tiết</th>
                             <th>Ngày tạo</th>
                             <th>Ngày cập nhật</th>
+                            <th>Trạng thái</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +38,13 @@
                                         <td>@item.details</td>
                                         <td>@item.dateCreated.ToString("dd/MM/yyyy")</td>
                                         <td>@item.dateReview.ToString("dd/MM/yyyy")</td>
+                                        <td>
+                                            <button class="btn btn-success"
+                                                    onclick="sendToBigchainDB('@item.idProduct','@item.nameProduct','@item.idUser', '@item.nameOfUser',
+                                                    '@item.dateCreated.ToString("dd/MM/yyyy")','@item.dateReview.ToString("dd/MM/yyyy")')">
+                                                Up BD
+                                            </button>
+                                        </td>
                                     </tr>
                                 }
                             }
@@ -55,4 +64,49 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        function sendToBigchainDB(idProduct, nameProduct, idUser, nameOfUser, dateBegin, dateEnd) {
+            // BigchainDB server instance (e.g. https://example.com/api/v1/)
+            const API_PATH = 'https://test.ipdb.io/api/v1/'
+
+            // Create a new keypair.
+            const alice = new BigchainDB.Ed25519Keypair()
+
+            // Construct a transaction payload
+            const tx = BigchainDB.Transaction.makeCreateTransaction(
+                // Define the asset to store, in this example it is the current temperature
+                // (in Celsius) for the city of Berlin.
+                {
+                    idProduct: idProduct, nameProduct: nameProduct, idUser: idUser,
+                    nameOfUser: nameOfUser, dateBegin: dateBegin, dateEnd: dateEnd
+                },
+
+                // Metadata contains information about the transaction itself
+                // (can be `null` if not needed)
+                { maker: 'CTK40' },
+
+                // A transaction needs an output
+                [BigchainDB.Transaction.makeOutput(
+                    BigchainDB.Transaction.makeEd25519Condition(alice.publicKey))
+                ],
+                alice.publicKey
+            )
+
+            // Sign the transaction with private keys
+            const txSigned = BigchainDB.Transaction.signTransaction(tx, alice.privateKey)
+
+            // Send the transaction off to BigchainDB
+            let conn = new BigchainDB.Connection(API_PATH)
+
+            conn.postTransactionCommit(txSigned)
+                .then(res => {
+                    console.log(res);
+                    //const elem = document.getElementById('lastTransaction');
+                    //elem.href = API_PATH + 'transactions/' + txSigned.id;
+                    //elem.innerText = txSigned.id;
+                    //console.log('Transaction', txSigned.id, 'accepted');
+                });
+        }
+    </script>
 </div>

@@ -20,25 +20,36 @@ namespace BigchainDBWebServer.DAO
             var tempDetail = Model.ProductDetailViews.FirstOrDefault(f => f.idProduct == pro.id);
             if (tempDetail != null && tempDetail.idUser != idUser)
                 return new ResultOfRequest(false, "Đã tồn tại ID này");
+            var user = Model.UserBCs.FirstOrDefault(f => f.username == idUser);
+            if (user == null)
+                return new ResultOfRequest(false, "Người dùng không đúng");
             var old = Model.Products.FirstOrDefault(f => f.id == pro.id);
             if (old != null)
             {
-                var prodetail = Model.ProductDetails.Where(f=>f.idProduct==pro.id).OrderByDescending(f=>f.dateCreated).FirstOrDefault();
-                if (item.dateCreated < prodetail.dateCreated)
+                var prodetail = Model.ProductDetails.Where(f=>f.idProduct==pro.id).OrderByDescending(f=>f.dateCreated).ToList();
+                if (prodetail.Count > 1)
+                    return new ResultOfRequest(false, "Không được phép tạo thêm thông tin vào sản phẩm này!");
+                if (prodetail.Count == 1 && user.idRole != 2)
+                    return new ResultOfRequest(false, "Bạn hiện không thể thêm thông tin vì người vận chuyển vẫn chưa nhập dữ liệu vào!");
+                if (item.dateReview < prodetail[0].dateCreated)
                     return new ResultOfRequest(false, "Ngày tạo không được phép! Phải trể hơn!");
-                prodetail = new ProductDetail();
-                prodetail.idUser = idUser;
-                prodetail.idProduct = pro.id;
-                prodetail.dateCreated = item.dateCreated;
-                prodetail.dateReview = item.dateReview;
-                prodetail.isDeleted = 0;
-                Model.ProductDetails.Add(prodetail);
+                var temp = new ProductDetail()
+                {
+                    idUser = idUser,
+                    idProduct = pro.id,
+                    dateCreated = item.dateCreated,
+                    dateReview = item.dateReview,
+                    isDeleted = 0
+                };
+                Model.ProductDetails.Add(temp);
                 if (Model.SaveChanges() > 0)
                     return new ResultOfRequest(true, "Thêm thành công!");
                 //return false;
             }
             else
             {
+                if (user.idRole != 1)
+                    return new ResultOfRequest(false, "Không phải nông dân không được tạo mới!");
                 old = new Product();
                 old.id = pro.id;
                 old.nameProduct = pro.nameProduct;
