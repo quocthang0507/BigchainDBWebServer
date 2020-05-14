@@ -2417,6 +2417,7 @@
     <Content Include="Views\Shared\AdminProduct.cshtml" />
     <Content Include="Views\Product\Manager.cshtml" />
     <Content Include="Views\Product\AddProduct.cshtml" />
+    <Content Include="Views\Product\AddProductForDiffAc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

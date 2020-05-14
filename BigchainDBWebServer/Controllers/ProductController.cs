@@ -20,6 +20,18 @@ namespace BigchainDBWebServer.Controllers
             }
             return true;
         }
+        public int CheckRoles(string item)
+        {
+            AccountDAO dao = new AccountDAO();
+            if (item == null)
+                return 0;
+            var old = dao.Model.UserBCs.FirstOrDefault(f => f.username == item);
+            if (old.idRole == 1)
+            {
+                return 1;
+            }
+            return 0;
+        }
         // GET: Product
         public ActionResult Manager()
         {
@@ -44,22 +56,27 @@ namespace BigchainDBWebServer.Controllers
             }
             return RedirectToAction("Login", "User");
         }
+
         public ActionResult AddProduct(string search = null)
         {
             string userName = null;
             if (Session["usernameFB"] != null)
             {
                 userName = Session["usernameFB"].ToString();
-                if (CheckLogin(userName))
+                if (CheckLogin(userName) && CheckRoles(Session["usernameFB"].ToString()) == 1)
                     goto SetView;
+                else
+                    return RedirectToAction("AddProductForDiffAc", "Product");
             }
             if (Session["usernameGO"] != null)
             {
                 userName = Session["usernameGO"].ToString();
-                if (CheckLogin(userName))
+                if (CheckLogin(userName) && CheckRoles(Session["usernameGO"].ToString()) == 1)
                     goto SetView;
+                else
+                    return RedirectToAction("AddProductForDiffAc", "Product");
             }
-            return RedirectToAction("Login", "User");
+            else { return RedirectToAction("Login", "User"); }           
             SetView:
             ProductDAO dao = new ProductDAO();
             var user = dao.Model.UserBCs.FirstOrDefault(x => x.username == userName);
@@ -70,6 +87,23 @@ namespace BigchainDBWebServer.Controllers
             }
             return View();
 
+        }
+        public ActionResult AddProductForDiffAc()
+        {
+
+            if (Session["usernameFB"] != null)
+            {
+                var userFB = Session["usernameFB"].ToString();
+                if (CheckLogin(userFB))
+                    return View();
+            }
+            if (Session["usernameGO"] != null)
+            {
+                var userGO = Session["usernameGO"].ToString();
+                if (CheckLogin(userGO))
+                    return View();
+            }
+            return RedirectToAction("Login", "User");
         }
         [HttpPost]
         public JsonResult InsertProduct(Product pro, ProductDetail item)
