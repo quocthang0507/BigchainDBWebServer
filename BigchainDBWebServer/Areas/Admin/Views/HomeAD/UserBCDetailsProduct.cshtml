@@ -40,7 +40,7 @@
                                         <td>@item.dateReview.ToString("dd/MM/yyyy")</td>
                                         <td>
                                             <button class="btn btn-success"
-                                                    onclick="sendToBigchainDB('@item.idProduct','@item.nameProduct','@item.idUser', '@item.nameOfUser',
+                                                    onclick="sendToBigchainDB('@item.idProduct','@item.nameProduct','@item.idUser', '@item.nameOfUser','@item.email','@item.adrs','@item.phone','@item.idRole',
                                                     '@item.dateCreated.ToString("dd/MM/yyyy")','@item.dateReview.ToString("dd/MM/yyyy")')">
                                                 Up BD
                                             </button>
@@ -66,7 +66,7 @@
     </div>
 
     <script type="text/javascript">
-        function sendToBigchainDB(idProduct, nameProduct, idUser, nameOfUser, dateBegin, dateEnd) {
+        function sendToBigchainDB(idProduct, nameProduct, idUser, nameOfUser,email,adrs,phone,idRole, dateBegin, dateEnd) {
             // BigchainDB server instance (e.g. https://example.com/api/v1/)
             const API_PATH = 'https://test.ipdb.io/api/v1/'
 
@@ -79,7 +79,8 @@
                 // (in Celsius) for the city of Berlin.
                 {
                     idProduct: idProduct, nameProduct: nameProduct, idUser: idUser,
-                    nameOfUser: nameOfUser, dateBegin: dateBegin, dateEnd: dateEnd
+                    nameOfUser: nameOfUser, email: email, adrs: adrs, phone: phone, idRole: idRole,
+                    dateBegin: dateBegin, dateEnd: dateEnd
                 },
 
                 // Metadata contains information about the transaction itself

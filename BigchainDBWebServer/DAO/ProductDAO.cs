@@ -70,5 +70,14 @@ namespace BigchainDBWebServer.DAO
             }
             return new ResultOfRequest(false,"Lỗi tạo!");
         }
+        public List<ProductSentView> GetListProductByID(string username, int? role)
+        {
+            if (role==null || role > 1)
+                return null;
+            var lst = Model.ProductSentViews.Where(f => f.sentNumber == role).ToList();
+            if (username != "")
+                lst = lst.Where(f => f.idUser == username).ToList();
+            return lst;
+        }
     }
 }

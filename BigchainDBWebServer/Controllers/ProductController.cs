@@ -44,21 +44,32 @@ namespace BigchainDBWebServer.Controllers
             }
             return RedirectToAction("Login", "User");
         }
-        public ActionResult AddProduct()
+        public ActionResult AddProduct(string search = null)
         {
+            string userName = null;
             if (Session["usernameFB"] != null)
             {
-                var userFB = Session["usernameFB"].ToString();
-                if (CheckLogin(userFB))
-                    return View();
+                userName = Session["usernameFB"].ToString();
+                if (CheckLogin(userName))
+                    goto SetView;
             }
             if (Session["usernameGO"] != null)
             {
-                var userGO = Session["usernameGO"].ToString();
-                if (CheckLogin(userGO))
-                    return View();
+                userName = Session["usernameGO"].ToString();
+                if (CheckLogin(userName))
+                    goto SetView;
             }
             return RedirectToAction("Login", "User");
+            SetView:
+            ProductDAO dao = new ProductDAO();
+            var user = dao.Model.UserBCs.FirstOrDefault(x => x.username == userName);
+            ViewBag.TheRole = user.idRole;
+            if (user.idRole > 1)
+            {
+                ViewBag.lstProductSent = dao.GetListProductByID("", user.idRole);
+            }
+            return View();
+
         }
         [HttpPost]
         public JsonResult InsertProduct(Product pro, ProductDetail item)

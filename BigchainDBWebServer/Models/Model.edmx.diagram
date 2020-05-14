@@ -4,12 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1e2fe9a32f0b4a77b356554e2f641fc3" Name="Diagram1">
-        <EntityTypeShape EntityType="QLNongSanModel.AdminBC" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNongSanModel.Product" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNongSanModel.ProductDetail" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNongSanModel.Role" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNongSanModel.UserBC" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+      <Diagram DiagramId="1e2fe9a32f0b4a77b356554e2f641fc3" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="QLNongSanModel.AdminBC" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.Product" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.ProductDetail" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.Role" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.UserBC" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.ProductSentView" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="QLNongSanModel.ProductDetailView" Width="1.5" PointX="0.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>

@@ -30,6 +30,8 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
         }
         public ActionResult UserBCDetailsProduct(string username)
         {
+            if(username == null)
+                return RedirectToAction("Index", "Home");
             ProductDAO dao = new ProductDAO();
             ViewBag.lstPtoduct = dao.GetAllByUsername(username.ToString());
             return View();

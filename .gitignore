@@ -357,3 +357,7 @@ BigchainDBWebServer/Models/Model.edmx.diagram
 BigchainDBWebServer/Models/Model.edmx
 BigchainDBWebServer/Models/Model.Context.cs
 BigchainDBWebServer/Models/Model.Designer.cs
+BigchainDBWebServer/Models/Model.Designer.cs
+BigchainDBWebServer/Models/Model.edmx
+BigchainDBWebServer/Models/Model.edmx.diagram
+BigchainDBWebServer/Models/ProductDetailView.cs

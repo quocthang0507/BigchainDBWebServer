@@ -12,19 +12,12 @@ namespace BigchainDBWebServer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductDetailView
+    public partial class ProductSentView
     {
-        public long id { get; set; }
+        public string idProduct { get; set; }
         public string idUser { get; set; }
         public string nameOfUser { get; set; }
-        public string idProduct { get; set; }
-        public string nameProduct { get; set; }
         public string details { get; set; }
-        public Nullable<System.DateTime> dateCreated { get; set; }
-        public Nullable<System.DateTime> dateReview { get; set; }
-        public string email { get; set; }
-        public string adrs { get; set; }
-        public string phone { get; set; }
-        public Nullable<int> idRole { get; set; }
+        public Nullable<int> sentNumber { get; set; }
     }
 }
