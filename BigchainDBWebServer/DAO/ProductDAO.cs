@@ -18,7 +18,7 @@ namespace BigchainDBWebServer.DAO
             if (item.dateCreated < item.dateReview)
                 return new ResultOfRequest(false, "Ngày tạo không được sau ngày xem xét!");
             var tempDetail = Model.ProductDetailViews.FirstOrDefault(f => f.idProduct == pro.id);
-            if (tempDetail != null && tempDetail.idUser != idUser)
+            if (tempDetail != null && tempDetail.idUser == idUser)
                 return new ResultOfRequest(false, "Đã tồn tại ID này");
             var user = Model.UserBCs.FirstOrDefault(f => f.username == idUser);
             if (user == null)
@@ -27,7 +27,7 @@ namespace BigchainDBWebServer.DAO
             if (old != null)
             {
                 var prodetail = Model.ProductDetails.Where(f=>f.idProduct==pro.id).OrderByDescending(f=>f.dateCreated).ToList();
-                if (prodetail.Count > 1)
+                if (prodetail.Count > 2)
                     return new ResultOfRequest(false, "Không được phép tạo thêm thông tin vào sản phẩm này!");
                 if (prodetail.Count == 1 && user.idRole != 2)
                     return new ResultOfRequest(false, "Bạn hiện không thể thêm thông tin vì người vận chuyển vẫn chưa nhập dữ liệu vào!");
