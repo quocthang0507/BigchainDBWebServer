@@ -72,11 +72,9 @@ namespace BigchainDBWebServer.DAO
         }
         public List<ProductSentView> GetListProductByID(string username, int? role)
         {
-            if (role==null || role > 1)
+            if (role==null || role == 1)
                 return null;
-            var lst = Model.ProductSentViews.Where(f => f.sentNumber == role).ToList();
-            if (username != "")
-                lst = lst.Where(f => f.idUser == username).ToList();
+            var lst = Model.ProductSentViews.Where(f => f.idUser.Contains(username.ToString()) && f.sentNumber == (role-1)).ToList();
             return lst;
         }
     }

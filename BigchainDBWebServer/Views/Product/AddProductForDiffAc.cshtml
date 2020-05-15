@@ -6,11 +6,12 @@
 
 <!-- Topbar Search -->
 <div class="container-fluid">
-    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="width:95% !important">
+    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" 
+          style="width:95% !important" method="get" action="AddProductForDiffAc">
         <div class="input-group">
-            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+            <input name="search" type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
             <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" type="submit">
                     <i class="fas fa-search fa-sm"></i>
                 </button>
             </div>
@@ -34,10 +35,10 @@
                     <thead>
                         <tr>
                             <th>Mã sản phẩm</th>
-                            <th>Tên sản phẩm</th>
+                            <th>Username</th>
+                            <th>Tên người dùng</th>
                             <th>Chi tiết</th>
-                            <th>Ngày tạo</th>
-                            <th>Ngày cập nhật</th>
+                            <th>Trạng thái</th>
                         </tr>
                     </thead>
                     @*<tfoot>
@@ -51,13 +52,28 @@
                             </tr>
                         </tfoot>*@
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        @if (ViewBag.lstProductSent != null)
+                        {
+                            foreach (var item in ViewBag.lstProductSent)
+                            {
+                                <tr>
+                                    <td>@item.idProduct</td>
+                                    <td>@item.idUser</td>
+                                    <td>@item.nameOfUser</td>
+                                    <td>@item.details</td>
+                                    <td></td>
+                                </tr>
+                            }
+                        }else
+                        {
+                                <tr>
+                                    <td>@ViewBag.TheRole</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                        }
                     </tbody>
                 </table>
             </div>

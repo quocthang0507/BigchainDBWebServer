@@ -57,14 +57,14 @@ namespace BigchainDBWebServer.Controllers
             return RedirectToAction("Login", "User");
         }
 
-        public ActionResult AddProduct(string search = null)
+        public ActionResult AddProduct()
         {
             string userName = null;
             if (Session["usernameFB"] != null)
             {
                 userName = Session["usernameFB"].ToString();
                 if (CheckLogin(userName) && CheckRoles(Session["usernameFB"].ToString()) == 1)
-                    goto SetView;
+                    return View(); //
                 else
                     return RedirectToAction("AddProductForDiffAc", "Product");
             }
@@ -72,38 +72,39 @@ namespace BigchainDBWebServer.Controllers
             {
                 userName = Session["usernameGO"].ToString();
                 if (CheckLogin(userName) && CheckRoles(Session["usernameGO"].ToString()) == 1)
-                    goto SetView;
+                    return View();//
                 else
                     return RedirectToAction("AddProductForDiffAc", "Product");
             }
             else { return RedirectToAction("Login", "User"); }           
+            
+        }
+        public ActionResult AddProductForDiffAc(string search = null)
+        {
+            string userName = null;
+            if (Session["usernameFB"] != null)
+            {
+                userName = Session["usernameFB"].ToString();
+                if (CheckLogin(userName))
+                    goto SetView;
+            }
+            if (Session["usernameGO"] != null)
+            {
+                userName = Session["usernameGO"].ToString();
+                if (CheckLogin(userName))
+                    goto SetView;
+            }
+            return RedirectToAction("Login", "User");
             SetView:
             ProductDAO dao = new ProductDAO();
             var user = dao.Model.UserBCs.FirstOrDefault(x => x.username == userName);
             ViewBag.TheRole = user.idRole;
             if (user.idRole > 1)
             {
-                ViewBag.lstProductSent = dao.GetListProductByID("", user.idRole);
+                ViewBag.lstProductSent = dao.GetListProductByID(search, user.idRole);
             }
             return View();
-
-        }
-        public ActionResult AddProductForDiffAc()
-        {
-
-            if (Session["usernameFB"] != null)
-            {
-                var userFB = Session["usernameFB"].ToString();
-                if (CheckLogin(userFB))
-                    return View();
-            }
-            if (Session["usernameGO"] != null)
-            {
-                var userGO = Session["usernameGO"].ToString();
-                if (CheckLogin(userGO))
-                    return View();
-            }
-            return RedirectToAction("Login", "User");
+           // 
         }
         [HttpPost]
         public JsonResult InsertProduct(Product pro, ProductDetail item)
