@@ -35,10 +35,14 @@
                 <i class="fab fa-facebook-f mr-2"></i>
                 Đăng nhập
             </a>
-            <a class="btn btn-lg btn-google btn-block text-uppercase" id="btnLoginGO" onclick="LockFB()" href="@Url.Action("LoginGoogle","User", new { type = "Google" })">
-                <i class="fab fa-google mr-2"></i>
-                Đăng nhập
-            </a>
+            @*<a class="btn btn-lg btn-google btn-block text-uppercase" id="btnLoginGO" onclick="LockFB()" href="@Url.Action("LoginGoogle","User", new { type = "Google" })">
+                    <i class="fab fa-google mr-2"></i>
+                    Đăng nhập
+                </a>*@
+            <form action="@Url.Action("LoginWithGooglePlus", "User")" method="post" style="background:none;box-shadow:none;padding:0;margin-top:10px">
+                @Html.AntiForgeryToken()
+                <button type="submit" style="border-radius:7px" class="btn btn-lg btn-google btn-block text-uppercase" id="btnLoginGO" onclick="LockFB()"><i class="fab fa-google mr-2" onclick="LockFB()"></i>  Đăng nhập </button>
+            </form>
         </div>
     </div>
 </section>

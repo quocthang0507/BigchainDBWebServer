@@ -1,4 +1,5 @@
-﻿using BigchainDBWebServer.DAO;
+﻿using ASPSnippets.GoogleAPI;
+using BigchainDBWebServer.DAO;
 using BigchainDBWebServer.Models;
 using Facebook;
 using Microsoft.Owin.Security;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using System.Web.Security;
 
 namespace BigchainDBWebServer.Controllers
@@ -49,15 +51,17 @@ namespace BigchainDBWebServer.Controllers
 			}
 			else
 			{
-				var claimsPrincipal = HttpContext.User.Identity as ClaimsIdentity;
 				var UserFb = Session["usernameFB"];
 				var NameFB = Session["NameFB"];
+				var UserGo = Session["usernameGO"];
+				var NameGo = Session["NameGO"];
+				var EmailGo = Session["Email"];
 				old = new UserBC();
-				if (claimsPrincipal.Claims.Count() != 0)
+				if (UserGo != null)
 				{
-					old.username = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-					old.name = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
-					old.email = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+					old.username = UserGo.ToString();
+					old.name = NameGo.ToString();
+					old.email = EmailGo.ToString();
 					old.pwd = "";
 				}
 				else if (UserFb != null)
@@ -136,7 +140,6 @@ namespace BigchainDBWebServer.Controllers
 				string email = me.email;
 				Session["usernameFB"] = username;
 				Session["NameFB"] = name;
-                Session["usernameInTB"] = username;
                 if (CheckFirstLogin(username) == true)
 				{
 					return RedirectToAction("Registration", "User");
@@ -147,52 +150,86 @@ namespace BigchainDBWebServer.Controllers
 
 		public ActionResult LogoutFb()
 		{
-			Session.Remove("usernameFB");
-			Session.Remove("NameFB");
-            Session.Remove("usernameInTB");
-            FormsAuthentication.SignOut();
+			Session.RemoveAll();
+			FormsAuthentication.SignOut();
 			return Redirect("~/");
 		}
 
-		public void LoginGoogle(string ReturnUrl = "/", string type = "")
-		{
-			if (!Request.IsAuthenticated)
-			{
-				if (type == "Google")
-				{
-					HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = "User/GoogleLoginCallback" }, "Google");
-				}
-			}
-		}
+		//public void LoginGoogle(string ReturnUrl = "/", string type = "")
+		//{
+		//	if (!Request.IsAuthenticated)
+		//	{
+		//		if (type == "Google")
+		//		{
+		//			HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = "User/GoogleLoginCallback" }, "Google");
+		//		}
+		//	}
+		//}
 
 		public ActionResult SignOutGO()
         {
-            Session.Remove("usernameGO");
-			Session.Remove("NameGO");
-            Session.Remove("usernameInTB");
+            Session.RemoveAll();
 			HttpContext.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Redirect("~/");
         }
 
-		[AllowAnonymous]
-		public ActionResult GoogleLoginCallback()
+		//[AllowAnonymous]
+		//public ActionResult GoogleLoginCallback()
+		//{
+		//	var claimsPrincipal = HttpContext.User.Identity as ClaimsIdentity;
+		//	if (claimsPrincipal.Claims.Count() == 0 || claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email) == null)
+		//	{
+		//		return Redirect("Login");
+		//	}
+		//	string username = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+		//	string email = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+		//	string name = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
+		//	Session["usernameGO"] = username;
+		//	Session["NameGO"] = name;
+		//          Session["usernameInTB"] = username;
+		//          if (CheckFirstLogin(username) == true)
+		//	{
+		//		return RedirectToAction("Registration", "User");
+		//	}
+		//	return RedirectToAction("AddProduct", "Product");
+		//}
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public void LoginWithGooglePlus()
 		{
-			var claimsPrincipal = HttpContext.User.Identity as ClaimsIdentity;
-			if (claimsPrincipal.Claims.Count() == 0 || claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email) == null)
+			GoogleConnect.ClientId = "988136019750-lrkpmiauffr8dlbjbqjjmh82aiti7iqs.apps.googleusercontent.com";
+			GoogleConnect.ClientSecret = "aMCHg7U8aJhjcvH-A5LiQmvn";
+			GoogleConnect.RedirectUri = Request.Url.AbsoluteUri.Split('?')[0];
+			GoogleConnect.Authorize("profile", "email");
+		}
+		[ActionName("LoginWithGooglePlus")]
+		public ActionResult LoginWithGooglePlusConfirmed()
+		{
+
+			if (!string.IsNullOrEmpty(Request.QueryString["code"]))
 			{
-				return Redirect("Login");
+				string code = Request.QueryString["code"].ToString();
+				string json = GoogleConnect.Fetch("me", code.ToString());
+				GoogleProfile profile = new JavaScriptSerializer().Deserialize<GoogleProfile>(json);
+				//code for showing data on my page
+				Session["usernameGO"] = profile.Id;
+				Session["NameGO"] = profile.Name;
+				Session["Email"] = profile.Email;
+				Session["ImgGO"] = profile.Picture;
+				if (CheckFirstLogin(profile.Id) == true)
+				{
+					return RedirectToAction("Registration", "User");
+				}
+				else
+				{
+					return RedirectToAction("AddProduct", "Product");
+				}
 			}
-			string username = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-			string email = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
-			string name = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
-			Session["usernameGO"] = username;
-			Session["NameGO"] = name;
-            Session["usernameInTB"] = username;
-            if (CheckFirstLogin(username) == true)
+			if (Request.QueryString["error"] == "access_denied")
 			{
-				return RedirectToAction("Registration", "User");
+				return Content("access_denied");
 			}
-			return RedirectToAction("AddProduct", "Product");
+			return RedirectToAction("Index", "Home");
 		}
 
 	}
