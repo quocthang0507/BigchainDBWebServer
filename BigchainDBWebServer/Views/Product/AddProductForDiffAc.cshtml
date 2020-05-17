@@ -6,7 +6,7 @@
 
 <!-- Topbar Search -->
 <div class="container-fluid">
-    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" 
+    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
           style="width:95% !important" method="get" action="AddProductForDiffAc">
         <div class="input-group">
             <input name="search" type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
@@ -62,17 +62,24 @@
                                     <td>@item.nameOfUser</td>
                                     <td>@item.details</td>
                                     <td></td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Update</button>
+                                    </td>
                                 </tr>
                             }
-                        }else
+                        }
+                        else
                         {
-                                <tr>
-                                    <td>@ViewBag.TheRole</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                            <tr>
+                                <td>@ViewBag.TheRole</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Update</button>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -80,5 +87,52 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Update</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="frmInput">
+                    <div class="input-group" style="visibility:hidden">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="ID" type="text" class="form-control" name="Id" placeholder="Id">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="Name" type="text" class="form-control" name="Ten" placeholder="Ten">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="TacGia" type="text" class="form-control" name="TacGia" placeholder="TacGia">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" class="form-control" data-toggle="datepicker" placeholder="NgayXuatBan">
+                        @*<input id="NgayXuatBan" type="text" class="form-control" name="NgayXuatBan" placeholder="NgayXuatBan">*@
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="NgayTao" type="text" class="form-control" name="NgayTao" placeholder="NgayTao">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="NgayCapNhat" type="text" class="form-control" name="NgayCapNhat" placeholder="NgayCapNhat">
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="update()">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
