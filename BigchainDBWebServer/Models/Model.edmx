@@ -75,6 +75,7 @@
 warning 6002: The table/view 'QLNongSan.dbo.ProductDetailView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProductDetailView">
           <Key>
+            
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="bigint" Nullable="false" />
@@ -94,10 +95,10 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductDetailView' does not have a p
 warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProductSentView">
           <Key>
-            
             <PropertyRef Name="idProduct" />
           </Key>
           <Property Name="idProduct" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nameProduct" Type="nvarchar" MaxLength="1000" />
           <Property Name="idUser" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="nameOfUser" Type="nvarchar" MaxLength="100" />
           <Property Name="details" Type="nvarchar(max)" />
@@ -128,6 +129,7 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <EntitySet Name="ProductSentView" EntityType="Self.ProductSentView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ProductSentView].[idProduct] AS [idProduct], 
+    [ProductSentView].[nameProduct] AS [nameProduct], 
     [ProductSentView].[idUser] AS [idUser], 
     [ProductSentView].[nameOfUser] AS [nameOfUser], 
     [ProductSentView].[details] AS [details], 
@@ -145,8 +147,8 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <EntitySet Name="ProductDetails" EntityType="QLNongSanModel.ProductDetail" />
           <EntitySet Name="Roles" EntityType="QLNongSanModel.Role" />
           <EntitySet Name="UserBCs" EntityType="QLNongSanModel.UserBC" />
-          <EntitySet Name="ProductSentViews" EntityType="QLNongSanModel.ProductSentView" />
           <EntitySet Name="ProductDetailViews" EntityType="QLNongSanModel.ProductDetailView" />
+          <EntitySet Name="ProductSentViews" EntityType="QLNongSanModel.ProductSentView" />
         </EntityContainer>
         <EntityType Name="AdminBC">
           <Key>
@@ -214,16 +216,6 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <Property Name="dateUpdate" Type="DateTime" Precision="3" />
           <Property Name="deleted" Type="Int32" />
         </EntityType>
-        <EntityType Name="ProductSentView">
-          <Key>
-            <PropertyRef Name="idProduct" />
-          </Key>
-          <Property Name="idProduct" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="idUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="nameOfUser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="sentNumber" Type="Int32" />
-        </EntityType>
         <EntityType Name="ProductDetailView">
           <Key>
             <PropertyRef Name="id" />
@@ -240,6 +232,17 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <Property Name="adrs" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="idRole" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProductSentView">
+          <Key>
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="idProduct" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nameProduct" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="idUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nameOfUser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sentNumber" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -316,17 +319,6 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProductSentViews">
-            <EntityTypeMapping TypeName="QLNongSanModel.ProductSentView">
-              <MappingFragment StoreEntitySet="ProductSentView">
-                <ScalarProperty Name="sentNumber" ColumnName="sentNumber" />
-                <ScalarProperty Name="details" ColumnName="details" />
-                <ScalarProperty Name="nameOfUser" ColumnName="nameOfUser" />
-                <ScalarProperty Name="idUser" ColumnName="idUser" />
-                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ProductDetailViews">
             <EntityTypeMapping TypeName="QLNongSanModel.ProductDetailView">
               <MappingFragment StoreEntitySet="ProductDetailView">
@@ -342,6 +334,18 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
                 <ScalarProperty Name="nameOfUser" ColumnName="nameOfUser" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductSentViews">
+            <EntityTypeMapping TypeName="QLNongSanModel.ProductSentView">
+              <MappingFragment StoreEntitySet="ProductSentView">
+                <ScalarProperty Name="sentNumber" ColumnName="sentNumber" />
+                <ScalarProperty Name="details" ColumnName="details" />
+                <ScalarProperty Name="nameOfUser" ColumnName="nameOfUser" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
