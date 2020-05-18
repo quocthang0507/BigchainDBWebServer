@@ -15,7 +15,7 @@ namespace BigchainDBWebServer.DAO
         }
         public ResultOfRequest InsertProduct(Product pro, ProductDetail item, string idUser)
         {
-            if (item.dateCreated < item.dateReview)
+            if (item.dateCreated > item.dateReview)
                 return new ResultOfRequest(false, "Ngày tạo không được sau ngày xem xét!");
             var tempDetail = Model.ProductDetailViews.FirstOrDefault(f => f.idProduct == pro.id);
             if (tempDetail != null && tempDetail.idUser == idUser)
@@ -74,7 +74,7 @@ namespace BigchainDBWebServer.DAO
         {
             if (role==null || role == 1)
                 return null;
-            var lst = Model.ProductSentViews.Where(f => f.idUser.Contains(username.ToString()) && f.sentNumber == (role-1)).ToList();
+            var lst = Model.ProductSentViews.Where(f => f.idProduct.Contains(username.ToString()) && f.idRole < role && f.sentNumber == (role-1)).ToList();
             return lst;
         }
     }

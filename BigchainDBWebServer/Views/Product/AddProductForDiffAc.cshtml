@@ -62,7 +62,10 @@
                                     <td>@item.nameOfUser</td>
                                     <td>@item.details</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Update</button>
+                                        <button type="button" class="btn btn-primary" 
+                                                onclick="openModal('@item.idProduct','@item.nameProduct','@item.nameOfUser')">
+                                            Update
+                                        </button>
                                     </td>
                                 </tr>
                             }
@@ -82,6 +85,16 @@
             </div>
         </div>
     </div>
+    <script>
+        function openModal(idProduct, nameProduct, nameOfUser) {
+            $("#idProduct").val(idProduct);
+            $("#nameProduct").val(nameProduct);
+            $("#nameOfUser").val(nameOfUser);
+            $("#dateCreate").val("");
+            $("#dateReview").val("");
+            $("#myModal").modal("show");
+        }
+    </script>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
@@ -94,30 +107,30 @@
             </div>
             <div class="modal-body">
                 <form id="frmInput">
-                    <div class="input-group" style="visibility:hidden">
+                    <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="ID" type="text" class="form-control" name="Id" placeholder="Id">
+                        <input readonly id="idProduct" type="text" class="form-control" name="id" placeholder="Id">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="Name" type="text" class="form-control" name="Ten" placeholder="Ten">
+                        <input readonly id="nameProduct" type="text" class="form-control" name="nameProduct" placeholder="Ten">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="TacGia" type="text" class="form-control" name="TacGia" placeholder="TacGia">
+                        <input readonly id="nameOfUser" type="text" class="form-control" name="nameOfUser" placeholder="TacGia">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input type="text" class="form-control" data-toggle="datepicker" placeholder="NgayXuatBan">
+                        <input id="detail" type="text" class="form-control" name="detail" placeholder="Detail">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="dateCreateMD" name="dateCreated" type="text" class="form-control" data-toggle="datepicker1" placeholder="NgayBatDau">
                         @*<input id="NgayXuatBan" type="text" class="form-control" name="NgayXuatBan" placeholder="NgayXuatBan">*@
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="NgayTao" type="text" class="form-control" name="NgayTao" placeholder="NgayTao">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="NgayCapNhat" type="text" class="form-control" name="NgayCapNhat" placeholder="NgayCapNhat">
+                        <input id="dateReviewMD" name="dateReview" type="text" class="form-control" data-toggle="datepicker2" placeholder="NgayBatDau">
                     </div>
                 </form>
 
@@ -127,6 +140,33 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
+        <script>
+            function update() {
+                //var dateCreated = $("$dateCreated").val();
+                //var dateReview = $("dateReview").val();
+                //if (dateCreated > dateReview)
+                //    alert("Ngày tạo không được sau ngày xem");
+                var fd = new FormData(document.getElementById("frmInput"));
+                // fd.append('file', input.files[0]);
+                $.ajax({
+                    url: '/Product/InsertProduct',
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function (data) {
+                        if (data.Success == true) {
+                            alert(data.Message);
+                            document.location.href = "/Product/Manager";
+                        }
+                        else {
+                            alert(data.Message);
+                        }
+                        //document.location.href = "/Product/Manager";
+                    }
+                });
+            }
+        </script>
     </div>
 </div>
 
