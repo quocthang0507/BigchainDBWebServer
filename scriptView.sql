@@ -24,7 +24,7 @@ select * from ProductSentView
 
 update UserBC set active = 1 where id = 4
 
-alter view ProductSentView as
+create view ProductSentView as
 select id = ROW_NUMBER() OVER (ORDER BY (SELECT 1)), ProductDetail.idProduct, Product.nameProduct, idUser, UserBC.name as nameOfUser,details, idRole, sentNumber from 
 ProductDetail
 left join UserBC on ProductDetail.idUser = UserBC.username
