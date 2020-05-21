@@ -2,7 +2,6 @@
 using BigchainDBWebServer.DAO;
 using BigchainDBWebServer.Models;
 using Facebook;
-using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using System;
 using System.Collections.Generic;
@@ -10,7 +9,6 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -109,7 +107,7 @@ namespace BigchainDBWebServer.Controllers
 				{
 					old.username = UserGo.ToString();
 					old.name = NameGo.ToString();
-					old.email = EmailGo.ToString();	
+					old.email = EmailGo.ToString();
 				}
 				else if (UserFb != null)
 				{
@@ -181,7 +179,7 @@ namespace BigchainDBWebServer.Controllers
 				string email = me.email;
 				Session["usernameFB"] = username;
 				Session["NameFB"] = name;
-                if (CheckFirstLogin(username) == true)
+				if (CheckFirstLogin(username) == true)
 				{
 					return RedirectToAction("Registration", "User");
 				}
@@ -208,11 +206,11 @@ namespace BigchainDBWebServer.Controllers
 		//}
 
 		public ActionResult SignOutGO()
-        {
-            Session.RemoveAll();
+		{
+			Session.RemoveAll();
 			HttpContext.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
-            return Redirect("~/");
-        }
+			return Redirect("~/");
+		}
 
 		//[AllowAnonymous]
 		//public ActionResult GoogleLoginCallback()

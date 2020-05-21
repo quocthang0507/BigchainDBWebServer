@@ -1,6 +1,5 @@
 ﻿using BigchainDBWebServer.DAO;
 using BigchainDBWebServer.Models;
-using Microsoft.Ajax.Utilities;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -48,7 +47,7 @@ namespace BigchainDBWebServer.Controllers
                 if (CheckLogin(userGO))
                     idUser = userGO;
             }
-            if(idUser != null)
+            if (idUser != null)
             {
                 ProductDAO dao = new ProductDAO();
                 ViewBag.lst = dao.GetAllByUsername(idUser);
@@ -76,8 +75,8 @@ namespace BigchainDBWebServer.Controllers
                 else
                     return RedirectToAction("AddProductForDiffAc", "Product");
             }
-            else { return RedirectToAction("Login", "User"); }           
-            
+            else { return RedirectToAction("Login", "User"); }
+
         }
         public ActionResult AddProductForDiffAc(string search = null)
         {
@@ -95,7 +94,7 @@ namespace BigchainDBWebServer.Controllers
                     goto SetView;
             }
             return RedirectToAction("Login", "User");
-            SetView:
+        SetView:
             ProductDAO dao = new ProductDAO();
             var user = dao.Model.UserBCs.FirstOrDefault(x => x.username == userName);
             ViewBag.TheRole = user.idRole;
@@ -104,7 +103,7 @@ namespace BigchainDBWebServer.Controllers
                 ViewBag.lstProductSent = dao.GetListProductByID(search, user.idRole);
             }
             return View();
-           // 
+            // 
         }
         [HttpPost]
         public JsonResult InsertProduct(Product pro, ProductDetail item)
