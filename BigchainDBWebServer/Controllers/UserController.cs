@@ -30,6 +30,7 @@ namespace BigchainDBWebServer.Controllers
 				return uriBuilder.Uri;
 			}
 		}
+
 		// GET: User
 		public ActionResult Login()
 		{
@@ -232,6 +233,7 @@ namespace BigchainDBWebServer.Controllers
 		//	}
 		//	return RedirectToAction("AddProduct", "Product");
 		//}
+
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public void LoginWithGooglePlus()
@@ -241,6 +243,7 @@ namespace BigchainDBWebServer.Controllers
 			GoogleConnect.RedirectUri = Request.Url.AbsoluteUri.Split('?')[0];
 			GoogleConnect.Authorize("profile", "email");
 		}
+
 		[ActionName("LoginWithGooglePlus")]
 		public ActionResult LoginWithGooglePlusConfirmed()
 		{

@@ -38,7 +38,7 @@ namespace BigchainDBWebServer.DAO
 				if (prodetail.Count == 1 && user.idRole != 2)
 					return new ResultOfRequest(false, "Bạn hiện không thể thêm thông tin vì người vận chuyển vẫn chưa nhập dữ liệu vào!");
 				if (item.dateReview < prodetail[0].dateCreated)
-					return new ResultOfRequest(false, "Ngày tạo không được phép! Phải trể hơn!");
+					return new ResultOfRequest(false, "Ngày tạo không được phép! Phải trễ hơn!");
 				var temp = new ProductDetail()
 				{
 					idUser = idUser,
@@ -76,11 +76,12 @@ namespace BigchainDBWebServer.DAO
 			}
 			return new ResultOfRequest(false, "Lỗi tạo!");
 		}
+
 		public List<ProductSentView> GetListProductByID(string username, int? role)
 		{
 			if (role == null || role == 1)
 				return null;
-			var lst = Model.ProductSentViews.Where(f => f.idProduct.Contains(username.ToString()) && f.idRole < role && f.sentNumber == (role - 1)).ToList();
+			var lst = Model.ProductSentViews.Where(f => f.idProduct.Contains(username) && f.idRole < role && f.sentNumber == (role - 1)).ToList();
 			return lst;
 		}
 	}

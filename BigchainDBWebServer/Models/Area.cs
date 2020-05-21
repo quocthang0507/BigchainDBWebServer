@@ -7,6 +7,7 @@ namespace BigchainDBWebServer.Models
 		public List<Tinh> LtsItem { get; set; }
 		public int TotalDoanhNghiep { get; set; }
 	}
+
 	public class Tinh
 	{
 		public string Type { get; set; }
