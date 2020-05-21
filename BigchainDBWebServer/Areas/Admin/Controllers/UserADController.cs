@@ -66,5 +66,10 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
             else
                 return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult LogOut()
+        {
+            Session.RemoveAll();
+            return RedirectToAction("", "Admin");
+        }
     }
 }
