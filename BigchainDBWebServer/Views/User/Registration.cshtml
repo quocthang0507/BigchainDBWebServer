@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Registration";
     Layout = "~/Views/Shared/Registration.cshtml";
+    var lstArea = this.ViewBag.lst;
+    var lstDetail = this.ViewBag.lstDetail;
 }
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -16,12 +18,43 @@
     <form class="form-horizontal" role="form" id="frmInputInsert">
         <h2>Registration</h2>
         <div class="form-group">
-            <label for="Address" class="col-sm-3 control-label">Address</label>
+            <label for="Address" class="col-sm-3 control-label">Địa chỉ</label>
             <div class="col-sm-9">
                 <input type="text" id="Address" placeholder="Address" name="adrs" class="form-control" autofocus>
             </div>
         </div>
-        @if (Session["usernameFB"]!=null)
+        <div class="form-group">
+            <label for="email" class="col-sm-3 control-label">Tỉnh </label>
+            <div class="col-sm-9">
+                <select id="areaList" onchange="insertCity()" style="height:35px" name="Area" class="form-control">
+                    <option selected=""> Chọn tỉnh</option>
+                    @foreach (var item in lstArea)
+                    {
+                        <option value="@item.Title">@item.Title</option>
+                    }
+                </select>
+            </div>
+        </div>
+        @*<div class="form-group">
+            <label for="email" class="col-sm-3 control-label">Tỉnh </label>
+            <div class="col-sm-9">
+                <select style="height:35px" name="pwd" class="form-control">
+                    <option selected=""> Chọn tỉnh</option>
+                    @if (lstDetail == null)
+                    {
+                        <option></option>
+                    }
+                    else
+                    {
+                        foreach (var item in lstDetail)
+                        {
+                            <option value="@item.Title">@item.Title</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>*@
+        @if (Session["usernameFB"] != null)
         {
             <div class="form-group">
                 <label for="email" class="col-sm-3 control-label">Email* </label>
@@ -117,17 +150,17 @@
 </div>
 <!-- End Modal -->
 <script>
-    $(function (){
+    $(function () {
         $.validator.setDefaults({
-            highlight: function(element){
+            highlight: function (element) {
                 $(element)
-                .closest('.form-group')
-                .addClass('has-error')
+                    .closest('.form-group')
+                    .addClass('has-error')
             },
-            unhighlight: function(element){
+            unhighlight: function (element) {
                 $(element)
-                .closest('.form-group')
-                .removeClass('has-error')
+                    .closest('.form-group')
+                    .removeClass('has-error')
             }
         });
 
@@ -137,19 +170,19 @@
                 password: "required",
                 birthDate: "required",
                 weight: {
-                    required:true,
-                    number:true
+                    required: true,
+                    number: true
                 },
-                height:  {
-                    required:true,
-                    number:true
+                height: {
+                    required: true,
+                    number: true
                 },
                 email: {
                     required: true,
                     email: true
                 }
             },
-            messages:{
+            messages: {
                 email: {
                     required: true,
                     email: true
@@ -190,6 +223,9 @@
                 document.location.href = "/Home/index";
             }
         });
+    }
+    function insertCity() {
+        var fd = document.getElementById("areaList").value;
     }
 </script>
 

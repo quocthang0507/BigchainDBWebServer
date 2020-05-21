@@ -5,9 +5,13 @@ using Facebook;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -34,11 +38,55 @@ namespace BigchainDBWebServer.Controllers
 			return View();
 		}
 
-		public ActionResult Registration()
+		public async Task<ActionResult> Registration()
 		{
-			return View();
-		}
+			string Baseurl = "https://thongtindoanhnghiep.co/";
+			List<Tinh> lst = new List<Tinh>();
+			using (var client = new HttpClient())
+			{
+				client.BaseAddress = new Uri(Baseurl);
 
+				client.DefaultRequestHeaders.Clear();
+
+				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+				HttpResponseMessage Res = await client.GetAsync("/api/city");
+
+				if (Res.IsSuccessStatusCode)
+				{
+					//Storing the response details recieved from web api   
+					string SachResponse = Res.Content.ReadAsStringAsync().Result;
+					Area lstArea = new JavaScriptSerializer().Deserialize<Area>(SachResponse);
+					lst = lstArea.LtsItem;
+				}
+				this.ViewBag.lst = lst;
+				return View();
+			}
+		}
+		//public async Task<Tinh> GetDetailArea(int ID)
+		//{			
+		//	string Baseurl = "https://thongtindoanhnghiep.co/";
+		//	Tinh lstCity = new Tinh();		
+		//	using (var client = new HttpClient())
+		//	{
+		//		client.BaseAddress = new Uri(Baseurl);
+
+		//		client.DefaultRequestHeaders.Clear();
+
+		//		client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+		//		HttpResponseMessage Res = await client.GetAsync("/api/city/"+ID+"/district");
+
+		//		if (Res.IsSuccessStatusCode)
+		//		{
+		//			//Storing the response details recieved from web api   
+		//			string SachResponse = Res.Content.ReadAsStringAsync().Result;
+		//			Tinh lstArea = new JavaScriptSerializer().Deserialize<Tinh>(SachResponse);
+		//			lstCity = lstArea;
+		//		}
+		//		return lstCity;
+		//	}
+		//}
 		public JsonResult InsertRegister(UserBC item)
 		{
 			AccountDAO dao = new AccountDAO();
@@ -61,23 +109,16 @@ namespace BigchainDBWebServer.Controllers
 				{
 					old.username = UserGo.ToString();
 					old.name = NameGo.ToString();
-					old.email = EmailGo.ToString();
-					old.pwd = "";
+					old.email = EmailGo.ToString();	
 				}
 				else if (UserFb != null)
 				{
 					old.username = UserFb.ToString();
 					old.name = NameFB.ToString();
 					old.email = item.email;
-					old.pwd = "";
 				}
-				else
-				{
-					old.username = item.username;
-					old.name = item.name;
-					old.email = item.email;
-					old.pwd = item.pwd;
-				}				
+				old.Area = item.Area;
+				old.City = "";
 				old.birthday = item.birthday;
 				old.adrs = item.adrs;
 				old.phone = item.phone;

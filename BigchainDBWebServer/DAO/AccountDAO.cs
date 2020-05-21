@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace BigchainDBWebServer.DAO
 {
 	public class AccountDAO : BaseDAO
@@ -11,6 +12,11 @@ namespace BigchainDBWebServer.DAO
 			var lst = Model.UserBCs.OrderBy(p => p.id).ToList();
 			return lst;
 		}
+        public List<AdminBC> GetAllUserAD()
+        {
+            var lst = Model.AdminBCs.OrderBy(p => p.id).ToList();
+            return lst;
+        }
         public List<UserBC> GetListUserByIdRoles(int id = 1)
         {
             List<UserBC> lst = Model.UserBCs.Where(x => x.idRole == id).ToList();
@@ -28,5 +34,10 @@ namespace BigchainDBWebServer.DAO
                 return new ResultOfRequest(true, "Đã kích hoạt!");
             return new ResultOfRequest(false, "Lỗi kích hoạt!");
         }
-	}
+        public List<Notification> GetAllNotification()
+        {
+            var lst = Model.Notifications.OrderBy(p => p.dateCreate).ToList();
+            return lst;
+        }
+    }
 }

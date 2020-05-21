@@ -14,6 +14,10 @@ namespace BigchainDBWebServer.Areas.Admin
 
 		public override void RegisterArea(AreaRegistrationContext context)
 		{
+			context.MapRoute("AdminLogin","Admin/",
+				new { action = "Login", controller= "UserAD" });
+			context.MapRoute("AdminAction", "Admin/{action}",
+				new { controller = "HomeAD" });
 			context.MapRoute(
 				"Admin_default",
 				"Admin/{controller}/{action}/{id}",

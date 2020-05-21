@@ -20,6 +20,12 @@ namespace BigchainDBWebServer.DAO
             var tempDetail = Model.ProductDetailViews.FirstOrDefault(f => f.idProduct == pro.id);
             if (tempDetail != null && tempDetail.idUser == idUser)
                 return new ResultOfRequest(false, "Đã tồn tại ID này");
+            var noti = Model.NewNotis.FirstOrDefault(f => f.idProduct == pro.id);
+            noti = new NewNoti();
+            noti.idUser = idUser;
+            noti.idProduct = pro.id;
+            noti.dateCreate = DateTime.Now;
+            Model.NewNotis.Add(noti);
             var user = Model.UserBCs.FirstOrDefault(f => f.username == idUser);
             if (user == null)
                 return new ResultOfRequest(false, "Người dùng không đúng");

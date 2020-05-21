@@ -23,6 +23,16 @@
           <Property Name="dateUpdate" Type="datetime" />
           <Property Name="deleted" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="NewNoti">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUser" Type="varchar" MaxLength="50" />
+          <Property Name="idProduct" Type="varchar" MaxLength="50" />
+          <Property Name="dateCreate" Type="datetime" />
+          <Property Name="detail" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="id" />
@@ -59,7 +69,8 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="pwd" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Area" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="100" />
           <Property Name="birthday" Type="datetime" />
           <Property Name="email" Type="varchar" MaxLength="500" />
@@ -72,10 +83,22 @@
           <Property Name="deleted" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'QLNongSan.dbo.Notifications' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="roles" Type="nvarchar" MaxLength="1000" />
+          <Property Name="nameProduct" Type="nvarchar" MaxLength="1000" />
+          <Property Name="dateCreate" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'QLNongSan.dbo.ProductDetailView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProductDetailView">
           <Key>
-            
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="bigint" Nullable="false" />
@@ -95,10 +118,9 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductDetailView' does not have a p
 warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProductSentView">
           <Key>
-            <PropertyRef Name="idProduct" />
-            <PropertyRef Name="idUser" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="bigint" />
+          <Property Name="id" Type="bigint" Nullable="false" />
           <Property Name="idProduct" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="nameProduct" Type="nvarchar" MaxLength="1000" />
           <Property Name="idUser" Type="varchar" MaxLength="50" Nullable="false" />
@@ -109,10 +131,21 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
         </EntityType>
         <EntityContainer Name="QLNongSanModelStoreContainer">
           <EntitySet Name="AdminBC" EntityType="Self.AdminBC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewNoti" EntityType="Self.NewNoti" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductDetail" EntityType="Self.ProductDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBC" EntityType="Self.UserBC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Notifications].[ID] AS [ID], 
+    [Notifications].[username] AS [username], 
+    [Notifications].[name] AS [name], 
+    [Notifications].[roles] AS [roles], 
+    [Notifications].[nameProduct] AS [nameProduct], 
+    [Notifications].[dateCreate] AS [dateCreate]
+    FROM [dbo].[Notifications] AS [Notifications]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="ProductDetailView" EntityType="Self.ProductDetailView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ProductDetailView].[id] AS [id], 
@@ -148,10 +181,12 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
       <Schema Namespace="QLNongSanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="QLNongSanEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AdminBCs" EntityType="QLNongSanModel.AdminBC" />
+          <EntitySet Name="NewNotis" EntityType="QLNongSanModel.NewNoti" />
           <EntitySet Name="Products" EntityType="QLNongSanModel.Product" />
           <EntitySet Name="ProductDetails" EntityType="QLNongSanModel.ProductDetail" />
           <EntitySet Name="Roles" EntityType="QLNongSanModel.Role" />
           <EntitySet Name="UserBCs" EntityType="QLNongSanModel.UserBC" />
+          <EntitySet Name="Notifications" EntityType="QLNongSanModel.Notification" />
           <EntitySet Name="ProductDetailViews" EntityType="QLNongSanModel.ProductDetailView" />
           <EntitySet Name="ProductSentViews" EntityType="QLNongSanModel.ProductSentView" />
         </EntityContainer>
@@ -172,6 +207,16 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <Property Name="dateCreated" Type="DateTime" Precision="3" />
           <Property Name="dateUpdate" Type="DateTime" Precision="3" />
           <Property Name="deleted" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NewNoti">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idProduct" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dateCreate" Type="DateTime" Precision="3" />
+          <Property Name="detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -209,7 +254,8 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="pwd" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Area" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="birthday" Type="DateTime" Precision="3" />
           <Property Name="email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
@@ -220,6 +266,17 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <Property Name="dateCreated" Type="DateTime" Precision="3" />
           <Property Name="dateUpdate" Type="DateTime" Precision="3" />
           <Property Name="deleted" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="roles" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="nameProduct" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="dateCreate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="ProductDetailView">
           <Key>
@@ -240,10 +297,9 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
         </EntityType>
         <EntityType Name="ProductSentView">
           <Key>
-            <PropertyRef Name="idProduct" />
-            <PropertyRef Name="idUser" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int64" />
+          <Property Name="id" Type="Int64" Nullable="false" />
           <Property Name="idProduct" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="nameProduct" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="idUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -252,7 +308,7 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <Property Name="idRole" Type="Int32" />
           <Property Name="sentNumber" Type="Int32" />
         </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -273,6 +329,17 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="pwd" ColumnName="pwd" />
                 <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewNotis">
+            <EntityTypeMapping TypeName="QLNongSanModel.NewNoti">
+              <MappingFragment StoreEntitySet="NewNoti">
+                <ScalarProperty Name="detail" ColumnName="detail" />
+                <ScalarProperty Name="dateCreate" ColumnName="dateCreate" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -321,9 +388,22 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="birthday" ColumnName="birthday" />
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="pwd" ColumnName="pwd" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="QLNongSanModel.Notification">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="dateCreate" ColumnName="dateCreate" />
+                <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
+                <ScalarProperty Name="roles" ColumnName="roles" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
