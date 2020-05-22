@@ -3,7 +3,6 @@
     ViewBag.Title = "Registration";
     Layout = "~/Views/Shared/Registration.cshtml";
     var lstArea = this.ViewBag.lst;
-    var lstDetail = this.ViewBag.lstDetail;
 }
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -35,25 +34,34 @@
                 </select>
             </div>
         </div>
-        @*<div class="form-group">
-            <label for="email" class="col-sm-3 control-label">Tỉnh </label>
+        <div class="form-group">
+            <label for="email" class="col-sm-3 control-label">Chọn thành phố </label>
             <div class="col-sm-9">
-                <select style="height:35px" name="pwd" class="form-control">
-                    <option selected=""> Chọn tỉnh</option>
-                    @if (lstDetail == null)
-                    {
-                        <option></option>
-                    }
-                    else
-                    {
-                        foreach (var item in lstDetail)
-                        {
-                            <option value="@item.Title">@item.Title</option>
-                        }
-                    }
+                <select id="cityList" style="height:35px" name="City" class="form-control">
+                    <option selected=""> Chọn thành phố</option>
+                    <option></option>
                 </select>
             </div>
-        </div>*@
+        </div>
+        @*<div class="form-group">
+                <label for="email" class="col-sm-3 control-label">Tỉnh </label>
+                <div class="col-sm-9">
+                    <select style="height:35px" name="pwd" class="form-control">
+                        <option selected=""> Chọn tỉnh</option>
+                        @if (lstDetail == null)
+                        {
+                            <option></option>
+                        }
+                        else
+                        {
+                            foreach (var item in lstDetail)
+                            {
+                                <option value="@item.Title">@item.Title</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>*@
         @if (Session["usernameFB"] != null)
         {
             <div class="form-group">
@@ -70,23 +78,23 @@
             </div>
         </div>
         @*<div class="form-group">
-            <label for="Mobilephone" class="col-sm-3 control-label">Mobilephone* </label>
-            <div class="col-sm-9">
-                <input type="tel" id="Mobilephone" placeholder="Mobilephone" class="form-control" name="teleNum2">
-            </div>
-        </div>*@
+                <label for="Mobilephone" class="col-sm-3 control-label">Mobilephone* </label>
+                <div class="col-sm-9">
+                    <input type="tel" id="Mobilephone" placeholder="Mobilephone" class="form-control" name="teleNum2">
+                </div>
+            </div>*@
         @*<div class="form-group">
-            <label for="password" class="col-sm-3 control-label">Password*</label>
-            <div class="col-sm-9">
-                <input type="password" id="password" placeholder="Password" class="form-control">
+                <label for="password" class="col-sm-3 control-label">Password*</label>
+                <div class="col-sm-9">
+                    <input type="password" id="password" placeholder="Password" class="form-control">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="password" class="col-sm-3 control-label">Confirm Password*</label>
-            <div class="col-sm-9">
-                <input type="password" id="password" placeholder="Password" class="form-control">
-            </div>
-        </div>*@
+            <div class="form-group">
+                <label for="password" class="col-sm-3 control-label">Confirm Password*</label>
+                <div class="col-sm-9">
+                    <input type="password" id="password" placeholder="Password" class="form-control">
+                </div>
+            </div>*@
         <div class="form-group">
             <label for="birthDate" class="col-sm-3 control-label">Date of Birth*</label>
             <div class="col-sm-9">
@@ -94,12 +102,12 @@
             </div>
         </div>
         @*<div class="form-group">
-            <label for="phoneNumber" class="col-sm-3 control-label">Phone number </label>
-            <div class="col-sm-9">
-                <input type="phoneNumber" id="phoneNumber" placeholder="Phone number" class="form-control">
-                <span class="help-block">Your phone number won't be disclosed anywhere </span>
-            </div>
-        </div>*@
+                <label for="phoneNumber" class="col-sm-3 control-label">Phone number </label>
+                <div class="col-sm-9">
+                    <input type="phoneNumber" id="phoneNumber" placeholder="Phone number" class="form-control">
+                    <span class="help-block">Your phone number won't be disclosed anywhere </span>
+                </div>
+            </div>*@
         <div class="form-group">
             <label class="control-label col-sm-3">Vai Trò</label>
             <div class="col-sm-6">
@@ -224,8 +232,33 @@
             }
         });
     }
-    function insertCity() {
-        var fd = document.getElementById("areaList").value;
+</script>
+@{
+    <script>
+        var fd = [];
+    </script>
+    foreach (var item in lstArea)
+    {
+        <script>fd.push(@item)</script>
     }
+}
+<script>
+    $('#areaList').change(function () {
+        $.ajax({
+            url: '/User/GetDetailArea',
+            data: { "name": $("#areaList").val() },
+            dataType: "json",
+            type: "post",
+            success: function (data) {
+                console.log(data.Success);
+                var productsString = "";
+                data.Success.forEach(element => {
+                    productsString +=
+                        `<option value="${element.Title}">${element.Title}</option>">                                       `
+                });
+                $('#cityList').html(productsString);
+            }
+        });
+    });
 </script>
 

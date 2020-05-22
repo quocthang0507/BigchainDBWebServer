@@ -22,6 +22,16 @@ namespace BigchainDBWebServer.DAO
             List<UserBC> lst = Model.UserBCs.Where(x => x.idRole == id).ToList();
             return lst;
         }
+        //public List<Province> GetAllProvinces()
+        //{
+        //    var lst = Model.Provinces.OrderBy(p => p.Id).ToList();
+        //    return lst;
+        //}
+        //public List<District> GetAllDistrict()
+        //{
+        //    var lst = Model.Districts.OrderBy(p => p.Id).ToList();
+        //    return lst;
+        //}
         public ResultOfRequest ActiveUser(string username, bool active = true)
         {
             var userBC = Model.UserBCs.FirstOrDefault(x => x.username == username);
