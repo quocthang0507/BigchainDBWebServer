@@ -1,6 +1,4 @@
-﻿using Microsoft.Ajax.Utilities;
-using Newtonsoft.Json;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace BigchainDBWebServer.Controllers
 {

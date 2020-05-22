@@ -9,32 +9,30 @@
 
 namespace BigchainDBWebServer.Models
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    
-    public partial class QLNongSanEntities : DbContext
-    {
-        public QLNongSanEntities()
-            : base("name=QLNongSanEntities")
-        {
-        }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
-    
-        public virtual DbSet<AdminBC> AdminBCs { get; set; }
-        public virtual DbSet<District> Districts { get; set; }
-        public virtual DbSet<NewNoti> NewNotis { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<ProductDetail> ProductDetails { get; set; }
-        public virtual DbSet<Province> Provinces { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<UserBC> UserBCs { get; set; }
-        public virtual DbSet<Notification> Notifications { get; set; }
-        public virtual DbSet<ProductDetailView> ProductDetailViews { get; set; }
-        public virtual DbSet<ProductSentView> ProductSentViews { get; set; }
-    }
+	using System;
+	using System.Data.Entity;
+	using System.Data.Entity.Infrastructure;
+
+	public partial class QLNongSanEntities : DbContext
+	{
+		public QLNongSanEntities()
+			: base("name=QLNongSanEntities")
+		{
+		}
+
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			throw new UnintentionalCodeFirstException();
+		}
+
+		public virtual DbSet<AdminBC> AdminBCs { get; set; }
+		public virtual DbSet<NewNoti> NewNotis { get; set; }
+		public virtual DbSet<Product> Products { get; set; }
+		public virtual DbSet<ProductDetail> ProductDetails { get; set; }
+		public virtual DbSet<Role> Roles { get; set; }
+		public virtual DbSet<UserBC> UserBCs { get; set; }
+		public virtual DbSet<Notification> Notifications { get; set; }
+		public virtual DbSet<ProductDetailView> ProductDetailViews { get; set; }
+		public virtual DbSet<ProductSentView> ProductSentViews { get; set; }
+	}
 }

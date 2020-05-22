@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace BigchainDBWebServer.Models
+﻿namespace BigchainDBWebServer.Models
 {
-    public class GoogleProfile
-    {
+	public class GoogleProfile
+	{
 		public string Id { get; set; }
 		public string Name { get; set; }
 		public string Picture { get; set; }
