@@ -1,5 +1,6 @@
 ﻿using BigchainDBWebServer.DAO;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace BigchainDBWebServer.Areas.Admin.Controllers
 {
@@ -50,7 +51,8 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 				if (username == null)
 					return RedirectToAction("Index", "Home");
 				ProductDAO dao = new ProductDAO();
-				ViewBag.lstPtoduct = dao.GetAllByUsername(username.ToString());
+                ViewBag.userInfo = (from c in dao.Model.UserBCs where c.username == username select c).FirstOrDefault();
+                ViewBag.lstPtoduct = dao.GetAllByUsername(username.ToString());
 				return View();
 			}
 			return RedirectToAction("Login", "UserAD");

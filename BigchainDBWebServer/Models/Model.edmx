@@ -23,19 +23,6 @@
           <Property Name="dateUpdate" Type="datetime" />
           <Property Name="deleted" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="District">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="250" />
-          <Property Name="Type" Type="nvarchar" MaxLength="50" />
-          <Property Name="LatiLongTude" Type="nvarchar" MaxLength="50" />
-          <Property Name="ProvinceId" Type="int" Nullable="false" />
-          <Property Name="SortOrder" Type="int" />
-          <Property Name="IsPublished" Type="bit" />
-          <Property Name="IsDeleted" Type="bit" />
-        </EntityType>
         <EntityType Name="NewNoti">
           <Key>
             <PropertyRef Name="id" />
@@ -67,21 +54,7 @@
           <Property Name="dateCreated" Type="datetime" />
           <Property Name="dateReview" Type="datetime" />
           <Property Name="isDeleted" Type="int" />
-        </EntityType>
-        <EntityType Name="Province">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="Type" Type="nvarchar" MaxLength="20" />
-          <Property Name="TelephoneCode" Type="int" />
-          <Property Name="ZipCode" Type="nvarchar" MaxLength="20" />
-          <Property Name="CountryId" Type="int" Nullable="false" />
-          <Property Name="CountryCode" Type="nvarchar" MaxLength="2" />
-          <Property Name="SortOrder" Type="int" />
-          <Property Name="IsPublished" Type="bit" />
-          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="IsUpBD" Type="int" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -114,6 +87,7 @@
 warning 6002: The table/view 'QLNongSan.dbo.Notifications' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Notifications">
           <Key>
+            
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
@@ -130,6 +104,7 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductDetailView' does not have a p
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="idProductDetail" Type="int" Nullable="false" />
           <Property Name="idUser" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="nameOfUser" Type="nvarchar" MaxLength="100" />
           <Property Name="idProduct" Type="varchar" MaxLength="50" />
@@ -141,11 +116,14 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductDetailView' does not have a p
           <Property Name="adrs" Type="nvarchar" MaxLength="1000" />
           <Property Name="phone" Type="varchar" MaxLength="15" />
           <Property Name="idRole" Type="int" />
+          <Property Name="IsUpBD" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProductSentView">
           <Key>
+            
+            
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="bigint" Nullable="false" />
@@ -157,25 +135,11 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <Property Name="idRole" Type="int" />
           <Property Name="sentNumber" Type="int" />
         </EntityType>
-        <Association Name="FK_District_Province">
-          <End Role="Province" Type="Self.Province" Multiplicity="1" />
-          <End Role="District" Type="Self.District" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Province">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="District">
-              <PropertyRef Name="ProvinceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="QLNongSanModelStoreContainer">
           <EntitySet Name="AdminBC" EntityType="Self.AdminBC" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewNoti" EntityType="Self.NewNoti" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductDetail" EntityType="Self.ProductDetail" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBC" EntityType="Self.UserBC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notifications" EntityType="Self.Notifications" store:Type="Views" store:Schema="dbo">
@@ -191,6 +155,7 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <EntitySet Name="ProductDetailView" EntityType="Self.ProductDetailView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ProductDetailView].[id] AS [id], 
+    [ProductDetailView].[idProductDetail] AS [idProductDetail], 
     [ProductDetailView].[idUser] AS [idUser], 
     [ProductDetailView].[nameOfUser] AS [nameOfUser], 
     [ProductDetailView].[idProduct] AS [idProduct], 
@@ -201,7 +166,8 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
     [ProductDetailView].[email] AS [email], 
     [ProductDetailView].[adrs] AS [adrs], 
     [ProductDetailView].[phone] AS [phone], 
-    [ProductDetailView].[idRole] AS [idRole]
+    [ProductDetailView].[idRole] AS [idRole], 
+    [ProductDetailView].[IsUpBD] AS [IsUpBD]
     FROM [dbo].[ProductDetailView] AS [ProductDetailView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ProductSentView" EntityType="Self.ProductSentView" store:Type="Views" store:Schema="dbo">
@@ -216,10 +182,6 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
     [ProductSentView].[sentNumber] AS [sentNumber]
     FROM [dbo].[ProductSentView] AS [ProductSentView]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_District_Province" Association="Self.FK_District_Province">
-            <End Role="Province" EntitySet="Province" />
-            <End Role="District" EntitySet="District" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -227,20 +189,14 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
       <Schema Namespace="QLNongSanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="QLNongSanEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AdminBCs" EntityType="QLNongSanModel.AdminBC" />
-          <EntitySet Name="Districts" EntityType="QLNongSanModel.District" />
           <EntitySet Name="NewNotis" EntityType="QLNongSanModel.NewNoti" />
           <EntitySet Name="Products" EntityType="QLNongSanModel.Product" />
           <EntitySet Name="ProductDetails" EntityType="QLNongSanModel.ProductDetail" />
-          <EntitySet Name="Provinces" EntityType="QLNongSanModel.Province" />
           <EntitySet Name="Roles" EntityType="QLNongSanModel.Role" />
           <EntitySet Name="UserBCs" EntityType="QLNongSanModel.UserBC" />
           <EntitySet Name="Notifications" EntityType="QLNongSanModel.Notification" />
-          <EntitySet Name="ProductDetailViews" EntityType="QLNongSanModel.ProductDetailView" />
           <EntitySet Name="ProductSentViews" EntityType="QLNongSanModel.ProductSentView" />
-          <AssociationSet Name="FK_District_Province" Association="QLNongSanModel.FK_District_Province">
-            <End Role="Province" EntitySet="Provinces" />
-            <End Role="District" EntitySet="Districts" />
-          </AssociationSet>
+          <EntitySet Name="ProductDetailViews" EntityType="QLNongSanModel.ProductDetailView" />
         </EntityContainer>
         <EntityType Name="AdminBC">
           <Key>
@@ -259,20 +215,6 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <Property Name="dateCreated" Type="DateTime" Precision="3" />
           <Property Name="dateUpdate" Type="DateTime" Precision="3" />
           <Property Name="deleted" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="District">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LatiLongTude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ProvinceId" Type="Int32" Nullable="false" />
-          <Property Name="SortOrder" Type="Int32" />
-          <Property Name="IsPublished" Type="Boolean" />
-          <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="Province" Relationship="QLNongSanModel.FK_District_Province" FromRole="District" ToRole="Province" />
         </EntityType>
         <EntityType Name="NewNoti">
           <Key>
@@ -305,22 +247,7 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <Property Name="dateCreated" Type="DateTime" Precision="3" />
           <Property Name="dateReview" Type="DateTime" Precision="3" />
           <Property Name="isDeleted" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Province">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TelephoneCode" Type="Int32" />
-          <Property Name="ZipCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CountryId" Type="Int32" Nullable="false" />
-          <Property Name="CountryCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="SortOrder" Type="Int32" />
-          <Property Name="IsPublished" Type="Boolean" />
-          <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="Districts" Relationship="QLNongSanModel.FK_District_Province" FromRole="Province" ToRole="District" />
+          <Property Name="IsUpBD" Type="Int32" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -360,23 +287,6 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <Property Name="nameProduct" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="dateCreate" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="ProductDetailView">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int64" Nullable="false" />
-          <Property Name="idUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="nameOfUser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="idProduct" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="nameProduct" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="dateCreated" Type="DateTime" Precision="3" />
-          <Property Name="dateReview" Type="DateTime" Precision="3" />
-          <Property Name="email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="adrs" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="idRole" Type="Int32" />
-        </EntityType>
         <EntityType Name="ProductSentView">
           <Key>
             <PropertyRef Name="id" />
@@ -390,18 +300,25 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <Property Name="idRole" Type="Int32" />
           <Property Name="sentNumber" Type="Int32" />
         </EntityType>
-        <Association Name="FK_District_Province">
-          <End Type="QLNongSanModel.Province" Role="Province" Multiplicity="1" />
-          <End Type="QLNongSanModel.District" Role="District" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Province">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="District">
-              <PropertyRef Name="ProvinceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="ProductDetailView">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="idProductDetail" Type="Int32" Nullable="false" />
+          <Property Name="idUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nameOfUser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="idProduct" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nameProduct" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dateCreated" Type="DateTime" Precision="3" />
+          <Property Name="dateReview" Type="DateTime" Precision="3" />
+          <Property Name="email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="adrs" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="idRole" Type="Int32" />
+          <Property Name="IsUpBD" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -424,20 +341,6 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
                 <ScalarProperty Name="pwd" ColumnName="pwd" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Districts">
-            <EntityTypeMapping TypeName="QLNongSanModel.District">
-              <MappingFragment StoreEntitySet="District">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
-                <ScalarProperty Name="LatiLongTude" ColumnName="LatiLongTude" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -465,28 +368,13 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <EntitySetMapping Name="ProductDetails">
             <EntityTypeMapping TypeName="QLNongSanModel.ProductDetail">
               <MappingFragment StoreEntitySet="ProductDetail">
+                <ScalarProperty Name="IsUpBD" ColumnName="IsUpBD" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="dateReview" ColumnName="dateReview" />
                 <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
                 <ScalarProperty Name="idProduct" ColumnName="idProduct" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Provinces">
-            <EntityTypeMapping TypeName="QLNongSanModel.Province">
-              <MappingFragment StoreEntitySet="Province">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
-                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="TelephoneCode" ColumnName="TelephoneCode" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -531,9 +419,24 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ProductSentViews">
+            <EntityTypeMapping TypeName="QLNongSanModel.ProductSentView">
+              <MappingFragment StoreEntitySet="ProductSentView">
+                <ScalarProperty Name="sentNumber" ColumnName="sentNumber" />
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+                <ScalarProperty Name="details" ColumnName="details" />
+                <ScalarProperty Name="nameOfUser" ColumnName="nameOfUser" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ProductDetailViews">
             <EntityTypeMapping TypeName="QLNongSanModel.ProductDetailView">
               <MappingFragment StoreEntitySet="ProductDetailView">
+                <ScalarProperty Name="IsUpBD" ColumnName="IsUpBD" />
                 <ScalarProperty Name="idRole" ColumnName="idRole" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="adrs" ColumnName="adrs" />
@@ -545,20 +448,7 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
                 <ScalarProperty Name="idProduct" ColumnName="idProduct" />
                 <ScalarProperty Name="nameOfUser" ColumnName="nameOfUser" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductSentViews">
-            <EntityTypeMapping TypeName="QLNongSanModel.ProductSentView">
-              <MappingFragment StoreEntitySet="ProductSentView">
-                <ScalarProperty Name="sentNumber" ColumnName="sentNumber" />
-                <ScalarProperty Name="idRole" ColumnName="idRole" />
-                <ScalarProperty Name="details" ColumnName="details" />
-                <ScalarProperty Name="nameOfUser" ColumnName="nameOfUser" />
-                <ScalarProperty Name="idUser" ColumnName="idUser" />
-                <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
-                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="idProductDetail" ColumnName="idProductDetail" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

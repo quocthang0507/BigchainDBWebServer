@@ -45,7 +45,8 @@ namespace BigchainDBWebServer.DAO
 					idProduct = pro.id,
 					dateCreated = item.dateCreated,
 					dateReview = item.dateReview,
-					isDeleted = 0
+					isDeleted = 0,
+                    IsUpBD = 0
 				};
 				Model.ProductDetails.Add(temp);
 				if (Model.SaveChanges() > 0)
@@ -69,6 +70,7 @@ namespace BigchainDBWebServer.DAO
 				prodetail.dateCreated = item.dateCreated;
 				prodetail.dateReview = item.dateReview;
 				prodetail.isDeleted = 0;
+                prodetail.IsUpBD = 0;
 				Model.ProductDetails.Add(prodetail);
 				if (Model.SaveChanges() > 0)
 					return new ResultOfRequest(true, "Thêm thành công!");
@@ -84,5 +86,14 @@ namespace BigchainDBWebServer.DAO
 			var lst = Model.ProductSentViews.Where(f => f.idProduct.Contains(username) && f.idRole < role && f.sentNumber == (role - 1)).ToList();
 			return lst;
 		}
+
+        public ResultOfRequest UpBD(int id)
+        {
+            ProductDetail productDetail = Model.ProductDetails.FirstOrDefault(f => f.id == id);
+            productDetail.IsUpBD = 1;
+            if (Model.SaveChanges() > 0)
+                return new ResultOfRequest(true, "Thành công!");
+            return new ResultOfRequest(false, "Thất bại!");
+        }
 	}
 }

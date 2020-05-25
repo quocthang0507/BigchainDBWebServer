@@ -1,4 +1,5 @@
 ﻿using BigchainDBWebServer.DAO;
+using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -71,5 +72,13 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			Session.RemoveAll();
 			return RedirectToAction("", "Admin");
 		}
+        [HttpPost]
+        public JsonResult UpBD(string id)
+        {
+            //return Json(new ResultOfRequest(true,id), JsonRequestBehavior.AllowGet);
+            ProductDAO dao = new ProductDAO();
+            var result = dao.UpBD(int.Parse(id));
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 	}
 }

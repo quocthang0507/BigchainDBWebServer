@@ -5,18 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="1e2fe9a32f0b4a77b356554e2f641fc3" Name="Diagram1" ZoomLevel="86">
-        <EntityTypeShape EntityType="QLNongSanModel.AdminBC" Width="1.5" PointX="2.75" PointY="4.75" />
-        <EntityTypeShape EntityType="QLNongSanModel.District" Width="1.5" PointX="3" PointY="1.125" />
-        <EntityTypeShape EntityType="QLNongSanModel.NewNoti" Width="1.5" PointX="4.75" PointY="4.75" />
-        <EntityTypeShape EntityType="QLNongSanModel.Product" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="QLNongSanModel.ProductDetail" Width="1.5" PointX="6.75" PointY="3.75" />
-        <EntityTypeShape EntityType="QLNongSanModel.Province" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="QLNongSanModel.Role" Width="1.5" PointX="6.75" PointY="6.75" />
-        <EntityTypeShape EntityType="QLNongSanModel.UserBC" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="QLNongSanModel.Notification" Width="1.5" PointX="8.75" PointY="5.75" />
-        <EntityTypeShape EntityType="QLNongSanModel.ProductDetailView" Width="1.5" PointX="8.75" PointY="8.75" />
-        <EntityTypeShape EntityType="QLNongSanModel.ProductSentView" Width="1.5" PointX="0.75" PointY="9.75" />
-        <AssociationConnector Association="QLNongSanModel.FK_District_Province" />
+        <EntityTypeShape EntityType="QLNongSanModel.AdminBC" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.NewNoti" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.Product" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.ProductDetail" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.Role" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.UserBC" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.Notification" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.ProductSentView" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.ProductDetailView" Width="1.5" PointX="7.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
