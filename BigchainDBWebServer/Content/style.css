@@ -2057,36 +2057,36 @@ hr {
 
 @media only screen and (min-width: 1200px) and (max-width: 1600px) {
 	.section-padding2 {
-		padding-top: 200px;
-		padding-bottom: 200px
+		padding-top: 50px;
+		padding-bottom: 50px
 	}
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
 	.section-padding2 {
-		padding-top: 200px;
-		padding-bottom: 200px
+		padding-top: 50px;
+		padding-bottom: 50px
 	}
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 	.section-padding2 {
-		padding-top: 100px;
-		padding-bottom: 100px
+		padding-top: 30px;
+		padding-bottom: 30px
 	}
 }
 
 @media only screen and (min-width: 576px) and (max-width: 767px) {
 	.section-padding2 {
-		padding-top: 50px;
-		padding-bottom: 50px
+		padding-top: 20px;
+		padding-bottom: 20px
 	}
 }
 
 @media (max-width: 767px) {
 	.section-padding2 {
-		padding-top: 50px;
-		padding-bottom: 50px
+		padding-top: 20px;
+		padding-bottom: 20px
 	}
 }
 
@@ -6000,8 +6000,8 @@ z .slider-area .hero-cap h2 {
 }
 
 	.best-pricing.pricing-padding {
-		padding-top: 110px;
-		padding-bottom: 280px;
+		padding-top: 100px;
+		padding-bottom: 250px;
 		background-size: cover;
 		background-repeat: no-repeat
 	}
@@ -6297,35 +6297,35 @@ z .slider-area .hero-cap h2 {
 
 .available-app-area {
 	position: relative;
-	padding-top: 220px;
-	padding-bottom: 220px
+	padding-top: 200px;
+	padding-bottom: 200px
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
 	.available-app-area {
-		padding-top: 150px;
-		padding-bottom: 150px
+		padding-top: 130px;
+		padding-bottom: 130px
 	}
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 	.available-app-area {
-		padding-top: 100px;
-		padding-bottom: 100px
+		padding-top: 80px;
+		padding-bottom: 80px
 	}
 }
 
 @media only screen and (min-width: 576px) and (max-width: 767px) {
 	.available-app-area {
-		padding-top: 100px;
-		padding-bottom: 100px
+		padding-top: 80px;
+		padding-bottom: 80px
 	}
 }
 
 @media (max-width: 767px) {
 	.available-app-area {
-		padding-top: 100px;
-		padding-bottom: 100px
+		padding-top: 80px;
+		padding-bottom: 80px
 	}
 }
 
@@ -6728,7 +6728,8 @@ z .slider-area .hero-cap h2 {
 
 .footer-area .footer-pera .info1 {
 	margin-bottom: 10px;
-	line-height: 1.8
+	line-height: 1.8;
+	text-align: justify;
 }
 
 .footer-area .footer-pera .info2 {
