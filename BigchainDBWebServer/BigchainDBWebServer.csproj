@@ -2374,7 +2374,6 @@
     <Content Include="scss\_variables.scss" />
     <Content Include="Views\Home\Feature.cshtml" />
     <Content Include="Views\Home\Services.cshtml" />
-    <Content Include="Views\Pricing.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Shared\Registration.cshtml" />
     <Content Include="Views\User\Registration.cshtml" />
