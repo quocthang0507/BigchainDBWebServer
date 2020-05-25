@@ -15,6 +15,7 @@ namespace BigchainDBWebServer.Models
     public partial class ProductDetailView
     {
         public long id { get; set; }
+        public int idProductDetail { get; set; }
         public string idUser { get; set; }
         public string nameOfUser { get; set; }
         public string idProduct { get; set; }
@@ -26,5 +27,6 @@ namespace BigchainDBWebServer.Models
         public string adrs { get; set; }
         public string phone { get; set; }
         public Nullable<int> idRole { get; set; }
+        public Nullable<int> IsUpBD { get; set; }
     }
 }

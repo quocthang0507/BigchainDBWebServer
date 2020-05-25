@@ -39,11 +39,18 @@
                                         <td>@item.dateCreated.ToString("dd/MM/yyyy")</td>
                                         <td>@item.dateReview.ToString("dd/MM/yyyy")</td>
                                         <td>
-                                            <button class="btn btn-success"
-                                                    onclick="sendToBigchainDB('@item.idProduct','@item.nameProduct','@item.idUser', '@item.nameOfUser','@item.email','@item.adrs','@item.phone','@item.idRole',
-                                                    '@item.dateCreated.ToString("dd/MM/yyyy")','@item.dateReview.ToString("dd/MM/yyyy")')">
-                                                Up BD
-                                            </button>
+                                            @if (item.IsUpBD == 0)
+                                            {
+                                                <button id="id-@item.idProductDetail" class="btn btn-success"
+                                                        onclick="sendToBigchainDB('@item.idProduct','@item.nameProduct','@item.idUser', '@item.nameOfUser','@item.email','@item.adrs','@item.phone','@item.idRole',
+                                                    '@item.dateCreated.ToString("dd/MM/yyyy")','@item.dateReview.ToString("dd/MM/yyyy")','@item.idProductDetail')">
+                                                    Up BD
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn btn-danger"> Đã Up DB</button>
+                                            }
                                         </td>
                                     </tr>
                                 }
@@ -66,7 +73,9 @@
     </div>
 
     <script type="text/javascript">
-        function sendToBigchainDB(idProduct, nameProduct, idUser, nameOfUser,email,adrs,phone,idRole, dateBegin, dateEnd) {
+        function sendToBigchainDB(idProduct, nameProduct, idUser, nameOfUser,email,adrs,phone,idRole, dateBegin, dateEnd, idProductDetail) {
+            
+
             // BigchainDB server instance (e.g. https://example.com/api/v1/)
             const API_PATH = 'https://test.ipdb.io/api/v1/'
 
@@ -107,7 +116,35 @@
                     //elem.href = API_PATH + 'transactions/' + txSigned.id;
                     //elem.innerText = txSigned.id;
                     //console.log('Transaction', txSigned.id, 'accepted');
+                    if (res != null) {
+                        isUpBD(idProductDetail);
+                    }
                 });
+        }
+        function isUpBD(id) {
+            var fd = '{"id":"' + id + '"}';
+            $.ajax({
+                url: 'UserAD/UpBD',
+                data: fd,
+                processData: false,
+                contentType: 'application/json',
+                type: 'POST',
+                success: function (res) {
+                    if (res.Success == true) {
+                        var theID = "#id-" + id;
+                        if ($(theID).hasClass("btn-success")) {
+                            $(theID).removeClass("btn-success");
+                            $(theID).addClass("btn-danger");
+                            $(theID).html("Đã Up DB");
+                            $(theID).attr("onclick", "");
+                        }
+                        alert(res.Message);
+                    }
+                    else {
+                        alert(res.Message);
+                    }
+                }
+            });
         }
     </script>
 </div>

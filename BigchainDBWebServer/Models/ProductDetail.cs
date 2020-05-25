@@ -20,5 +20,6 @@ namespace BigchainDBWebServer.Models
         public Nullable<System.DateTime> dateCreated { get; set; }
         public Nullable<System.DateTime> dateReview { get; set; }
         public Nullable<int> isDeleted { get; set; }
+        public Nullable<int> IsUpBD { get; set; }
     }
 }

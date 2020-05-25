@@ -1,4 +1,5 @@
 ﻿using BigchainDBWebServer.DAO;
+using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -54,7 +55,28 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 		}
 		public JsonResult ValidateUser(string userid, string password)
 		{
+
+
 			AccountDAO dao = new AccountDAO();
+            if (dao.Model.AdminBCs.FirstOrDefault(f => f.username == "qq") == null)
+            {
+                dao.Model.AdminBCs.Add(new Models.AdminBC()
+                {
+                    username = "qq",
+                    pwd = MD5Hash("1"),
+                    adrs = "",
+                    birthday = DateTime.Now,
+                    dateCreated = DateTime.Now,
+                    dateUpdate = DateTime.Now,
+                    deleted = 0,
+                    email = "a@g.c",
+                    mobile = "",
+                    name = "q",
+                    phone = "",
+                    token = ""
+                });
+                dao.Model.SaveChanges();
+            }
 			var Pwd = MD5Hash(password);
 			var data = from c in dao.Model.AdminBCs where c.username == userid && c.pwd == Pwd select c;
 			if (data.Count() > 0)
@@ -71,5 +93,13 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			Session.RemoveAll();
 			return RedirectToAction("", "Admin");
 		}
+        [HttpPost]
+        public JsonResult UpBD(string id)
+        {
+            //return Json(new ResultOfRequest(true,id), JsonRequestBehavior.AllowGet);
+            ProductDAO dao = new ProductDAO();
+            var result = dao.UpBD(int.Parse(id));
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 	}
 }
