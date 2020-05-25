@@ -23,7 +23,7 @@
 	<link rel="stylesheet" href="~/Content/style.css">
 	<link href="~/Content/bootstrap-social.css" rel="stylesheet" />
 </head>
-<body>
+<body style="background-color: #f4feff;">
 	<!-- Preloader Start -->
 	<div id="preloader-active">
 		<div class="preloader d-flex align-items-center justify-content-center">
@@ -54,8 +54,8 @@
 								<nav>
 									<ul id="navigation">
 										<li>@Html.ActionLink("Trang chủ", "Index", "Home")</li>
-										<li>@Html.ActionLink("Feature", "Feature", "Home")</li>
-										<li>@Html.ActionLink("Services", "Services", "Home")</li>
+										<li>@Html.ActionLink("Mô hình", "Feature", "Home")</li>
+										<li>@Html.ActionLink("Hệ thống truy xuất", "Services", "Home")</li>
 										@if (Session["usernameFB"] == null && Session["usernameGO"] == null)
 										{
 											<li>@Html.ActionLink("Đăng nhập", "Login", "User")</li>
@@ -93,7 +93,7 @@
 	<main>
 		@RenderBody()
 	</main>
-	<footer>
+	<footer style="border-top: 1px solid lightgrey;">
 		<!-- Footer Start-->
 		<div class="footer-main">
 			<div class="footer-area footer-padding">

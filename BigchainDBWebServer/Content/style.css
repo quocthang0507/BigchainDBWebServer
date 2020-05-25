@@ -205,16 +205,11 @@ a {
 	color: #635c5c
 }
 
-	a:hover {
-		color: #fff
-	}
-
 	a:focus, a:hover, .portfolio-cat a:hover, .footer -menu li a:hover {
 		text-decoration: none
 	}
 
 a, button {
-	color: #fff;
 	outline: medium none
 }
 
@@ -2091,42 +2086,42 @@ hr {
 }
 
 .inner-padding {
-	padding-top: 450px
+	padding-top: 150px
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1600px) {
 	.inner-padding {
-		padding-top: 400px
+		padding-top: 150px;
 	}
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
 	.inner-padding {
-		padding-top: 300px
+		padding-top: 150px
 	}
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 	.inner-padding {
-		padding-top: 300px
+		padding-top: 150px;
 	}
 }
 
 @media only screen and (min-width: 576px) and (max-width: 767px) {
 	.inner-padding {
-		padding-top: 200px
+		padding-top: 100px
 	}
 }
 
 @media (max-width: 767px) {
 	.inner-padding {
-		padding-top: 200px
+		padding-top: 100px
 	}
 }
 
 .section-paddingr {
 	padding-top: 0;
-	padding-bottom: 120px
+	padding-bottom: 100px
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1600px) {
@@ -2365,42 +2360,42 @@ hr {
 }
 
 .footer-padding {
-	padding-top: 200px;
-	padding-bottom: 100px
+	padding-top: 50px;
+	padding-bottom: 50px;
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1600px) {
 	.footer-padding {
-		padding-top: 200px;
-		padding-bottom: 100px
+		padding-top: 50px;
+		padding-bottom: 50px;
 	}
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
 	.footer-padding {
-		padding-top: 70px;
-		padding-bottom: 50px
+		padding-top: 30px;
+		padding-bottom: 20px
 	}
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 	.footer-padding {
-		padding-top: 70px;
-		padding-bottom: 50px
+		padding-top: 30px;
+		padding-bottom: 20px
 	}
 }
 
 @media only screen and (min-width: 576px) and (max-width: 767px) {
 	.footer-padding {
-		padding-top: 70px;
-		padding-bottom: 50px
+		padding-top: 30px;
+		padding-bottom: 20px
 	}
 }
 
 @media (max-width: 767px) {
 	.footer-padding {
-		padding-top: 70px;
-		padding-bottom: 50px
+		padding-top: 30px;
+		padding-bottom: 20px
 	}
 }
 
@@ -4107,18 +4102,6 @@ hr {
 	background-image: -ms-linear-gradient(170deg, rgba(34,34,34,0) 0%, #000 100%)
 }
 
-.best-pricing::before {
-	background-image: -moz-linear-gradient(0deg, #00aee6 0%, #6c19f6 100%);
-	background-image: -webkit-linear-gradient(0deg, #00aee6 0%, #6c19f6 100%);
-	background-image: -ms-linear-gradient(0deg, #00aee6 0%, #6c19f6 100%)
-}
-
-.available-app-area {
-	background-image: -moz-linear-gradient(0deg, #6c19f6 0%, #00aee6 100%);
-	background-image: -webkit-linear-gradient(0deg, #6c19f6 0%, #00aee6 100%);
-	background-image: -ms-linear-gradient(0deg, #6c19f6 0%, #00aee6 100%)
-}
-
 .sample-text-area {
 	background: #fff;
 	padding-right: 70px;
@@ -5441,10 +5424,6 @@ b, sup, sub, u, del {
 	}
 }
 
-.sky-blue {
-	background: #f4feff
-}
-
 .slider-padding {
 	padding-top: 130px
 }
@@ -5527,7 +5506,6 @@ b, sup, sub, u, del {
 
 .slider-area .hero__caption p {
 	margin-bottom: 54px;
-	padding-right: 155px
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -5639,7 +5617,7 @@ z .slider-area .hero-cap h2 {
 }
 
 .best-features-area {
-	position: relative
+	position: relative;
 }
 
 	.best-features-area .single-features {
@@ -5761,7 +5739,6 @@ z .slider-area .hero-cap h2 {
 	font-size: 50px;
 	font-weight: 700;
 	line-height: 1.2;
-	margin-bottom: 90px
 }
 
 @media (max-width: 767px) {
@@ -6001,7 +5978,7 @@ z .slider-area .hero-cap h2 {
 
 	.best-pricing.pricing-padding {
 		padding-top: 100px;
-		padding-bottom: 250px;
+		padding-bottom: 300px;
 		background-size: cover;
 		background-repeat: no-repeat
 	}
@@ -6330,13 +6307,11 @@ z .slider-area .hero-cap h2 {
 }
 
 .available-app-area .app-caption .section-tittle3 h2 {
-	color: #fff;
 	margin-bottom: 35px;
 	font-weight: 600
 }
 
 .available-app-area .app-caption p {
-	color: #fff;
 	padding-right: 52px;
 	padding-bottom: 26px
 }
@@ -6445,7 +6420,6 @@ z .slider-area .hero-cap h2 {
 
 .say-something-aera {
 	position: relative;
-	border-bottom: 1px solid #ffc9fd
 }
 
 	.say-something-aera .say-something-cap h2 {
@@ -6727,7 +6701,7 @@ z .slider-area .hero-cap h2 {
 }
 
 .footer-area .footer-pera .info1 {
-	margin-bottom: 10px;
+	margin: 10px;
 	line-height: 1.8;
 	text-align: justify;
 }
