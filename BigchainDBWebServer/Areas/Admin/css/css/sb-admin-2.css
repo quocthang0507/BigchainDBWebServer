@@ -10584,9 +10584,10 @@ a:focus {
 }
 
 .bg-login-image {
-    background: url("https://eco-nature.cmsmasters.net/onepage/wp-content/uploads/sites/2/2014/07/plant_shadow1.jpg");
+    background: url("https://eco-nature.cmsmasters.net/onepage/wp-content/uploads/sites/2/2014/07/Green-Grass.jpg");
     background-position: center;
     background-size: cover;
+    height:450px;
 }
 
 .bg-register-image {
