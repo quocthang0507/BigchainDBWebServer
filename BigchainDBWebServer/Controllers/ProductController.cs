@@ -129,7 +129,7 @@ namespace BigchainDBWebServer.Controllers
 			}
 			if (idUser == null)
 				return Json(false, JsonRequestBehavior.AllowGet);
-			var result = dao.InsertProduct2(pro, item, idUser);
+			var result = dao.InsertProduct(pro, item, idUser);
 			return Json(result, JsonRequestBehavior.AllowGet);
 		}
 	}
