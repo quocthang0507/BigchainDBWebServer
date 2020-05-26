@@ -33,7 +33,7 @@ namespace BigchainDBWebServer.DAO
 			if (old != null)
 			{
 				var prodetail = Model.ProductDetails.Where(f => f.idProduct == pro.id).OrderByDescending(f => f.dateCreated).ToList();
-				if (prodetail.Count > 2)
+				if (prodetail.Count > 3)
 					return new ResultOfRequest(false, "Không được phép tạo thêm thông tin vào sản phẩm này!");
 				if (prodetail.Count == 1 && user.idRole != 2)
 					return new ResultOfRequest(false, "Bạn hiện không thể thêm thông tin vì người vận chuyển vẫn chưa nhập dữ liệu vào!");
