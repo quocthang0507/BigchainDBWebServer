@@ -16,6 +16,7 @@ namespace BigchainDBWebServer.Models
     {
         public int id { get; set; }
         public string username { get; set; }
+        public string pwd { get; set; }
         public string Area { get; set; }
         public string City { get; set; }
         public string name { get; set; }

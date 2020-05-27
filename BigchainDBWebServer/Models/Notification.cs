@@ -14,7 +14,7 @@ namespace BigchainDBWebServer.Models
     
     public partial class Notification
     {
-        public int ID { get; set; }
+        public Nullable<int> ID { get; set; }
         public string username { get; set; }
         public string name { get; set; }
         public string roles { get; set; }

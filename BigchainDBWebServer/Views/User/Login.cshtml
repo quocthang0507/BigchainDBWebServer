@@ -7,13 +7,35 @@
 <link rel="stylesheet" href="~/Content/login.css">
 <section>
 	<div class="container">
-		<div class="login-form">
-			<a style="border-radius: 5px;" id="btnLoginFB" onclick="LockGO()" class="btn btn-lg btn-facebook btn-block text-uppercase" href="/User/LoginFacebook"><i class="fab fa-facebook-f mr-2"></i>Đăng nhập</a>
-			<form action="@Url.Action("LoginWithGooglePlus", "User")" method="post" style="background:none;box-shadow:none;padding:0;margin-top:10px">
-				@Html.AntiForgeryToken()
-				<button type="submit" style="border-radius:7px" class="btn btn-lg btn-google btn-block text-uppercase" id="btnLoginGO" onclick="LockFB()"><i class="fab fa-google mr-2" onclick="LockFB()"></i>  Đăng nhập </button>
-			</form>
-		</div>
+        <div class="login-form">
+            <form action="/examples/actions/confirmation.php" method="post">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="section-tittle text-center">
+                            <h2>Login</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="userid" placeholder="Username" required="required">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="password" placeholder="Password" required="required">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary btn-block" onclick="LogInNormal()">Log in</button>
+                </div>
+                <div class="clearfix">
+                    <label class="fa-pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+                </div>
+            </form>
+            <p class="text-center"><a href="@Url.Action("RegistrationNormal", "User")">Create an Account</a></p>
+            <a style="border-radius: 5px;" id="btnLoginFB" onclick="LockGO()" class="btn btn-lg btn-facebook btn-block text-uppercase" href="/User/LoginFacebook"><i class="fab fa-facebook-f mr-2"></i>Đăng nhập</a>
+            <form action="@Url.Action("LoginWithGooglePlus", "User")" method="post" style="background:none;box-shadow:none;padding:0;margin-top:10px">
+                @Html.AntiForgeryToken()
+                <button type="submit" style="border-radius:7px" class="btn btn-lg btn-google btn-block text-uppercase" id="btnLoginGO" onclick="LockFB()"><i class="fab fa-google mr-2" onclick="LockFB()"></i>  Đăng nhập </button>
+            </form>
+        </div>
 	</div>
 </section>
 <script>
@@ -29,26 +51,21 @@
             "password": $("#password").val()
         };
         $.ajax({
-            url: "/Home/ValidateUser",
+            url: "/User/ValidateUser",
             type: "POST",
             data: JSON.stringify(data),
             dataType: "json",
             contentType: "application/json",
             success: function (response) {
+                console.log(response);
+                debugger
                 if (response.Success) {
-                    if (response.Success == "Admin")
-                    {
-                        document.location.href = "/Admin";
-                    }
-                    else
-                    {
-                        document.location.href = "/Home/index";
-                    }
-
+                    debugger
+                    document.location.href = "@Url.Action("AddProduct", "Product")";
                 }
                 else {
                     alert("Sai tên đăng nhập hoặc password");
-                    window.location.href = "@Url.Action("Login", "Home")";
+                    window.location.href = "@Url.Action("Login", "User")";
                 }
             },
             error: function () {

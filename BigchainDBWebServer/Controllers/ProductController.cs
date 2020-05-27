@@ -43,11 +43,17 @@ namespace BigchainDBWebServer.Controllers
 				if (CheckLogin(userFB))
 					idUser = userFB;
 			}
-			else if (Session["usernameGO"] != null)
+			if (Session["usernameGO"] != null)
 			{
 				var userGO = Session["usernameGO"].ToString();
 				if (CheckLogin(userGO))
 					idUser = userGO;
+			}
+			if (Session["UserID"] != null)
+			{
+				var user = Session["UserID"].ToString();
+				if (CheckLogin(user))
+					idUser = user;
 			}
 			if (idUser != null)
 			{
@@ -77,6 +83,14 @@ namespace BigchainDBWebServer.Controllers
 				else
 					return RedirectToAction("AddProductForDiffAc", "Product");
 			}
+			if (Session["UserID"] != null)
+			{
+				userName = Session["UserID"].ToString();
+				if (CheckLogin(userName) && CheckRoles(Session["UserID"].ToString()) == 1)
+					return View();//
+				else
+					return RedirectToAction("AddProductForDiffAc", "Product");
+			}
 			else { return RedirectToAction("Login", "User"); }
 
 		}
@@ -93,6 +107,12 @@ namespace BigchainDBWebServer.Controllers
 			if (Session["usernameGO"] != null)
 			{
 				userName = Session["usernameGO"].ToString();
+				if (CheckLogin(userName))
+					goto SetView;
+			}
+			if (Session["UserID"] != null)
+			{
+				userName = Session["UserID"].ToString();
 				if (CheckLogin(userName))
 					goto SetView;
 			}
@@ -115,6 +135,7 @@ namespace BigchainDBWebServer.Controllers
 			ProductDAO dao = new ProductDAO();
 			var UserFb = Session["usernameFB"];
 			var UserGO = Session["usernameGO"];
+			var UserID = Session["UserID"];
 			if (item == null)
 				return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
 			var old = dao.Model.Products.FirstOrDefault(f => f.id == pro.id);
@@ -126,6 +147,10 @@ namespace BigchainDBWebServer.Controllers
 			if (UserGO != null)
 			{
 				idUser = UserGO.ToString();
+			}
+			if (UserID != null)
+			{
+				idUser = UserID.ToString();
 			}
 			if (idUser == null)
 				return Json(false, JsonRequestBehavior.AllowGet);

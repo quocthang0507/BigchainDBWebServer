@@ -12,8 +12,8 @@
         <EntityTypeShape EntityType="QLNongSanModel.Role" Width="1.5" PointX="4.75" PointY="4.75" />
         <EntityTypeShape EntityType="QLNongSanModel.UserBC" Width="1.5" PointX="6.75" PointY="0.75" />
         <EntityTypeShape EntityType="QLNongSanModel.Notification" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="QLNongSanModel.ProductDetailView" Width="1.5" PointX="6.75" PointY="5.75" />
         <EntityTypeShape EntityType="QLNongSanModel.ProductSentView" Width="1.5" PointX="2.75" PointY="7.75" />
-        <EntityTypeShape EntityType="QLNongSanModel.ProductDetailView" Width="1.5" PointX="7.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

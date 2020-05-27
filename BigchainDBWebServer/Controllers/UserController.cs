@@ -9,6 +9,8 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -62,16 +64,31 @@ namespace BigchainDBWebServer.Controllers
 				return View();
 			}
 		}
+		public async Task<ActionResult> RegistrationNormal()
+		{
+			string Baseurl = "https://thongtindoanhnghiep.co/";
+			List<Tinh> lst = new List<Tinh>();
+			using (var client = new HttpClient())
+			{
+				client.BaseAddress = new Uri(Baseurl);
 
-		//public ActionResult Registration()
-		//{
-		//	AccountDAO dao = new AccountDAO();
-		//	var lstArea = dao.GetAllProvinces();
-		//	var lstCity = dao.GetAllDistrict();
-		//	this.ViewBag.lstArea = lstArea;
-		//	this.ViewBag.lstCity= lstCity;
-		//	return View();
-		//}
+				client.DefaultRequestHeaders.Clear();
+
+				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+				HttpResponseMessage Res = await client.GetAsync("/api/city");
+
+				if (Res.IsSuccessStatusCode)
+				{
+					//Storing the response details recieved from web api   
+					string SachResponse = Res.Content.ReadAsStringAsync().Result;
+					Area lstArea = new JavaScriptSerializer().Deserialize<Area>(SachResponse);
+					lst = lstArea.LtsItem;
+				}
+				this.ViewBag.lst = lst;
+				return View();
+			}
+		}
 
 		public async Task<JsonResult> GetDetailArea(string name)
 		{
@@ -124,7 +141,40 @@ namespace BigchainDBWebServer.Controllers
 				return Json(new { Success = lstCity }, JsonRequestBehavior.AllowGet);
 			}
 		}
+		public static string MD5Hash(string text)
+		{
+			MD5 md5 = new MD5CryptoServiceProvider();
 
+			//compute hash from the bytes of text  
+			md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(text));
+
+			//get hash result after compute it  
+			byte[] result = md5.Hash;
+
+			StringBuilder strBuilder = new StringBuilder();
+			for (int i = 0; i < result.Length; i++)
+			{
+				//change it into 2 hexadecimal digits  
+				//for each byte  
+				strBuilder.Append(result[i].ToString("x2"));
+			}
+
+			return strBuilder.ToString();
+		}
+		public JsonResult ValidateUser(string userid, string password)
+		{
+			AccountDAO dao = new AccountDAO();
+			var Pwd = MD5Hash(password);
+			var data = from c in dao.Model.UserBCs where c.username == userid && c.pwd == Pwd select c;
+			if (data.Count() > 0)
+			{
+				Session["UserID"] = userid;
+				return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+			}
+
+			else
+				return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
+		}
 		public JsonResult InsertRegister(UserBC item)
 		{
 			AccountDAO dao = new AccountDAO();
@@ -148,12 +198,21 @@ namespace BigchainDBWebServer.Controllers
 					old.username = UserGo.ToString();
 					old.name = NameGo.ToString();
 					old.email = EmailGo.ToString();
+					old.pwd = "";
 				}
 				else if (UserFb != null)
 				{
 					old.username = UserFb.ToString();
 					old.name = NameFB.ToString();
 					old.email = item.email;
+					old.pwd = "";
+				}
+				else
+				{
+					old.username = item.username;
+					old.name = item.username;
+					old.email = item.email;
+					old.pwd = MD5Hash(item.pwd);
 				}
 				old.Area = item.Area;
 				old.City = item.City;
@@ -251,7 +310,11 @@ namespace BigchainDBWebServer.Controllers
 			HttpContext.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
 			return Redirect("~/");
 		}
-
+		public ActionResult SignOut()
+		{
+			Session.RemoveAll();
+			return Redirect("~/");
+		}
 		//[AllowAnonymous]
 		//public ActionResult GoogleLoginCallback()
 		//{
