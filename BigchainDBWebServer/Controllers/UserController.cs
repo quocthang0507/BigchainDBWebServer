@@ -178,11 +178,11 @@ namespace BigchainDBWebServer.Controllers
 		{
 			AccountDAO dao = new AccountDAO();
 			if (item == null)
-				return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
-			var old = dao.Model.UserBCs.FirstOrDefault(f => f.id == item.id);
+				return Json(new ResultOfRequest(false,"Dữ liệu nhận bị lỗi!"), JsonRequestBehavior.AllowGet);
+			var old = dao.Model.UserBCs.FirstOrDefault(f => f.username == item.username);
 			if (old != null)
 			{
-				return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
+				return Json(new ResultOfRequest(false,"Đã tồn tại tài khoản này, vui lòng nhập lại!"), JsonRequestBehavior.AllowGet);
 			}
 			else
 			{
@@ -221,11 +221,13 @@ namespace BigchainDBWebServer.Controllers
 				old.deleted = 0;
 				old.idRole = item.idRole;
 				old.dateCreated = DateTime.Now;
+                old.dateUpdate = DateTime.Now;
 				old.active = 0;
 				old.deleted = 0;
 				dao.Model.UserBCs.Add(old);
-				dao.Model.SaveChanges();
-				return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+                if (dao.Model.SaveChanges() > 0)
+                    return Json(new ResultOfRequest(true), JsonRequestBehavior.AllowGet);
+				return Json(new ResultOfRequest(false,"Lỗi lưu dữ liệu!"), JsonRequestBehavior.AllowGet);
 			}
 		}
 

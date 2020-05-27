@@ -22,6 +22,8 @@ namespace BigchainDBWebServer.Models
         public string email { get; set; }
         public string adrs { get; set; }
         public string phone { get; set; }
+        public string mobile { get; set; }
+        public string token { get; set; }
         public Nullable<System.DateTime> dateCreated { get; set; }
         public Nullable<System.DateTime> dateUpdate { get; set; }
         public int deleted { get; set; }

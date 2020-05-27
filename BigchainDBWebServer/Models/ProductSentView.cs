@@ -14,7 +14,7 @@ namespace BigchainDBWebServer.Models
     
     public partial class ProductSentView
     {
-        public Nullable<long> id { get; set; }
+        public long id { get; set; }
         public string idProduct { get; set; }
         public string nameProduct { get; set; }
         public string idUser { get; set; }

@@ -58,9 +58,7 @@
             contentType: "application/json",
             success: function (response) {
                 console.log(response);
-                debugger
                 if (response.Success) {
-                    debugger
                     document.location.href = "@Url.Action("AddProduct", "Product")";
                 }
                 else {
