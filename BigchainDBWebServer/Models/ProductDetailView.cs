@@ -28,5 +28,7 @@ namespace BigchainDBWebServer.Models
         public string phone { get; set; }
         public Nullable<int> idRole { get; set; }
         public Nullable<int> IsUpBD { get; set; }
+        public string userArea { get; set; }
+        public string userCity { get; set; }
     }
 }

@@ -44,7 +44,7 @@
                                             @if (item.IsUpBD == 0)
                                             {
                                                 <button id="id-@item.idProductDetail" class="btn btn-success"
-                                                        onclick="sendToBigchainDB('@item.idProduct','@item.nameProduct','@item.idUser', '@item.nameOfUser','@item.email','@item.adrs','@item.phone','@item.idRole',
+                                                        onclick="sendToBigchainDB('@item.idProduct','@item.nameProduct','@item.idUser', '@item.nameOfUser','@item.email','@item.adrs','@item.userArea','@item.userCity','@item.phone','@item.idRole',
                                                     '@item.dateCreated.ToString("dd/MM/yyyy")','@item.dateReview.ToString("dd/MM/yyyy")','@item.idProductDetail')">
                                                     Up BD
                                                 </button>
@@ -75,7 +75,7 @@
     </div>
 
     <script type="text/javascript">
-        function sendToBigchainDB(idProduct, nameProduct, idUser, nameOfUser, email, adrs, phone, idRole, dateBegin, dateEnd, idProductDetail) {
+        function sendToBigchainDB(idProduct, nameProduct, idUser, nameOfUser, email, adrs, area, city, phone, idRole, dateBegin, dateEnd, idProductDetail) {
 
 
             // BigchainDB server instance (e.g. https://example.com/api/v1/)
@@ -90,7 +90,7 @@
                 // (in Celsius) for the city of Berlin.
                 {
                     idProduct: idProduct, nameProduct: nameProduct, idUser: idUser,
-                    nameOfUser: nameOfUser, email: email, adrs: adrs, phone: phone, idRole: idRole,
+                    nameOfUser: nameOfUser, email: email, adrs: adrs, area: area, city: city, phone: phone, idRole: idRole,
                     dateBegin: dateBegin, dateEnd: dateEnd
                 },
 
