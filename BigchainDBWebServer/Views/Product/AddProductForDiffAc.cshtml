@@ -113,25 +113,38 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input readonly id="nameProduct" type="text" class="form-control" name="nameProduct" placeholder="Ten">
+                        <input readonly id="nameProduct" type="text" class="form-control" name="nameProduct" placeholder="Mã sản phẩm">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input readonly id="nameOfUser" type="text" class="form-control" name="nameOfUser" placeholder="TacGia">
+                        <input readonly id="nameOfUser" type="text" class="form-control" name="nameOfUser" placeholder="Tên">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="detail" type="text" class="form-control" name="detail" placeholder="Detail">
+                        <input id="detail" type="text" class="form-control" name="detail" placeholder="Mô tả">
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="dateCreateMD" name="dateCreated" type="text" class="form-control" data-toggle="datepicker1" placeholder="NgayBatDau">
-                        @*<input id="NgayXuatBan" type="text" class="form-control" name="NgayXuatBan" placeholder="NgayXuatBan">*@
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="dateReviewMD" name="dateReview" type="text" class="form-control" data-toggle="datepicker2" placeholder="NgayBatDau">
-                    </div>
+                    @if (ViewBag.Roles == 2)
+                    {
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="dateCreateMD" name="dateCreated" type="text" class="form-control" data-toggle="datepicker1" placeholder="Ngày nhận">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="dateReviewMD" name="dateReview" type="text" class="form-control" data-toggle="datepicker2" placeholder="Ngày chuyển xong">
+                        </div>
+                    }
+                    @if (ViewBag.Roles == 3)
+                    {
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="dateCreateMD" name="dateCreated" type="text" class="form-control" data-toggle="datepicker1" placeholder="Ngày nhận">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="dateReviewMD" name="dateReview" type="text" class="form-control" data-toggle="datepicker2" placeholder="Ngày bán">
+                        </div>
+                    }
                 </form>
 
             </div>

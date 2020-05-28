@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     @*<h1 class="h3 mb-2 text-gray-800">Tables</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>*@
+        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>*@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -22,20 +22,33 @@
                             <th>Mã sản phẩm</th>
                             <th>Tên sản phẩm</th>
                             <th>Chi tiết</th>
-                            <th>Ngày tạo</th>
-                            <th>Ngày cập nhật</th>
+                            @if (ViewBag.Roles == 1)
+                            {
+                                <th>Ngày trồng</th>
+                                <th>Ngày thu hoạch</th>
+                            }
+                            @if (ViewBag.Roles == 2)
+                            {
+                                <th>Ngày nhận</th>
+                                <th>Ngày chuyển xong</th>
+                            }
+                            @if (ViewBag.Roles == 3)
+                            {
+                                <th>Ngày nhận</th>
+                                <th>Ngày bán</th>
+                            }
                         </tr>
                     </thead>
                     @*<tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                    </tfoot>*@
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Office</th>
+                                <th>Age</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                            </tr>
+                        </tfoot>*@
                     <tbody>
                         @{
                             if (ViewBag.lst.Count > 0)
@@ -47,7 +60,11 @@
                                         <td>@item.nameProduct</td>
                                         <td>@item.details</td>
                                         <td>@item.dateCreated.ToString("dd/MM/yyyy")</td>
-                                        <td>@item.dateReview.ToString("dd/MM/yyyy")</td>
+                                        @if (@item.dateReview != null)
+                                        {
+                                            <td>@item.dateReview.ToString("dd/MM/yyyy")</td>
+                                        }
+                                        <td></td>
                                     </tr>
                                 }
                             }
@@ -68,9 +85,4 @@
         </div>
     </div>
 </div>
-<script>
-    
-</script>
 <!-- /.container-fluid -->
-
-

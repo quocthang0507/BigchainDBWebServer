@@ -30,6 +30,14 @@ namespace BigchainDBWebServer.Controllers
 			{
 				return 1;
 			}
+			if (old.idRole == 2)
+			{
+				return 2;
+			}
+			if (old.idRole == 3)
+			{
+				return 3;
+			}
 			return 0;
 		}
 
@@ -59,6 +67,7 @@ namespace BigchainDBWebServer.Controllers
 			{
 				ProductDAO dao = new ProductDAO();
 				ViewBag.lst = dao.GetAllByUsername(idUser);
+				ViewBag.Roles = CheckRoles(idUser);
 				return View();
 			}
 			return RedirectToAction("Login", "User");
@@ -125,6 +134,7 @@ namespace BigchainDBWebServer.Controllers
 			{
 				ViewBag.lstProductSent = dao.GetListProductByID(search, user.idRole);
 			}
+			ViewBag.Roles = CheckRoles(userName);
 			return View();
 			// 
 		}
