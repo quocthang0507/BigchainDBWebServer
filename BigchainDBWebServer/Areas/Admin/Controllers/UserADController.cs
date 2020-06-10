@@ -1,5 +1,4 @@
 ﻿using BigchainDBWebServer.DAO;
-using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -16,6 +15,7 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			var lstNotifi = dao.GetAllNotification();
 			return PartialView(lstNotifi);
 		}
+
 		public ActionResult readedNotification(int ID, string UserName)
 		{
 			ProductDAO dao = new ProductDAO();
@@ -28,11 +28,13 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			}
 			return RedirectToAction("Farmer", "HomeAD");
 		}
+
 		// GET: Admin/User
 		public ActionResult Login()
 		{
 			return View();
 		}
+
 		public static string MD5Hash(string text)
 		{
 			MD5 md5 = new MD5CryptoServiceProvider();
@@ -53,6 +55,7 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 
 			return strBuilder.ToString();
 		}
+
 		public JsonResult ValidateUser(string userid, string password)
 		{
 			AccountDAO dao = new AccountDAO();
@@ -67,18 +70,20 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			else
 				return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
 		}
+
 		public ActionResult LogOut()
 		{
 			Session.RemoveAll();
 			return RedirectToAction("", "Admin");
 		}
-        [HttpPost]
-        public JsonResult UpBD(string id)
-        {
-            //return Json(new ResultOfRequest(true,id), JsonRequestBehavior.AllowGet);
-            ProductDAO dao = new ProductDAO();
-            var result = dao.UpBD(int.Parse(id));
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+
+		[HttpPost]
+		public JsonResult UpBD(string id)
+		{
+			//return Json(new ResultOfRequest(true,id), JsonRequestBehavior.AllowGet);
+			ProductDAO dao = new ProductDAO();
+			var result = dao.UpBD(int.Parse(id));
+			return Json(result, JsonRequestBehavior.AllowGet);
+		}
 	}
 }
