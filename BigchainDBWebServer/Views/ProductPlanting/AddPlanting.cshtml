@@ -10,7 +10,7 @@
 <div class="container-fluid">
 
     <div class="col-10">
-        <form action="Insert" method="post" class="tm-edit-product-form">
+        <form id="formDetail" class="tm-edit-product-form">
             <div hidden class="form-group">
                 <label>Mã sản phẩm</label>
                 <input name="idProduct" value="@curProduct.id" hidden />
@@ -32,8 +32,34 @@
                 <input class="form-control datePickerV0" name="dateEnd"/>
             </div>
 
-            <button class="btn btn-success" type="submit">Thêm</button>
+            <button class="btn btn-success" onclick="insertPlanting()" type="button">Thêm</button>
         </form>
     </div>
-
+    <script>
+        function insertPlanting() {
+            //var dateCreated = $("$dateCreated").val();
+            //var dateReview = $("dateReview").val();
+            //if (dateCreated > dateReview)
+            //    alert("Ngày tạo không được sau ngày xem");
+            var fd = new FormData(document.getElementById("formDetail"));
+            // fd.append('file', input.files[0]);
+            $.ajax({
+                url: 'Insert',
+                data: fd,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function (data) {
+                    if (data.Success == true) {
+                        alert(data.Message);
+                        document.location.href = "@Url.Action("Info", "ProductPlanting")?IdProduct=@curProduct.id";
+                    }
+                    else {
+                        alert(data.Message);
+                    }
+                    //document.location.href = "/Product/Manager";
+                }
+            });
+        }
+    </script>
 </div>

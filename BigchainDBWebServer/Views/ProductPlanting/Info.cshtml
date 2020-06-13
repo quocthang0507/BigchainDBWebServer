@@ -18,7 +18,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h3 class="m-0 font-weight-bold text-primary float-left">Danh sách</h3>
-            <a href="AddPlanting?id=@curProduct.id" class="float-right btn btn-success">Thêm</a>
+            <a href="AddPlanting?IdProduct=@curProduct.id" class="float-right btn btn-success">Thêm</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -45,13 +45,13 @@
                                 @item.details
                             </td>
                             <td>
-                                @item.dateBegin
+                                @item.dateBegin.ToString("dd/MM/yyyy")
                             </td>
                             <td>
-                                @item.dateEnd
+                                @item.dateEnd.ToString("dd/MM/yyyy")
                             </td>
                             <td>
-                                @item.dateCreated
+                                @item.dateCreated.ToString("dd/MM/yyyy")
                             </td>
                             @if (isOwner)
                             {

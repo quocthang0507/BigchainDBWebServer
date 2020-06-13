@@ -13,6 +13,10 @@ namespace BigchainDBWebServer.Controllers
         // GET: ProductPlanting
         public ActionResult Index()
         {
+            string data = "";
+            //data += Request.Cookies[];
+            data = HttpContext.Session.SessionID;
+            ViewBag.Cookies = data;
             return View();
         }
         public ActionResult Info(string IdProduct)
@@ -40,13 +44,11 @@ namespace BigchainDBWebServer.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Insert(ProductPlantingProcess product)
+        public JsonResult Insert(ProductPlantingProcess product)
         {
             ProductPlantingDAO dao = new ProductPlantingDAO();
-            if (product.idUser != getIdUser())
-                return Content("Iduser");
-            dao.InsertPlanting(product);
-            return Content("Thành công!");
+            var result = dao.InsertPlanting(product);
+            return Json(result,JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public ActionResult Update(int id)
