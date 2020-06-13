@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "AddPlanting";
+    Layout = "~/Views/Shared/AdminProduct.cshtml";
+    var curProduct = ViewBag.curProduct;
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<div class="container-fluid">
+
+    <div class="col-10">
+        <form action="Insert" method="post" class="tm-edit-product-form">
+            <div hidden class="form-group">
+                <label>Mã sản phẩm</label>
+                <input name="idProduct" value="@curProduct.id" hidden />
+            </div>
+            <div hidden class="form-group">
+                <label>Mã sản phẩm</label>
+                <input name="idUser" value="@ViewBag.idUser" hidden />
+            </div>
+            <div class="form-group">
+                <label>Chi tiết</label>
+                <textarea rows="5" class="form-control" name="details"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="expire_date">Ngày bắt đầu</label>
+                <input type="text" data-large-mode="true" class="form-control datePickerV0" name="dateBegin"/>
+            </div>
+            <div class="form-group">
+                <label>Ngày kết thúc</label>
+                <input class="form-control datePickerV0" name="dateEnd"/>
+            </div>
+
+            <button class="btn btn-success" type="submit">Thêm</button>
+        </form>
+    </div>
+
+</div>

@@ -56,6 +56,20 @@
           <Property Name="isDeleted" Type="int" />
           <Property Name="IsUpBD" Type="int" />
         </EntityType>
+        <EntityType Name="ProductPlantingProcess">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="idProduct" Type="varchar" MaxLength="50" />
+          <Property Name="idUser" Type="varchar" MaxLength="50" />
+          <Property Name="details" Type="nvarchar" MaxLength="1000" />
+          <Property Name="dateBegin" Type="datetime" />
+          <Property Name="dateEnd" Type="datetime" />
+          <Property Name="dateCreated" Type="datetime" />
+          <Property Name="isDelete" Type="int" />
+          <Property Name="isUpBD" Type="int" />
+        </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="id" />
@@ -102,6 +116,8 @@ warning 6002: The table/view 'QLNongSan.dbo.Notifications' does not have a prima
 warning 6002: The table/view 'QLNongSan.dbo.ProductDetailView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProductDetailView">
           <Key>
+            
+            
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="bigint" Nullable="false" />
@@ -143,6 +159,7 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <EntitySet Name="NewNoti" EntityType="Self.NewNoti" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductDetail" EntityType="Self.ProductDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductPlantingProcess" EntityType="Self.ProductPlantingProcess" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBC" EntityType="Self.UserBC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notifications" EntityType="Self.Notifications" store:Type="Views" store:Schema="dbo">
@@ -202,6 +219,7 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <EntitySet Name="ProductSentViews" EntityType="QLNongSanModel.ProductSentView" />
           <EntitySet Name="UserBCs" EntityType="QLNongSanModel.UserBC" />
           <EntitySet Name="ProductDetailViews" EntityType="QLNongSanModel.ProductDetailView" />
+          <EntitySet Name="ProductPlantingProcesses" EntityType="QLNongSanModel.ProductPlantingProcess" />
         </EntityContainer>
         <EntityType Name="AdminBC">
           <Key>
@@ -326,6 +344,20 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <Property Name="IsUpBD" Type="Int32" />
           <Property Name="userArea" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="userCity" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductPlantingProcess">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="idProduct" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="details" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="dateBegin" Type="DateTime" Precision="3" />
+          <Property Name="dateEnd" Type="DateTime" Precision="3" />
+          <Property Name="dateCreated" Type="DateTime" Precision="3" />
+          <Property Name="isDelete" Type="Int32" />
+          <Property Name="isUpBD" Type="Int32" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -460,6 +492,21 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
                 <ScalarProperty Name="nameOfUser" ColumnName="nameOfUser" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="idProductDetail" ColumnName="idProductDetail" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductPlantingProcesses">
+            <EntityTypeMapping TypeName="QLNongSanModel.ProductPlantingProcess">
+              <MappingFragment StoreEntitySet="ProductPlantingProcess">
+                <ScalarProperty Name="isUpBD" ColumnName="isUpBD" />
+                <ScalarProperty Name="isDelete" ColumnName="isDelete" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="dateEnd" ColumnName="dateEnd" />
+                <ScalarProperty Name="dateBegin" ColumnName="dateBegin" />
+                <ScalarProperty Name="details" ColumnName="details" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/AdminProduct.cshtml";
+    var curProduct = ViewBag.curProduct;
+    var curPlanting = ViewBag.curPlanting;
+}
+
+<h2>Update</h2>
+
+<div class="container-fluid">
+
+    <div class="col-10">
+        <form id="formDetail" class="tm-edit-product-form">
+            <div hidden class="form-group">
+                <input name="id" value="@curPlanting.id" hidden />
+            </div>
+            <div hidden class="form-group">
+                <label>Mã sản phẩm</label>
+                <input name="idProduct" value="@curPlanting.idProduct"/>
+            </div>
+            <div hidden class="form-group">
+                <label>Mã sản phẩm</label>
+                <input name="idUser" value="@curPlanting.idUser"/>
+            </div>
+            <div class="form-group">
+                <label>Chi tiết</label>
+                <textarea rows="5" class="form-control" name="details">@curPlanting.details</textarea>
+            </div>
+            <div class="form-group">
+                <label for="expire_date">Ngày bắt đầu</label>
+                <input type="text" data-large-mode="true" class="form-control datePickerV0" value="@curPlanting.dateBegin.ToString("MM/dd/yyyy")" name="dateBegin" />
+            </div>
+            <div class="form-group">
+                <label>Ngày kết thúc</label>
+                <input class="form-control datePickerV0" value="@curPlanting.dateEnd.ToString("MM/dd/yyyy")" name="dateEnd" />
+            </div>
+
+            <button class="btn btn-success" type="button" onclick="updatePlanting()">Cập nhật</button>
+        </form>
+    </div>
+    <script>
+        function updatePlanting() {
+            //var dateCreated = $("$dateCreated").val();
+            //var dateReview = $("dateReview").val();
+            //if (dateCreated > dateReview)
+            //    alert("Ngày tạo không được sau ngày xem");
+            var fd = new FormData(document.getElementById("formDetail"));
+            // fd.append('file', input.files[0]);
+            $.ajax({
+                url: 'Update',
+                data: fd,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function (data) {
+                    if (data.Success == true) {
+                        alert(data.Message);
+                        document.location.href = "@Url.Action("Info", "ProductPlanting")?IdProduct=@curProduct.id";
+                    }
+                    else {
+                        alert(data.Message);
+                    }
+                    //document.location.href = "/Product/Manager";
+                }
+            });
+        }
+    </script>
+</div>

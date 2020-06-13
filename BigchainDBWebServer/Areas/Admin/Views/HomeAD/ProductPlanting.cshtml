@@ -1,10 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "UserBCDetailsProduct";
+    ViewBag.Title = "ProductPlanting";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
-
 <script src="https://unpkg.com/bigchaindb-driver@4.0.0/dist/browser/bigchaindb-driver.window.min.js"></script>
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -13,7 +11,6 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h3 class="m-0 font-weight-bold text-primary">@ViewBag.userInfo.name</h3>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -22,30 +19,29 @@
                     <thead>
                         <tr>
                             <th>Mã sản phẩm</th>
-                            <th>Tên sản phẩm</th>
                             <th>Chi tiết</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
                             <th>Ngày tạo</th>
-                            <th>Ngày cập nhật</th>
                             <th>Trạng thái</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @{ if (ViewBag.lstPtoduct.Count > 0)
+                        @{ if (ViewBag.lstPlanting.Count > 0)
                             {
-                                foreach (var item in ViewBag.lstPtoduct)
+                                foreach (var item in ViewBag.lstPlanting)
                                 {
                                     <tr>
-                                        <td><a href="@Url.Action("ProductPlanting")?IdProduct=@item.idProduct">@item.idProduct</a></td>
-                                        <td>@item.nameProduct</td>
+                                        <td>@item.idProduct</td>
                                         <td>@item.details</td>
+                                        <td>@item.dateBegin.ToString("dd/MM/yyyy")</td>
+                                        <td>@item.dateEnd.ToString("dd/MM/yyyy")</td>
                                         <td>@item.dateCreated.ToString("dd/MM/yyyy")</td>
-                                        <td>@item.dateReview.ToString("dd/MM/yyyy")</td>
                                         <td>
-                                            @if (item.IsUpBD == 0)
+                                            @if (item.isUpBD == 0)
                                             {
-                                                <button id="id-@item.idProductDetail" class="btn btn-success"
-                                                        onclick="sendToBigchainDB('@item.idProduct','@item.nameProduct','@item.idUser', '@item.nameOfUser','@item.email','@item.adrs','@item.userArea','@item.userCity','@item.phone','@item.idRole',
-                                                    '@item.dateCreated.ToString("dd/MM/yyyy")','@item.dateReview.ToString("dd/MM/yyyy")','@item.idProductDetail')">
+                                                <button id="id-@item.id" class="btn btn-success"
+                                                        onclick="sendToBigchainDB('@item.id','@item.idProduct','@item.idUser','@item.details','@item.dateBegin','@item.dateEnd','@item.dateCreated')">
                                                     Up BD
                                                 </button>
                                             }
@@ -75,11 +71,12 @@
     </div>
 
     <script type="text/javascript">
-        function sendToBigchainDB(idProduct, nameProduct, idUser, nameOfUser, email, adrs, area, city, phone, idRole, dateBegin, dateEnd, idProductDetail) {
+        function sendToBigchainDB(id, idProduct, idUser, details, dateBegin, dateEnd, dateCreated) {
 
 
             // BigchainDB server instance (e.g. https://example.com/api/v1/)
-            const API_PATH = 'http://192.168.17.130:9984/api/v1/'
+            //const API_PATH = 'http://192.168.17.130:9984/api/v1/'
+            const API_PATH = 'https://test.ipdb.io/api/v1/'
 
             // Create a new keypair.
             const alice = new BigchainDB.Ed25519Keypair()
@@ -89,9 +86,9 @@
                 // Define the asset to store, in this example it is the current temperature
                 // (in Celsius) for the city of Berlin.
                 {
-                    idProduct: idProduct, nameProduct: nameProduct, idUser: idUser,
-                    nameOfUser: nameOfUser, email: email, adrs: adrs, area: area, city: city, phone: phone, idRole: idRole,
-                    dateBegin: dateBegin, dateEnd: dateEnd
+                    id: id, idProduct: idProduct, idUser: idUser, details: details,
+                    dateBegin: dateBegin, dateEnd: dateEnd, dateCreated: dateCreated,
+                    isPlanting: true
                 },
 
                 // Metadata contains information about the transaction itself
@@ -126,7 +123,7 @@
         function isUpBD(id) {
             var fd = '{"id":"' + id + '"}';
             $.ajax({
-                url: 'UserAD/UpBD',
+                url: '@Url.Action("UpBDPlanting")',
                 data: fd,
                 processData: false,
                 contentType: 'application/json',
@@ -150,3 +147,4 @@
         }
     </script>
 </div>
+

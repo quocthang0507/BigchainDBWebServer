@@ -56,7 +56,7 @@
                                 foreach (var item in ViewBag.lst)
                                 {
                                     <tr>
-                                        <td>@item.idProduct</td>
+                                        <td><a href="@Url.Action("Info","ProductPlanting")?IdProduct=@item.idProduct">@item.idProduct</a></td>
                                         <td>@item.nameProduct</td>
                                         <td>@item.details</td>
                                         <td>@item.dateCreated.ToString("dd/MM/yyyy")</td>
@@ -64,7 +64,8 @@
                                         {
                                             <td>@item.dateReview.ToString("dd/MM/yyyy")</td>
                                         }
-                                        <td></td>
+                                        else
+                                        {<td></td>}
                                     </tr>
                                 }
                             }

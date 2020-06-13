@@ -177,10 +177,12 @@
     <Compile Include="Areas\Admin\Controllers\UserADController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductPlantingController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAO\AccountDAO.cs" />
     <Compile Include="DAO\BaseDAO.cs" />
     <Compile Include="DAO\ProductDAO.cs" />
+    <Compile Include="DAO\ProductPlantingDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -217,6 +219,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductDetailView.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductPlantingProcess.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductSentView.cs">
@@ -2296,6 +2301,7 @@
     <Content Include="Areas\Admin\Views\Shared\LoginPage.cshtml" />
     <Content Include="Areas\Admin\Views\UserAD\Login.cshtml" />
     <Content Include="Areas\Admin\Views\UserAD\getNotification.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAD\ProductPlanting.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\gijgo.min.js" />
@@ -2376,6 +2382,10 @@
     <Content Include="Views\Product\AddProduct.cshtml" />
     <Content Include="Views\Product\AddProductForDiffAc.cshtml" />
     <Content Include="Views\User\RegistrationNormal.cshtml" />
+    <Content Include="Views\ProductPlanting\Info.cshtml" />
+    <Content Include="Views\ProductPlanting\Index.cshtml" />
+    <Content Include="Views\ProductPlanting\AddPlanting.cshtml" />
+    <Content Include="Views\ProductPlanting\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

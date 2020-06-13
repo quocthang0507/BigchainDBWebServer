@@ -284,7 +284,7 @@ namespace BigchainDBWebServer.Controllers
 					return RedirectToAction("Registration", "User");
 				}
 			}
-			return RedirectToAction("AddProduct", "Product");
+			return RedirectToAction("Manager", "Product");
 		}
 
 		public ActionResult LogoutFb()
@@ -367,7 +367,7 @@ namespace BigchainDBWebServer.Controllers
 				}
 				else
 				{
-					return RedirectToAction("AddProduct", "Product");
+					return RedirectToAction("Manager", "Product");
 				}
 			}
 			if (Request.QueryString["error"] == "access_denied")

@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/AdminProduct.cshtml";
+    var curProduct = ViewBag.product;
+    var lstPlanting = ViewBag.lstPlanting;
+    bool isOwner = ViewBag.isOwner;
+}
+
+<h2>Info</h2>
+
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    @*<h1 class="h3 mb-2 text-gray-800">Tables</h1>
+        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>*@
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h3 class="m-0 font-weight-bold text-primary float-left">Danh sách</h3>
+            <a href="AddPlanting?id=@curProduct.id" class="float-right btn btn-success">Thêm</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Chi tiết</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
+                            <th>Ngày tạo</th>
+                            @if (isOwner)
+                            {
+                                <th>Trạng thái</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (lstPlanting.Count > 0)
+                        {
+                            foreach (var item in lstPlanting)
+                            {
+                        <tr>
+                            <td>
+                                @item.details
+                            </td>
+                            <td>
+                                @item.dateBegin
+                            </td>
+                            <td>
+                                @item.dateEnd
+                            </td>
+                            <td>
+                                @item.dateCreated
+                            </td>
+                            @if (isOwner)
+                            {
+                                if (item.isUpBD == 0)
+                                {
+                                    <td>
+                                        <a href="Update?id=@item.id" class="btn btn-info">Chỉnh sửa</a>
+                                        <button type="button" onclick="deletePlanting(@item.id)" class="btn btn-danger">Xóa</button>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>Đã đưa lên BD</td>
+                                }
+                            }
+                        </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        function deletePlanting(id) {
+            $.ajax({
+                url: 'DeletePlanting',
+                data: '{id:"'+id+'"}',
+                processData: false,
+                contentType: 'application/json',
+                type: 'POST',
+                success: function (data) {
+                    if (data.Success == true) {
+                        alert(data.Message);
+                        document.location.href = "@Url.Action("Info", "ProductPlanting")?IdProduct=@curProduct.id";
+                    }
+                    else {
+                        alert(data.Message);
+                    }
+                }
+            });
+        }
+    </script>
+</div>
