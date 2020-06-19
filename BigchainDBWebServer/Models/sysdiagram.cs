@@ -12,18 +12,12 @@ namespace BigchainDBWebServer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AdminBC
+    public partial class sysdiagram
     {
-        public int id { get; set; }
-        public string username { get; set; }
-        public string pwd { get; set; }
         public string name { get; set; }
-        public Nullable<System.DateTime> birthday { get; set; }
-        public string email { get; set; }
-        public string adrs { get; set; }
-        public string phone { get; set; }
-        public Nullable<System.DateTime> dateCreated { get; set; }
-        public Nullable<System.DateTime> dateUpdate { get; set; }
-        public int deleted { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

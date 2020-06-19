@@ -5,27 +5,28 @@
 }
 
 <!-- Topbar Search -->
-<div class="container-fluid">
-    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-          style="width:95% !important" method="get" action="AddProductForDiffAc">
-        <div class="input-group">
-            <input name="search" type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="submit">
-                    <i class="fas fa-search fa-sm"></i>
-                </button>
-            </div>
-        </div>
-    </form>
-</div>
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
     @*<h1 class="h3 mb-2 text-gray-800">Tables</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>*@
+        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>*@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="container-fluid">
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+                      style="width:95% !important" method="get" action="AddProductForDiffAc">
+                    <div class="input-group">
+                        <input name="search" style="border: 1px solid #4dd0e1 !important; box-shadow: 0 0 0 1px #4dd0e1;" type="text" class="form-control bg-light border-0 small" placeholder="Nhập mã sản phẩm" aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="card-header py-3">
             <h3 class="m-0 font-weight-bold text-primary">Danh sách</h3>
         </div>
@@ -42,15 +43,15 @@
                         </tr>
                     </thead>
                     @*<tfoot>
-                            <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                            </tr>
-                        </tfoot>*@
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Office</th>
+                            <th>Age</th>
+                            <th>Start date</th>
+                            <th>Salary</th>
+                        </tr>
+                    </tfoot>*@
                     <tbody>
                         @if (ViewBag.lstProductSent != null)
                         {
@@ -62,7 +63,7 @@
                                     <td>@item.nameOfUser</td>
                                     <td>@item.details</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" 
+                                        <button type="button" class="btn btn-primary"
                                                 onclick="openModal('@item.idProduct','@item.nameProduct','@item.nameOfUser')">
                                             Update
                                         </button>

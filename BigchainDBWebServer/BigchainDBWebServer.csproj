@@ -230,6 +230,9 @@
     <Compile Include="Models\Role.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserBC.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
