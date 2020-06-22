@@ -7,8 +7,6 @@
     bool isOwner = ViewBag.isOwner;
 }
 
-<h2>Info</h2>
-
 
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -30,7 +28,7 @@
                         <tr>
                             <th>Chi tiết</th>
                             <th>Ngày bắt đầu</th>
-                            <th>Ngày kết thúc</th>
+                            @*<th>Ngày kết thúc</th>*@
                             <th>Ngày tạo</th>
                             @if (isOwner)
                             {
@@ -50,9 +48,9 @@
                             <td>
                                 @item.dateBegin.ToString("dd/MM/yyyy")
                             </td>
-                            <td>
+                            @*<td>
                                 @item.dateEnd.ToString("dd/MM/yyyy")
-                            </td>
+                            </td>*@
                             <td>
                                 @item.dateCreated.ToString("dd/MM/yyyy")
                             </td>

@@ -20,8 +20,9 @@ namespace BigchainDBWebServer.DAO
 				return new ResultOfRequest(false, "Lỗi mã sản phẩm!");
 			if (product.dateBegin < productDetail.dateCreated)
 				return new ResultOfRequest(false, "Ngày bắt đầu không được trước " + productDetail.dateCreated.GetValueOrDefault().ToString("dd/MM/yyyy"));
-			if (product.dateEnd > productDetail.dateReview)
-				return new ResultOfRequest(false, "Ngày kết thúc không được sau " + productDetail.dateReview.GetValueOrDefault().ToString("dd/MM/yyyy"));
+            product.dateEnd = product.dateBegin;
+			//if (product.dateEnd > productDetail.dateReview)
+				//return new ResultOfRequest(false, "Ngày kết thúc không được sau " + productDetail.dateReview.GetValueOrDefault().ToString("dd/MM/yyyy"));
 			product.dateCreated = DateTime.Now;
 			product.isDelete = 0;
 			product.isUpBD = 0;
