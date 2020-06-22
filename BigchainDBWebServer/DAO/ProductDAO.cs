@@ -97,12 +97,13 @@ namespace BigchainDBWebServer.DAO
 				return new ResultOfRequest(true, "Thành công!");
 			return new ResultOfRequest(false, "Thất bại!");
 		}
-        public string GetIdUserOwner(Product product)
-        {
-            ProductDetail detail = Model.ProductDetails.Where(f => f.idProduct == product.id).OrderBy(f => f.dateCreated).FirstOrDefault();
-            if (detail == null)
-                return "";
-            return detail.idUser;
-        }
+
+		public string GetIdUserOwner(Product product)
+		{
+			ProductDetail detail = Model.ProductDetails.Where(f => f.idProduct == product.id).OrderBy(f => f.dateCreated).FirstOrDefault();
+			if (detail == null)
+				return "";
+			return detail.idUser;
+		}
 	}
 }

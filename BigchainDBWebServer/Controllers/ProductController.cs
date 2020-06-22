@@ -13,11 +13,11 @@ namespace BigchainDBWebServer.Controllers
 			if (item == null)
 				return false;
 			var old = dao.Model.UserBCs.FirstOrDefault(f => f.username == item);
-			if(old==null)
+			if (old == null)
 			{
 				Session.RemoveAll();
 				return false;
-			}	
+			}
 			if (old.active == 0)
 			{
 				return false;

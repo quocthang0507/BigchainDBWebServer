@@ -66,24 +66,24 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			var result = dao.ActiveUser(username, active == 1);
 			return Json(result, JsonRequestBehavior.AllowGet);
 		}
-        [HttpGet]
-        public ActionResult ProductPlanting(string IdProduct)
-        {
-            if (Session["UserAD"] != null)
-            {
-                ProductPlantingDAO dao = new ProductPlantingDAO();
-                ViewBag.lstPlanting = dao.GetListProductPlantingProcessesByIdProduct(IdProduct);
-                return View();
-            }
-            return RedirectToAction("Login", "UserAD");
-        }
-        [HttpPost]
-        public JsonResult UpBDPlanting(int id)
-        {
-            //return Json(new ResultOfRequest(true,id), JsonRequestBehavior.AllowGet);
-            ProductPlantingDAO dao = new ProductPlantingDAO();
-            var result = dao.HasUpBD(id);
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-    }
+		[HttpGet]
+		public ActionResult ProductPlanting(string IdProduct)
+		{
+			if (Session["UserAD"] != null)
+			{
+				ProductPlantingDAO dao = new ProductPlantingDAO();
+				ViewBag.lstPlanting = dao.GetListProductPlantingProcessesByIdProduct(IdProduct);
+				return View();
+			}
+			return RedirectToAction("Login", "UserAD");
+		}
+		[HttpPost]
+		public JsonResult UpBDPlanting(int id)
+		{
+			//return Json(new ResultOfRequest(true,id), JsonRequestBehavior.AllowGet);
+			ProductPlantingDAO dao = new ProductPlantingDAO();
+			var result = dao.HasUpBD(id);
+			return Json(result, JsonRequestBehavior.AllowGet);
+		}
+	}
 }
