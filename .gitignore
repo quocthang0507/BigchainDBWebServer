@@ -349,18 +349,8 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 Video_2.wmv
-BigchainDBWebServer/Models/Model.edmx.diagram
 BigchainDBWebServer/Models/Model.edmx
-BigchainDBWebServer/Models/Model.Designer.cs
-BigchainDBWebServer/Models/Model.Context.cs
-BigchainDBWebServer/Models/Model.edmx.diagram
-BigchainDBWebServer/Models/Model.edmx
-BigchainDBWebServer/Models/Model.Context.cs
-BigchainDBWebServer/Models/Model.Designer.cs
-BigchainDBWebServer/Models/Model.Designer.cs
-BigchainDBWebServer/Models/Model.edmx
-BigchainDBWebServer/Models/Model.edmx.diagram
-BigchainDBWebServer/Models/ProductDetailView.cs
-BigchainDBWebServer/Models/ProductSentView.cs
-BigchainDBWebServer/Models/Model.edmx.diagram
-BigchainDBWebServer/Models/Model.Context.cs
+
+
+dir_to_ignore/
+BigchainDBWebServer/Models
