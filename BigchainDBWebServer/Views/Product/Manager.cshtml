@@ -27,16 +27,17 @@
                                 <th>Ngày trồng</th>
                                 <th>Ngày thu hoạch</th>
                             }
-                            @if (ViewBag.Roles == 2)
+                            else if (ViewBag.Roles == 2)
                             {
                                 <th>Ngày nhận</th>
                                 <th>Ngày chuyển xong</th>
                             }
-                            @if (ViewBag.Roles == 3)
+                            else if (ViewBag.Roles == 3)
                             {
                                 <th>Ngày nhận</th>
                                 <th>Ngày bán</th>
                             }
+                            <th>Trạng thái</th>
                         </tr>
                     </thead>
                     @*<tfoot>
@@ -65,7 +66,16 @@
                                             <td>@item.dateReview.ToString("dd/MM/yyyy")</td>
                                         }
                                         else
-                                        {<td></td>}
+                                        {
+                                            <td></td>}
+                                        @if (item.IsUpBD == 1)
+                                        {
+                                            <td style="color:forestgreen"><b>Đã duyệt</b></td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:orangered"><b>Đang chờ</b></td>
+                                        }
                                     </tr>
                                 }
                             }

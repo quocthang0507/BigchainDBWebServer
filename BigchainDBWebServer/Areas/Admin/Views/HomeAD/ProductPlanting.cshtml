@@ -71,8 +71,15 @@
     </div>
 
     <script type="text/javascript">
+        function disableButton(id, disabled) {
+            var theID = "id-" + id;
+            if (disabled)
+                $('#' + theID).attr("disabled", "disabled")
+            else
+                $('#' + theID).removeAttr("disabled");
+        }
         function sendToBigchainDB(id, idProduct, idUser, details, dateBegin, dateEnd, dateCreated) {
-
+            disableButton(id, true);
 
             // BigchainDB server instance (e.g. https://example.com/api/v1/)
             //const API_PATH = 'http://192.168.17.130:9984/api/v1/'
@@ -107,7 +114,7 @@
 
             // Send the transaction off to BigchainDB
             let conn = new BigchainDB.Connection(API_PATH)
-
+            var theID = id;
             conn.postTransactionCommit(txSigned)
                 .then(res => {
                     console.log(res);
@@ -116,14 +123,16 @@
                     //elem.innerText = txSigned.id;
                     //console.log('Transaction', txSigned.id, 'accepted');
                     if (res != null) {
-                        isUpBD(idProductDetail);
+                        //console.log(res);
+                        console.log(id);
+                        isUpBD(id);
                     }
                 });
         }
         function isUpBD(id) {
             var fd = '{"id":"' + id + '"}';
             $.ajax({
-                url: '@Url.Action("UpBDPlanting")',
+                url: '@Url.Action("UpBDPlanting","HomeAD")',
                 data: fd,
                 processData: false,
                 contentType: 'application/json',
@@ -142,6 +151,7 @@
                     else {
                         alert(res.Message);
                     }
+                    disableButton(id, false);
                 }
             });
         }
