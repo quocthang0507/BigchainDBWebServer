@@ -13,6 +13,20 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
+            @if (ViewBag.Roles == 1)
+            {
+                <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà sản xuất</h1>
+            }
+            else if (ViewBag.Roles == 2)
+            {
+                <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà vận chuyển</h1>
+            }
+            else if (ViewBag.Roles == 3)
+            {
+                <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà buôn bán</h1>
+            }
+        </div>
+        <div class="card-body">
             <div class="container-fluid">
                 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
                       style="width:95% !important" method="get" action="AddProductForDiffAc">
@@ -28,7 +42,7 @@
             </div>
         </div>
         <div class="card-header py-3">
-            <h3 class="m-0 font-weight-bold text-primary">Danh sách</h3>
+            <h3 class="m-0 font-weight-bold text-primary">Danh sách sản phẩm</h3>
         </div>
         <div class="card-body">
             <div class="table-responsive">

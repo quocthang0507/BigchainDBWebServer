@@ -6,38 +6,39 @@
     var curPlanting = ViewBag.curPlanting;
 }
 
-<h2>Update</h2>
-
 <div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="col-10">
+                <form id="formDetail" class="tm-edit-product-form">
+                    <div hidden class="form-group">
+                        <input name="id" value="@curPlanting.id" hidden />
+                    </div>
+                    <div hidden class="form-group">
+                        <label>Mã sản phẩm</label>
+                        <input name="idProduct" value="@curPlanting.idProduct" />
+                    </div>
+                    <div hidden class="form-group">
+                        <label>Mã sản phẩm</label>
+                        <input name="idUser" value="@curPlanting.idUser" />
+                    </div>
+                    <div class="form-group">
+                        <label>Chi tiết</label>
+                        <textarea rows="5" class="form-control" name="details">@curPlanting.details</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="expire_date">Ngày thực hiện</label>
+                        <input type="text" data-large-mode="true" class="form-control datePickerV0" value="@curPlanting.dateBegin.ToString("dd/MM/yyyy")" name="dateBegin" />
+                    </div>
+                    @*<div class="form-group">
+                            <label>Ngày kết thúc</label>
+                            <input class="form-control datePickerV0" value="@curPlanting.dateEnd.ToString("MM/dd/yyyy")" name="dateEnd" />
+                        </div>*@
 
-    <div class="col-10">
-        <form id="formDetail" class="tm-edit-product-form">
-            <div hidden class="form-group">
-                <input name="id" value="@curPlanting.id" hidden />
+                    <button class="btn btn-success" type="button" onclick="updatePlanting()">Cập nhật</button>
+                </form>
             </div>
-            <div hidden class="form-group">
-                <label>Mã sản phẩm</label>
-                <input name="idProduct" value="@curPlanting.idProduct"/>
-            </div>
-            <div hidden class="form-group">
-                <label>Mã sản phẩm</label>
-                <input name="idUser" value="@curPlanting.idUser"/>
-            </div>
-            <div class="form-group">
-                <label>Chi tiết</label>
-                <textarea rows="5" class="form-control" name="details">@curPlanting.details</textarea>
-            </div>
-            <div class="form-group">
-                <label for="expire_date">Ngày bắt đầu</label>
-                <input type="text" data-large-mode="true" class="form-control datePickerV0" value="@curPlanting.dateBegin.ToString("MM/dd/yyyy")" name="dateBegin" />
-            </div>
-            <div class="form-group">
-                <label>Ngày kết thúc</label>
-                <input class="form-control datePickerV0" value="@curPlanting.dateEnd.ToString("MM/dd/yyyy")" name="dateEnd" />
-            </div>
-
-            <button class="btn btn-success" type="button" onclick="updatePlanting()">Cập nhật</button>
-        </form>
+        </div>
     </div>
     <script>
         function updatePlanting() {

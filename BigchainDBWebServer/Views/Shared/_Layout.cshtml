@@ -1,27 +1,28 @@
 ﻿<!DOCTYPE html>
 <html class="no-js" lang="zxx">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>@ViewBag.Title</title>
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="manifest" href="site.webmanifest">
-	<link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.ico">
-	<!-- CSS here -->
-	<link rel="stylesheet" href="~/Content/bootstrap.min.css">
-	<link rel="stylesheet" href="~/Content/owl.carousel.min.css">
-	<link rel="stylesheet" href="~/Content/flaticon.css">
-	<link rel="stylesheet" href="~/Content/slicknav.css">
-	<link rel="stylesheet" href="~/Content/animate.min.css">
-	<link rel="stylesheet" href="~/Content/magnific-popup.css">
-	<link rel="stylesheet" href="~/Content/fontawesome-all.min.css">
-	<link rel="stylesheet" href="~/Content/themify-icons.css">
-	<link rel="stylesheet" href="~/Content/slick.css">
-	<link rel="stylesheet" href="~/Content/nice-select.css">
-	<link rel="stylesheet" href="~/Content/style.css">
-	<link href="~/Content/bootstrap-social.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.ico">
+    <!-- CSS here -->
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Content/flaticon.css">
+    <link rel="stylesheet" href="~/Content/slicknav.css">
+    <link rel="stylesheet" href="~/Content/animate.min.css">
+    <link rel="stylesheet" href="~/Content/magnific-popup.css">
+    <link rel="stylesheet" href="~/Content/fontawesome-all.min.css">
+    <link rel="stylesheet" href="~/Content/themify-icons.css">
+    <link rel="stylesheet" href="~/Content/slick.css">
+    <link rel="stylesheet" href="~/Content/nice-select.css">
+    <link rel="stylesheet" href="~/Content/style.css">
+    <link href="~/Content/bootstrap-social.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 <body style="background-color: #f4feff;">
 	<!-- Preloader Start -->
@@ -55,7 +56,7 @@
                                     <ul id="navigation">
                                         <li>@Html.ActionLink("Trang chủ", "Index", "Home")</li>
                                         <li>@Html.ActionLink("Mô hình", "Feature", "Home")</li>
-                                        <li>@Html.ActionLink("Hệ thống truy xuất", "Services", "Home")</li>
+                                        @*<li>@Html.ActionLink("Hệ thống truy xuất", "Services", "Home")</li>*@
                                         @if (Session["usernameFB"] == null && Session["usernameGO"] == null && Session["UserID"] == null) 
                                         {
                                             <li>@Html.ActionLink("Đăng nhập", "Login", "User")</li>

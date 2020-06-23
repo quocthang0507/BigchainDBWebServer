@@ -230,6 +230,9 @@
     <Compile Include="Models\Role.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserBC.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -1979,6 +1982,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\themify.svg" />
     <Content Include="Global.asax" />
+    <Content Include="img\bgcl.jpg" />
+    <Content Include="img\bgUser.jpg" />
     <Content Include="img\favicon.ico" />
     <Content Include="img\hero\contact_hero.jpg" />
     <Content Include="img\hero\hero_right.png" />

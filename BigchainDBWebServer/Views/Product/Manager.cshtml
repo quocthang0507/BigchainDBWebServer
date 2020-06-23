@@ -11,8 +11,22 @@
         <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>*@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
+        <div class="card-body">
+            @if (ViewBag.Roles == 1)
+            {
+                <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà sản xuất</h1>
+            }
+            else if (ViewBag.Roles == 2)
+            {
+                <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà vận chuyển</h1>
+            }
+            else if (ViewBag.Roles == 3)
+            {
+                <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà buôn bán</h1>
+            }
+        </div>
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Danh sách</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách sản phẩm</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -67,7 +81,8 @@
                                         }
                                         else
                                         {
-                                            <td></td>}
+                                            <td></td>
+                                        }
                                         @if (item.IsUpBD == 1)
                                         {
                                             <td style="color:forestgreen"><b>Đã duyệt</b></td>

@@ -8,32 +8,35 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="col-10">
+                <form id="formDetail" class="tm-edit-product-form">
+                    <div hidden class="form-group">
+                        <label>Mã sản phẩm</label>
+                        <input name="idProduct" value="@curProduct.id" hidden />
+                    </div>
+                    <div hidden class="form-group">
+                        <label>Mã sản phẩm</label>
+                        <input name="idUser" value="@ViewBag.idUser" hidden />
+                    </div>
+                    <div class="form-group">
+                        <label>Chi tiết</label>
+                        <textarea rows="5" class="form-control" name="details"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="expire_date">Ngày thực hiện</label>
+                        <input type="text" data-large-mode="true" class="form-control datePickerV0" name="dateBegin" />
+                    </div>
+                    <div class="form-group" hidden>
+                        <label>Ngày kết thúc</label>
+                        <input class="form-control datePickerV0" name="dateEnd" />
+                    </div>
 
-    <div class="col-10">
-        <form id="formDetail" class="tm-edit-product-form">
-            <div hidden class="form-group">
-                <label>Mã sản phẩm</label>
-                <input name="idProduct" value="@curProduct.id" hidden />
+                    <button class="btn btn-success" onclick="insertPlanting()" type="button">Thêm</button>
+                </form>
             </div>
-            <div hidden class="form-group">
-                <label>Mã sản phẩm</label>
-                <input name="idUser" value="@ViewBag.idUser" hidden />
-            </div>
-            <div class="form-group">
-                <label>Chi tiết</label>
-                <textarea rows="5" class="form-control" name="details"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="expire_date">Ngày bắt đầu</label>
-                <input type="text" data-large-mode="true" class="form-control datePickerV0" name="dateBegin"/>
-            </div>
-            <div class="form-group" hidden>
-                <label>Ngày kết thúc</label>
-                <input class="form-control datePickerV0" name="dateEnd"/>
-            </div>
-
-            <button class="btn btn-success" onclick="insertPlanting()" type="button">Thêm</button>
-        </form>
+        </div>
     </div>
     <script>
         function insertPlanting() {

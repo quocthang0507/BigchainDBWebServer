@@ -9,97 +9,105 @@
 
 <!-- Content Wrapper -->
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
-            <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-                <div class="row">
-                    <div class="col-12">
-                        <h2 class="tm-block-title d-inline-block">Thêm sản phẩm</h2>
-                    </div>
-                </div>
-                <div class="row tm-edit-product-row">
-                    <div class="col-xl-6 col-lg-6 col-md-12">
-                        <form id="frmInputProduct" class="tm-edit-product-form">
-                            <div class="form-group mb-3">
-                                <label for="IDProduct">
-                                    Mã sản phẩm
-                                </label>
-                                <input id="IDProduct"
-                                       name="id"
-                                       type="text"
-                                       class="form-control validate"
-                                       required />
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h1 class="m-0 font-weight-bold" style="text-align:center">Nhà sản xuất</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+                    <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                        <div class="row">
+                            <div class="col-12">
+                                <h2 class="tm-block-title d-inline-block">Thêm sản phẩm</h2>
                             </div>
-                            <div class="form-group mb-3">
-                                <label for="name">
-                                    Tên sản phẩm
-                                </label>
-                                <input id="name"
-                                       name="nameProduct"
-                                       type="text"
-                                       class="form-control validate"
-                                       required />
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="description">Mô tả</label>
-                                <textarea name="details" class="form-control validate"
-                                          rows="3"
-                                          required></textarea>
-                            </div>
-                            @*<div class="form-group mb-3">
-                    <label for="category">Category</label>
-                    <select class="custom-select tm-select-accounts"
-                            id="category">
-                        <option selected>Select category</option>
-                        <option value="1">New Arrival</option>
-                        <option value="2">Most Popular</option>
-                        <option value="3">Trending</option>
-                    </select>
-                </div>*@
-                            <div class="row">
-                                <div class="form-group mb-3 col-xs-12 col-sm-6">
-                                    <label for="expire_date">
-                                        Ngày trồng:
-                                    </label>
-                                    <input id="dateCreated"
-                                           name="dateCreated"
-                                           type="text"
-                                           class="form-control validate"
-                                           data-large-mode="true" />
-                                </div>
-                                <div class="form-group mb-3 col-xs-12 col-sm-6">
-                                    <label for="expire_date">
-                                        Ngày thu hoạch
-                                    </label>
-                                    <input id="dateReview"
-                                           name="dateReview"
-                                           type="text"
-                                           class="form-control validate"
-                                           data-large-mode="true" />
-                                </div>
-                            </div>
-                            <div>
-                                <button type="button" onclick="insertProduct()" class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
-                            </div>
+                        </div>
+                        <div class="row tm-edit-product-row">
+                            <div class="col-xl-12 col-lg-12 col-md-12">
+                                <form id="frmInputProduct" class="tm-edit-product-form">
+                                    <div class="form-group mb-3">
+                                        <label for="IDProduct">
+                                            Mã sản phẩm
+                                        </label>
+                                        <input id="IDProduct"
+                                               name="id"
+                                               type="text"
+                                               class="form-control validate"
+                                               required />
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="name">
+                                            Tên sản phẩm
+                                        </label>
+                                        <input id="name"
+                                               name="nameProduct"
+                                               type="text"
+                                               class="form-control validate"
+                                               required />
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="description">Mô tả</label>
+                                        <textarea name="details" class="form-control validate"
+                                                  rows="3"
+                                                  required></textarea>
+                                    </div>
+                                    @*<div class="form-group mb-3">
+                                        <label for="category">Category</label>
+                                        <select class="custom-select tm-select-accounts"
+                                                id="category">
+                                            <option selected>Select category</option>
+                                            <option value="1">New Arrival</option>
+                                            <option value="2">Most Popular</option>
+                                            <option value="3">Trending</option>
+                                        </select>
+                                    </div>*@
+                                    <div class="row">
+                                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                            <label for="expire_date">
+                                                Ngày trồng:
+                                            </label>
+                                            <input id="dateCreated"
+                                                   name="dateCreated"
+                                                   type="text"
+                                                   class="form-control validate"
+                                                   data-large-mode="true" />
+                                        </div>
+                                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                            <label for="expire_date">
+                                                Ngày thu hoạch
+                                            </label>
+                                            <input id="dateReview"
+                                                   name="dateReview"
+                                                   type="text"
+                                                   class="form-control validate"
+                                                   data-large-mode="true" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button type="button" onclick="insertProduct()" class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
+                                    </div>
 
-                            @*<div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-                    <div class="tm-product-img-dummy mx-auto" id="blah">
-                        <i id="icUpload" class="fas fa-cloud-upload-alt tm-upload-icon" onclick="document.getElementById('fileInput').click();"></i>
-                    </div>
-                    <div class="custom-file mt-3 mb-3">
-                        <input id="fileInput" type="file" style="display:none;" />
-                        <input type="button"
-                               class="btn btn-primary btn-block mx-auto"
-                               value="UPLOAD PRODUCT IMAGE"
-                               onclick="document.getElementById('fileInput').click();" />
-                    </div>
-                </div>*@
-                        </form>
+                                    @*<div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+                                        <div class="tm-product-img-dummy mx-auto" id="blah">
+                                            <i id="icUpload" class="fas fa-cloud-upload-alt tm-upload-icon" onclick="document.getElementById('fileInput').click();"></i>
+                                        </div>
+                                        <div class="custom-file mt-3 mb-3">
+                                            <input id="fileInput" type="file" style="display:none;" />
+                                            <input type="button"
+                                                   class="btn btn-primary btn-block mx-auto"
+                                                   value="UPLOAD PRODUCT IMAGE"
+                                                   onclick="document.getElementById('fileInput').click();" />
+                                        </div>
+                                    </div>*@
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 <script>
     function readURL(input) {

@@ -27,9 +27,9 @@
                     <thead>
                         <tr>
                             <th>Chi tiết</th>
-                            <th>Ngày bắt đầu</th>
+                            <th>Ngày thực hiện</th>
                             @*<th>Ngày kết thúc</th>*@
-                            <th>Ngày tạo</th>
+                            @*<th>Ngày tạo</th>*@
                             @if (isOwner)
                             {
                                 <th>Trạng thái</th>
@@ -51,9 +51,9 @@
                             @*<td>
                                 @item.dateEnd.ToString("dd/MM/yyyy")
                             </td>*@
-                            <td>
+                            @*<td>
                                 @item.dateCreated.ToString("dd/MM/yyyy")
-                            </td>
+                            </td>*@
                             @if (isOwner)
                             {
                                 if (item.isUpBD == 0)
