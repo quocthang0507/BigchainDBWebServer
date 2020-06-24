@@ -4,6 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 <script src="https://unpkg.com/bigchaindb-driver@4.0.0/dist/browser/bigchaindb-driver.window.min.js"></script>
+<script type="text/javascript" src="~/Areas/Admin/css/js/functionController.js"></script>
 <div class="container-fluid">
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Thông tin</h1>
@@ -20,8 +21,7 @@
                         <tr>
                             <th>Mã sản phẩm</th>
                             <th>Chi tiết</th>
-                            <th>Ngày bắt đầu</th>
-                            <th>Ngày kết thúc</th>
+                            <th>Ngày thực hiện</th>
                             <th>Ngày tạo</th>
                             <th>Trạng thái</th>
                         </tr>
@@ -35,19 +35,18 @@
                                         <td>@item.idProduct</td>
                                         <td>@item.details</td>
                                         <td>@item.dateBegin.ToString("dd/MM/yyyy")</td>
-                                        <td>@item.dateEnd.ToString("dd/MM/yyyy")</td>
                                         <td>@item.dateCreated.ToString("dd/MM/yyyy")</td>
                                         <td>
                                             @if (item.isUpBD == 0)
                                             {
                                                 <button id="id-@item.id" class="btn btn-success"
                                                         onclick="sendToBigchainDB('@item.id','@item.idProduct','@item.idUser','@item.details','@item.dateBegin','@item.dateEnd','@item.dateCreated')">
-                                                    Up BD
+                                                    Đưa lên block chain
                                                 </button>
                                             }
                                             else
                                             {
-                                                <button class="btn btn-danger"> Đã Up DB</button>
+                                                <button class="btn btn-danger"> Đã đưa lên block chain</button>
                                             }
                                         </td>
                                     </tr>
@@ -71,13 +70,6 @@
     </div>
 
     <script type="text/javascript">
-        function disableButton(id, disabled) {
-            var theID = "id-" + id;
-            if (disabled)
-                $('#' + theID).attr("disabled", "disabled")
-            else
-                $('#' + theID).removeAttr("disabled");
-        }
         function sendToBigchainDB(id, idProduct, idUser, details, dateBegin, dateEnd, dateCreated) {
             disableButton(id, true);
 
@@ -124,35 +116,9 @@
                     if (res != null) {
                         //console.log(res);
                         console.log(id);
-                        isUpBD(id);
+                        isUpBD(id,'@Url.Action("UpBDPlanting","HomeAD")');
                     }
                 });
-        }
-        function isUpBD(id) {
-            var fd = '{"id":"' + id + '"}';
-            $.ajax({
-                url: '@Url.Action("UpBDPlanting","HomeAD")',
-                data: fd,
-                processData: false,
-                contentType: 'application/json',
-                type: 'POST',
-                success: function (res) {
-                    if (res.Success == true) {
-                        var theID = "#id-" + id;
-                        if ($(theID).hasClass("btn-success")) {
-                            $(theID).removeClass("btn-success");
-                            $(theID).addClass("btn-danger");
-                            $(theID).html("Đã Up DB");
-                            $(theID).attr("onclick", "");
-                        }
-                        alert(res.Message);
-                    }
-                    else {
-                        alert(res.Message);
-                    }
-                    disableButton(id, false);
-                }
-            });
         }
     </script>
 </div>

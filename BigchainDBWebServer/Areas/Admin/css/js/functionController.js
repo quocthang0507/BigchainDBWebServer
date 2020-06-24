@@ -1,4 +1,38 @@
-﻿function activeUser(username, active) {
+﻿
+function disableButton(id, disabled) {
+    var theID = "id-" + id;
+    if (disabled)
+        $('#' + theID).attr("disabled", "disabled")
+    else
+        $('#' + theID).removeAttr("disabled");
+}
+function isUpBD(id,link) {
+    var fd = '{"id":"' + id + '"}';
+    $.ajax({
+        url: link,
+        data: fd,
+        processData: false,
+        contentType: 'application/json',
+        type: 'POST',
+        success: function (res) {
+            if (res.Success == true) {
+                var theID = "#id-" + id;
+                if ($(theID).hasClass("btn-success")) {
+                    $(theID).removeClass("btn-success");
+                    $(theID).addClass("btn-danger");
+                    $(theID).html("Đã đưa lên block chain");
+                    $(theID).attr("onclick", "");
+                }
+                alert(res.Message);
+            }
+            else {
+                alert(res.Message);
+            }
+            disableButton(id, false);
+        }
+    });
+}
+function activeUser(username, active) {
     var req = { username: "", active: "" };
     req.username = username;
     if (active == 1)

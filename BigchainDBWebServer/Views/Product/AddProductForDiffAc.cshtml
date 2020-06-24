@@ -26,21 +26,24 @@
                 <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà buôn bán</h1>
             }
         </div>
-        <div class="card-body">
-            <div class="container-fluid">
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-                      style="width:95% !important" method="get" action="AddProductForDiffAc">
-                    <div class="input-group">
-                        <input name="search" style="border: 1px solid #4dd0e1 !important; box-shadow: 0 0 0 1px #4dd0e1;" type="text" class="form-control bg-light border-0 small" placeholder="Nhập mã sản phẩm" aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
+        @if (ViewBag.Roles == 3)
+        {
+            <div class="card-body">
+                <div class="container-fluid">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+                          style="width:95% !important" method="get" action="AddProductForDiffAc">
+                        <div class="input-group">
+                            <input name="search" style="border: 1px solid #4dd0e1 !important; box-shadow: 0 0 0 1px #4dd0e1;" type="text" class="form-control bg-light border-0 small" placeholder="Nhập mã sản phẩm" aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
+        }
         <div class="card-header py-3">
             <h3 class="m-0 font-weight-bold text-primary">Danh sách sản phẩm</h3>
         </div>
@@ -72,14 +75,14 @@
                             foreach (var item in ViewBag.lstProductSent)
                             {
                                 <tr>
-                                    <td>@item.idProduct</td>
+                                    <td><a href="@Url.Action("Info","ProductPlanting")?IdProduct=@item.idProduct">@item.idProduct</a></td>
                                     <td>@item.nameProduct</td>
                                     <td>@item.nameOfUser</td>
                                     <td>@item.details</td>
                                     <td>
                                         <button type="button" class="btn btn-primary"
                                                 onclick="openModal('@item.idProduct','@item.nameProduct','@item.nameOfUser')">
-                                            Update
+                                            Mua
                                         </button>
                                     </td>
                                 </tr>

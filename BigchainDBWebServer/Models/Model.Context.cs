@@ -31,7 +31,6 @@ namespace BigchainDBWebServer.Models
         public virtual DbSet<ProductDetail> ProductDetails { get; set; }
         public virtual DbSet<ProductPlantingProcess> ProductPlantingProcesses { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<UserBC> UserBCs { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<ProductDetailView> ProductDetailViews { get; set; }

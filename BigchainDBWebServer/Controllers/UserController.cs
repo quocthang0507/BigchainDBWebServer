@@ -165,7 +165,7 @@ namespace BigchainDBWebServer.Controllers
 		{
 			AccountDAO dao = new AccountDAO();
 			var Pwd = MD5Hash(password);
-			var data = (from c in dao.Model.UserBCs where c.username == userid && c.pwd == Pwd select c).ToList();
+			var data = (from c in dao.Model.UserBCs where c.username == userid && c.pwd == Pwd && c.active == 1 select c).ToList();
 			if (data.Count() > 0)
 			{
 				Session["UserID"] = userid;

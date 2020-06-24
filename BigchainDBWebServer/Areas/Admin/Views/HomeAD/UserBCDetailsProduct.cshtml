@@ -6,6 +6,8 @@
 
 
 <script src="https://unpkg.com/bigchaindb-driver@4.0.0/dist/browser/bigchaindb-driver.window.min.js"></script>
+<script src="~/Areas/Admin/css/js/functionController.js"></script>
+
 <div class="container-fluid">
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Thông tin</h1>
@@ -43,11 +45,11 @@
                                         <td>
                                             @if (item.IsUpBD == 0)
                                             {
-                                            <button id="id-@item.idProductDetail" class="btn btn-success"
-                                                    onclick="sendToBigchainDB('@item.idProduct','@item.nameProduct','@item.idUser', '@item.nameOfUser','@item.email','@item.adrs','@item.userArea','@item.userCity','@item.phone','@item.idRole',
+                                                <button id="id-@item.idProductDetail" class="btn btn-success"
+                                                        onclick="sendToBigchainDB('@item.idProduct','@item.nameProduct','@item.idUser', '@item.nameOfUser','@item.email','@item.adrs','@item.userArea','@item.userCity','@item.phone','@item.idRole',
                                                     '@item.dateCreated.ToString("dd/MM/yyyy")','@item.dateReview.ToString("dd/MM/yyyy")','@item.idProductDetail')">
                                                     Đưa lên block chain
-                                            </button>
+                                                </button>
                                             }
                                             else
                                             {
@@ -75,14 +77,6 @@
     </div>
 
     <script type="text/javascript">
-
-        function disableButton(id, disabled) {
-            var theID = "id-" + id;
-            if (disabled)
-                $('#' + theID).attr("disabled", "disabled")
-            else
-                $('#' + theID).removeAttr("disabled");
-        }
         function sendToBigchainDB(idProduct, nameProduct, idUser, nameOfUser, email, adrs, area, city, phone, idRole, dateBegin, dateEnd, idProductDetail) {
             disableButton(idProductDetail, true);
 
@@ -127,35 +121,10 @@
                     //elem.innerText = txSigned.id;
                     //console.log('Transaction', txSigned.id, 'accepted');
                     if (res != null) {
-                        isUpBD(idProductDetail);
+                        isUpBD(idProductDetail, 'UserAD/UpBD');
                     }
                 });
         }
-        function isUpBD(id) {
-            var fd = '{"id":"' + id + '"}';
-            $.ajax({
-                url: 'UserAD/UpBD',
-                data: fd,
-                processData: false,
-                contentType: 'application/json',
-                type: 'POST',
-                success: function (res) {
-                    if (res.Success == true) {
-                        var theID = "#id-" + id;
-                        if ($(theID).hasClass("btn-success")) {
-                            $(theID).removeClass("btn-success");
-                            $(theID).addClass("btn-danger");
-                            $(theID).html("Đã Up DB");
-                            $(theID).attr("onclick", "");
-                        }
-                        alert(res.Message);
-                    }
-                    else {
-                        alert(res.Message);
-                    }
-                    disableButton(id, false);
-                }
-            });
-        }
+        
     </script>
 </div>
