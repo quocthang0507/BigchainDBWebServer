@@ -43,15 +43,15 @@
                                         <td>
                                             @if (item.IsUpBD == 0)
                                             {
-                                                <button id="id-@item.idProductDetail" class="btn btn-success"
-                                                        onclick="sendToBigchainDB('@item.idProduct','@item.nameProduct','@item.idUser', '@item.nameOfUser','@item.email','@item.adrs','@item.userArea','@item.userCity','@item.phone','@item.idRole',
+                                            <button id="id-@item.idProductDetail" class="btn btn-success"
+                                                    onclick="sendToBigchainDB('@item.idProduct','@item.nameProduct','@item.idUser', '@item.nameOfUser','@item.email','@item.adrs','@item.userArea','@item.userCity','@item.phone','@item.idRole',
                                                     '@item.dateCreated.ToString("dd/MM/yyyy")','@item.dateReview.ToString("dd/MM/yyyy")','@item.idProductDetail')">
-                                                    Up BD
-                                                </button>
+                                                    Đưa lên block chain
+                                            </button>
                                             }
                                             else
                                             {
-                                                <button class="btn btn-danger"> Đã Up DB</button>
+                                                <button class="btn btn-danger"> Đã đưa lên block chain</button>
                                             }
                                         </td>
                                     </tr>
