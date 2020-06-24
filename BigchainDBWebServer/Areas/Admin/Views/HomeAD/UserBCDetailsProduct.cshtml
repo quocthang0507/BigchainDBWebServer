@@ -84,7 +84,7 @@
                 $('#' + theID).removeAttr("disabled");
         }
         function sendToBigchainDB(idProduct, nameProduct, idUser, nameOfUser, email, adrs, area, city, phone, idRole, dateBegin, dateEnd, idProductDetail) {
-            disableButton(idProduct, true);
+            disableButton(idProductDetail, true);
 
             // BigchainDB server instance (e.g. https://example.com/api/v1/)
             //const API_PATH = 'http://192.168.17.130:9984/api/v1/'
