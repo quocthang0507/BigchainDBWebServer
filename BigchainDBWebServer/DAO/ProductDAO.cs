@@ -41,6 +41,23 @@ namespace BigchainDBWebServer.DAO
 				//	return new ResultOfRequest(false, "Bạn hiện không thể thêm thông tin vì người vận chuyển vẫn chưa nhập dữ liệu vào!");
 				if (item.dateReview < prodetail[0].dateCreated)
 					return new ResultOfRequest(false, "Ngày tạo không được phép! Phải trễ hơn!");
+                var productDetailView = Model.ProductDetailViews.Where(f => f.idProduct == pro.id).ToList();
+                if (productDetailView.Count > 0)
+                {
+                    if (user.idRole == 2)
+                        productDetailView = productDetailView.Where(f => f.idRole == 1).ToList();
+                    else
+                    {
+                        productDetailView = productDetailView.Where(f => f.idRole == 2).ToList();
+                        //Will order by somethings
+                    }
+                    if (productDetailView.Count > 0)
+                    {
+                        var tempV = productDetailView[0];
+                        if (tempV.dateReview < item.dateCreated)
+                            return new ResultOfRequest(false, "Ngày nhận không được phép! Phải sau ngày " + tempV.dateReview);
+                    }
+                }
 				var temp = new ProductDetail()
 				{
 					idUser = idUser,
