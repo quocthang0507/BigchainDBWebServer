@@ -73,6 +73,7 @@ namespace BigchainDBWebServer.Controllers
 				ProductDAO dao = new ProductDAO();
 				ViewBag.lst = dao.GetAllByUsername(idUser);
 				ViewBag.Roles = CheckRoles(idUser);
+				ViewBag.lstTranfer = dao.GetListTranferUser();
 				return View();
 			}
 			return RedirectToAction("Login", "User");
@@ -135,7 +136,11 @@ namespace BigchainDBWebServer.Controllers
 			ProductDAO dao = new ProductDAO();
 			var user = dao.Model.UserBCs.FirstOrDefault(x => x.username == userName);
 			ViewBag.TheRole = user.idRole;
-			if (user.idRole > 1)
+			if (user.idRole == 2)
+			{
+				ViewBag.lstProductSent = dao.GetListProductTranfer(userName, user.idRole);
+			}
+			if (user.idRole == 3)
 			{
 				ViewBag.lstProductSent = dao.GetListProductByID(search, user.idRole);
 			}
@@ -171,6 +176,32 @@ namespace BigchainDBWebServer.Controllers
 				return Json(false, JsonRequestBehavior.AllowGet);
 			var result = dao.InsertProduct(pro, item, idUser);
 			return Json(result, JsonRequestBehavior.AllowGet);
+		}
+		public JsonResult InsertProductTranfer(ProductTranfer item)
+		{
+			ProductDAO dao = new ProductDAO();
+			if (item == null)
+				return Json(new ResultOfRequest(false, "Dữ liệu nhận bị lỗi!"), JsonRequestBehavior.AllowGet);
+			var old = dao.Model.ProductTranfers.FirstOrDefault(f => f.id == item.id);
+			if (old != null)
+			{
+				return Json(new ResultOfRequest(false, "Đã tồn tại tài khoản này, vui lòng nhập lại!"), JsonRequestBehavior.AllowGet);
+			}
+			else
+			{
+				old = new ProductTranfer();
+				old.idProduct = item.idProduct;
+				old.nameProduct = item.nameProduct;
+				old.nameUser = item.nameUser;
+				old.detail = item.detail;
+				old.idUser = item.idUser;
+				dao.Model.ProductTranfers.Add(old);
+				ProductDetail product = dao.Model.ProductDetails.FirstOrDefault(f => f.idProduct == item.idProduct && f.idRole==1);
+				product.isClick = 2;
+				if (dao.Model.SaveChanges() > 0)
+					return Json(new ResultOfRequest(true, "Thành công!"), JsonRequestBehavior.AllowGet);
+				return Json(new ResultOfRequest(false, "Lỗi lưu dữ liệu!"), JsonRequestBehavior.AllowGet);
+			}
 		}
 	}
 }

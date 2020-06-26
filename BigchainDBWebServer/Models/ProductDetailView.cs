@@ -30,5 +30,7 @@ namespace BigchainDBWebServer.Models
         public Nullable<int> IsUpBD { get; set; }
         public string userArea { get; set; }
         public string userCity { get; set; }
+        public Nullable<int> checkBuy { get; set; }
+        public Nullable<int> isClick { get; set; }
     }
 }

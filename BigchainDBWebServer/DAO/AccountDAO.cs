@@ -23,7 +23,6 @@ namespace BigchainDBWebServer.DAO
 			List<UserBC> lst = Model.UserBCs.Where(x => x.idRole == id).ToList();
 			return lst;
 		}
-
 		public ResultOfRequest ActiveUser(string username, bool active = true)
 		{
 			var userBC = Model.UserBCs.FirstOrDefault(x => x.username == username);

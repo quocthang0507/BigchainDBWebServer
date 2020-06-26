@@ -48,22 +48,20 @@
                             }
                             else if (ViewBag.Roles == 3)
                             {
+                                <th>Ngày mua</th>
                                 <th>Ngày nhận</th>
-                                <th>Ngày bán</th>
                             }
-                            <th>Trạng thái</th>
+                            <th>Trạng thái chờ duyệt</th>
+                            @if (ViewBag.Roles == 2)
+                            {
+                                <th>Trạng thái vận chuyển</th>
+                            }
+                            else
+                            {
+                                <th>Trạng thái mua bán</th>
+                            }
                         </tr>
                     </thead>
-                    @*<tfoot>
-                            <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                            </tr>
-                        </tfoot>*@
                     <tbody>
                         @{
                             if (ViewBag.lst.Count > 0)
@@ -91,6 +89,42 @@
                                         {
                                             <td style="color:orangered"><b>Đang chờ</b></td>
                                         }
+                                        @if (item.checkBuy == 1)
+                                        {
+                                            if (item.idRole == 1 && item.isClick <2 )
+                                            {
+                                                <td>
+                                                    <button type="button" class="btn btn-warning"
+                                                            onclick="openModal('@item.idProduct','@item.nameProduct','@item.nameOfUser')">
+                                                        Đang chờ vận chuyển
+                                                    </button>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <button type="button" class="btn btn-warning">
+                                                        Đang chờ vận chuyển
+                                                    </button>
+                                                </td>
+                                            }
+
+                                        }
+                                        else if (item.checkBuy == 2)
+                                        {
+                                            if (item.idRole == 2)
+                                            {
+                                                <td style="color:deepskyblue"><b>Đã hoàn thành</b></td>
+                                            }
+                                            else
+                                            {
+                                                <td style="color:deepskyblue"><b>Đã mua bán thành công</b></td>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red"><b>Đang chờ mua</b></td>
+                                        }
                                     </tr>
                                 }
                             }
@@ -110,5 +144,109 @@
             </div>
         </div>
     </div>
+    <script>
+        function openModal(idProduct, nameProduct, nameOfUser) {
+            $("#idProduct").val(idProduct);
+            $("#nameProduct").val(nameProduct);
+            $("#nameOfUser").val(nameOfUser);
+            $("#dateCreate").val("");
+            $("#dateReview").val("");
+            $("#myModal").modal("show");
+        }
+    </script>
 </div>
 <!-- /.container-fluid -->
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm thông tin sản phẩm</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="frmInput">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input readonly id="idProduct" type="text" class="form-control" name="idProduct" placeholder="Id">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input readonly id="nameProduct" type="text" class="form-control" name="nameProduct" placeholder="Mã sản phẩm">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input readonly id="nameOfUser" type="text" class="form-control" name="nameUser" placeholder="Tên người dùng">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="detail" type="text" class="form-control" name="detail" placeholder="Mô tả">
+                    </div>
+                    @if (ViewBag.Roles == 1)
+                    {
+                        <div class="input-group">
+                            <select id="idUser" style="height:35px" name="idUser" class="form-control">
+                                <option selected=""> Chọn nhà vận chuyển</option>
+                                @foreach (var item in ViewBag.lstTranfer)
+                                {
+                                    <option value="@item.username">@item.name</option>
+                                }
+                            </select>
+                        </div>
+                    }
+                    @if (ViewBag.Roles == 2)
+                    {
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="dateCreateMD" name="dateCreated" type="text" class="form-control" data-toggle="datepicker1" placeholder="Ngày nhận">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="dateReviewMD" name="dateReview" type="text" class="form-control" data-toggle="datepicker2" placeholder="Ngày chuyển xong">
+                        </div>
+                    }
+                    @if (ViewBag.Roles == 3)
+                    {
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="dateCreateMD" name="dateCreated" type="text" class="form-control" data-toggle="datepicker1" placeholder="Ngày mua">
+                        </div>
+                    }
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="update()">Thêm</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+            </div>
+        </div>
+        <script>
+            function update() {
+                //var dateCreated = $("$dateCreated").val();
+                //var dateReview = $("dateReview").val();
+                //if (dateCreated > dateReview)
+                //    alert("Ngày tạo không được sau ngày xem");
+                var fd = new FormData(document.getElementById("frmInput"));
+                // fd.append('file', input.files[0]);
+                $.ajax({
+                    url: '/Product/InsertProductTranfer',
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function (data) {
+                        if (data.Success == true) {
+                            alert(data.Message);
+                            document.location.href = "/Product/Manager";
+                        }
+                        else {
+                            alert(data.Message);
+                        }
+                        //document.location.href = "/Product/Manager";
+                    }
+                });
+            }
+        </script>
+    </div>
+</div>

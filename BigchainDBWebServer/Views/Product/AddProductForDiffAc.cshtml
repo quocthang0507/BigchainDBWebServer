@@ -54,50 +54,109 @@
                         <tr>
                             <th>Mã sản phẩm</th>
                             <th>Tên sản phẩm</th>
-                            <th>Tên người dùng</th>
+                            <th>Tên nhà sản xuất</th>
                             <th>Chi tiết</th>
                             <th>Trạng thái</th>
                         </tr>
                     </thead>
                     @*<tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                    </tfoot>*@
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Office</th>
+                                <th>Age</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                            </tr>
+                        </tfoot>*@
                     <tbody>
-                        @if (ViewBag.lstProductSent != null)
+                        @if (ViewBag.Roles == 2)
                         {
-                            foreach (var item in ViewBag.lstProductSent)
+                            if (ViewBag.lstProductSent != null)
+                            {
+                                foreach (var item in ViewBag.lstProductSent)
+                                {
+                                    <tr>
+                                        <td><a href="@Url.Action("Info","ProductPlanting")?IdProduct=@item.idProduct">@item.idProduct</a></td>
+                                        <td>@item.nameProduct</td>
+                                        <td>@item.nameUser</td>
+                                        <td>@item.detail</td>
+                                        @if (item.isClick != 0 && item.isClick != null)
+                                        {
+                                            <td>
+                                                <div class="btn btn-success">
+                                                    Đã nhận
+                                                </div>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <button type="button" class="btn btn-primary"
+                                                        onclick="openModal('@item.idProduct','@item.nameProduct','@item.nameUser')">
+                                                    Nhận vận chuyển
+                                                </button>
+                                            </td>
+                                        }
+
+                                    </tr>
+                                }
+                            }
+                            else
                             {
                                 <tr>
-                                    <td><a href="@Url.Action("Info","ProductPlanting")?IdProduct=@item.idProduct">@item.idProduct</a></td>
-                                    <td>@item.nameProduct</td>
-                                    <td>@item.nameOfUser</td>
-                                    <td>@item.details</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary"
-                                                onclick="openModal('@item.idProduct','@item.nameProduct','@item.nameOfUser')">
-                                            Mua
-                                        </button>
-                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             }
                         }
-                        else
+                        else if (ViewBag.Roles == 3)
                         {
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                            if (ViewBag.lstProductSent != null)
+                            {
+                                foreach (var item in ViewBag.lstProductSent)
+                                {
+                                    <tr>
+                                        <td><a href="@Url.Action("Info","ProductPlanting")?IdProduct=@item.idProduct">@item.idProduct</a></td>
+                                        <td>@item.nameProduct</td>
+                                        <td>@item.nameOfUser</td>
+                                        <td>@item.details</td>
+                                        @if (item.isClick == 1)
+                                        {
+                                            <td>
+                                                <button type="button" class="btn btn-success">
+                                                    Đã mua
+                                                </button>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <button type="button" class="btn btn-primary"
+                                                        onclick="openModal('@item.idProduct','@item.nameProduct','@item.nameOfUser')">
+                                                    Mua
+                                                </button>
+                                            </td>
+                                        }
+
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            }
                         }
+
                     </tbody>
                 </table>
             </div>
@@ -120,7 +179,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Update</h4>
+                <h4 class="modal-title">Thêm thông tin sản phẩm</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -156,11 +215,7 @@
                     {
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="dateCreateMD" name="dateCreated" type="text" class="form-control" data-toggle="datepicker1" placeholder="Ngày nhận">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="dateReviewMD" name="dateReview" type="text" class="form-control" data-toggle="datepicker2" placeholder="Ngày bán">
+                            <input id="dateCreateMD" name="dateCreated" type="text" class="form-control" data-toggle="datepicker1" placeholder="Ngày mua">
                         </div>
                     }
                 </form>
