@@ -14,24 +14,26 @@
                     Thông báo
                 </h6>
                 <!-- Dropdown - Alerts -->
-                @foreach (var item in @Model)
-                {
-                    <a id="ty-compact-list" class="dropdown-item d-flex align-items-center" href="@Url.Action("readedNotification", "UserAD",new { @ID = item.ID, @UserName= item.username})">
-                        <div class="mr-3">
-                            <div>
-                                @*<div class="icon-circle bg-primary">*@
-                                @*<i class="fas fa-file-alt text-white"></i>*@
-                                @item.name
+                <div style="overflow:scroll; height:400px; overflow-x:hidden">
+                    @foreach (var item in @Model)
+                    {
+                        <a id="ty-compact-list" class="dropdown-item d-flex align-items-center" href="@Url.Action("readedNotification", "UserAD",new { @ID = item.ID, @UserName= item.username})">
+                            <div class="mr-3">
+                                <div>
+                                    @*<div class="icon-circle bg-primary">*@
+                                    @*<i class="fas fa-file-alt text-white"></i>*@
+                                    @item.name
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <div class="small text-gray-500">@item.dateCreate.ToString("dd/MM/yyyy")</div>
-                            <span class="font-weight-bold">@item.roles đã có thêm sản phẩm mới là :@item.nameProduct</span>
-                        </div>
-                    </a>
-                }
-                <button id="show-more" class="dropdown-item text-center small text-gray-500">Show All Alerts</button>
-            </div>
+                            <div>
+                                <div class="small text-gray-500">@item.dateCreate.ToString("dd/MM/yyyy")</div>
+                                <span class="font-weight-bold">@item.roles đã có thêm sản phẩm mới là :@item.nameProduct</span>
+                            </div>
+                        </a>
+                    }
+                </div>
+                    @*<button id="show-more" class="dropdown-item text-center small text-gray-500">Show All Alerts</button>*@
+                </div>
         </li>
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">

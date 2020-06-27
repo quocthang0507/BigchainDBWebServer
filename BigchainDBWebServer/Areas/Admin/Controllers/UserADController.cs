@@ -1,4 +1,5 @@
 ﻿using BigchainDBWebServer.DAO;
+using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -66,10 +67,26 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 				Session["UserAD"] = userid;
 				return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
 			}
-
-			else
-				return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
-		}
+            else
+            {
+                //var temp = new BigchainDBWebServer.Models.AdminBC()
+                //{
+                //    username = userid,
+                //    pwd = Pwd,
+                //    adrs = "Ko",
+                //    birthday = new DateTime(1998, 12, 12),
+                //    dateCreated = DateTime.Now,
+                //    dateUpdate = DateTime.Now,
+                //    deleted = 0,
+                //    email = "a@g.c",
+                //    name = "admin",
+                //    phone = "0905061131"
+                //};
+                //dao.Model.AdminBCs.Add(temp);
+                //dao.Model.SaveChanges();
+                return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
 		public ActionResult LogOut()
 		{

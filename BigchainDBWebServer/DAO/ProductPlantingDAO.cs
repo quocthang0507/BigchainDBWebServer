@@ -76,5 +76,9 @@ namespace BigchainDBWebServer.DAO
 				return new ResultOfRequest(true, "Thành công!");
 			return new ResultOfRequest(false, "Lỗi lưu!");
 		}
+        public List<ColumnSelected> GetListOption()
+        {
+            return Model.ColumnSelecteds.Where(f => f.idType == 1).OrderBy(f => f.id).ToList();
+        }
 	}
 }

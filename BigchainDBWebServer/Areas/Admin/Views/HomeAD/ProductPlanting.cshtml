@@ -20,6 +20,7 @@
                     <thead>
                         <tr>
                             <th>Mã sản phẩm</th>
+                            <th>Tên quá trình</th>
                             <th>Chi tiết</th>
                             <th>Ngày thực hiện</th>
                             <th>Ngày tạo</th>
@@ -33,6 +34,7 @@
                                 {
                                     <tr>
                                         <td>@item.idProduct</td>
+                                        <td>@item.name</td>
                                         <td>@item.details</td>
                                         <td>@item.dateBegin.ToString("dd/MM/yyyy")</td>
                                         <td>@item.dateCreated.ToString("dd/MM/yyyy")</td>
@@ -40,7 +42,7 @@
                                             @if (item.isUpBD == 0)
                                             {
                                                 <button id="id-@item.id" class="btn btn-success"
-                                                        onclick="sendToBigchainDB('@item.id','@item.idProduct','@item.idUser','@item.details','@item.dateBegin','@item.dateEnd','@item.dateCreated')">
+                                                        onclick="sendToBigchainDB('@item.id','@item.idProduct','@item.idUser','@item.name','@item.details','@item.dateBegin','@item.dateEnd','@item.dateCreated')">
                                                     Đưa lên block chain
                                                 </button>
                                             }
@@ -70,7 +72,7 @@
     </div>
 
     <script type="text/javascript">
-        function sendToBigchainDB(id, idProduct, idUser, details, dateBegin, dateEnd, dateCreated) {
+        function sendToBigchainDB(id, idProduct, idUser, name, details, dateBegin, dateEnd, dateCreated) {
             disableButton(id, true);
 
             // BigchainDB server instance (e.g. https://example.com/api/v1/)
@@ -84,7 +86,7 @@
                 // Define the asset to store, in this example it is the current temperature
                 // (in Celsius) for the city of Berlin.
                 {
-                    id: id, idProduct: idProduct, idUser: idUser, details: details,
+                    id: id, idProduct: idProduct, idUser: idUser, name: name, details: details,
                     dateBegin: dateBegin, dateEnd: dateEnd, dateCreated: dateCreated,
                     isPlanting: true
                 },

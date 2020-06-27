@@ -67,6 +67,8 @@ namespace BigchainDBWebServer.DAO
                 }
                 if (user.idRole == 2)
                 {
+                    if (item.dateCreated < prodetail.Where(f=>f.idRole == 1).FirstOrDefault().dateReview)
+                        return new ResultOfRequest(false, "Ngày vận chuyển không thể sớm hơn ngày thu hoạch!");
                     var temp = new ProductDetail()
                     {
                         idUser = idUser,

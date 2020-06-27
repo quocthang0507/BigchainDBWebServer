@@ -3,6 +3,7 @@
     ViewBag.Title = "AddPlanting";
     Layout = "~/Views/Shared/AdminProduct.cshtml";
     var curProduct = ViewBag.curProduct;
+    var lstOptions = ViewBag.lstOptions;
 }
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -19,6 +20,15 @@
                     <div hidden class="form-group">
                         <label>Mã sản phẩm</label>
                         <input name="idUser" value="@ViewBag.idUser" hidden />
+                    </div>
+                    <div  class="form-group">
+                        <label>Tên quá trình</label>
+                        <select name="name" class="form-control">
+                            @foreach (var item in lstOptions)
+                            {
+                                <option value="@item.name">@item.name</option>
+                            }
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Chi tiết</label>
