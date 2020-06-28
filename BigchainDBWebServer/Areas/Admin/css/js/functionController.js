@@ -69,3 +69,22 @@ function activeUser(username, active) {
         }
     });
 }
+function generateQRCode(code) {
+    var fd = '{"code":"' + code + '"}';
+    $.ajax({
+        url: '/Admin/HomeAD/GenerateQRCode',
+        data: fd,
+        processData: false,
+        contentType: 'application/json',
+        type: 'POST',
+        success: function (res) {
+            if (res.Success == true) {
+                alert(res.Message);
+                window.location.href = "/imgQR/test/" + code + ".png";
+            }
+            else {
+                alert(res.Message);
+            }
+        }
+    });
+}

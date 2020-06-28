@@ -42,12 +42,13 @@
                                 <th>Ngày nhận</th>
                             }
                             <th>Trạng thái</th>
+                            <th>Xem mã QR</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @{ if (ViewBag.lstPtoduct.Count > 0)
+                        @{ if (ViewBag.lstProduct.Count > 0)
                             {
-                                foreach (var item in ViewBag.lstPtoduct)
+                                foreach (var item in ViewBag.lstProduct)
                                 {
                                     <tr>
                                         <td><a href="@Url.Action("ProductPlanting")?IdProduct=@item.idProduct">@item.idProduct</a></td>
@@ -69,6 +70,7 @@
                                                 <button class="btn btn-danger"> Đã đưa lên block chain</button>
                                             }
                                         </td>
+                                        <td><button class="btn btn-dark" onclick="generateQRCode('@item.idProduct')">Xem mã QR</button></td>
                                     </tr>
                                 }
                             }

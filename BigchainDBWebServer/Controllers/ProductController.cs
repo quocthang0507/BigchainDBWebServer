@@ -203,5 +203,25 @@ namespace BigchainDBWebServer.Controllers
 				return Json(new ResultOfRequest(false, "Lỗi lưu dữ liệu!"), JsonRequestBehavior.AllowGet);
 			}
 		}
+        public ActionResult GetQRCode(string idProduct)
+        {
+            ProductDAO dao = new ProductDAO();
+            var item = dao.Model.Products.FirstOrDefault(f => f.id == idProduct);
+            if(item != null)
+            {
+                string fileName = string.Format(@"~\imgQR\test\{0}.png", idProduct);
+                string path = this.Server.MapPath(fileName);
+                if (System.IO.File.Exists(path))
+                {
+                    ViewBag.file = fileName;
+                    return View();
+                }
+                //ViewBag.file = "Khong ton tai file --- " + path;
+            }
+            //else
+                //ViewBag.file = "Khong thay san pham";
+            return RedirectToAction("Index", "Home");
+            //return View();
+        }
 	}
 }

@@ -1,6 +1,9 @@
 ﻿using BigchainDBWebServer.DAO;
 using System.Linq;
 using System.Web.Mvc;
+using QRCoder;
+using System.Drawing;
+using System.IO;
 
 namespace BigchainDBWebServer.Areas.Admin.Controllers
 {
@@ -72,7 +75,7 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 				ProductDAO dao = new ProductDAO();
 				ViewBag.userInfo = (from c in dao.Model.UserBCs where c.username == username select c).FirstOrDefault();
 				ViewBag.Roles = CheckRolesInAD(username.ToString());
-				ViewBag.lstPtoduct = dao.GetAllByUsername(username.ToString());
+				ViewBag.lstProduct = dao.GetAllByUsername(username.ToString());
 				return View();
 			}
 			return RedirectToAction("Login", "UserAD");
@@ -105,5 +108,38 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			var result = dao.HasUpBD(id);
 			return Json(result, JsonRequestBehavior.AllowGet);
 		}
+        [HttpPost]
+        public JsonResult GenerateQRCode(string code)
+        {
+            QRCodeGenerator.ECCLevel eccLevel = QRCodeGenerator.ECCLevel.H;
+            string urlPath = this.Server.MapPath(@"~\imgQR\test\");
+            string fileName = code + ".png";
+            urlPath = System.IO.Path.Combine(urlPath, fileName);
+            if (System.IO.File.Exists(urlPath))
+                return Json(new ResultOfRequest(false, "Đã tạo mã QR cho sản phẩm này!"));
+            using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+            {
+                using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(code, eccLevel))
+                {
+                    using (QRCode qrCode = new QRCode(qrCodeData))
+                    {
+                        var qrImg = qrCode.GetGraphic(20, Color.Black, Color.White,true);
+                        Bitmap fileSave = new Bitmap(qrImg, new Size(400, 400));
+                        using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+                        {
+                            using (System.IO.FileStream fs = new System.IO.FileStream(urlPath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                            {
+                                fileSave.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                                byte[] bytes = ms.ToArray();
+                                fs.Write(bytes, 0, bytes.Length);
+                            }
+                        }
+                    }
+                }
+            }
+            if (System.IO.File.Exists(urlPath))
+                return Json(new ResultOfRequest(true, "Tạo thành công!"));
+            return Json(new ResultOfRequest(false, "Không tìm thấy file!"));
+        }
 	}
 }

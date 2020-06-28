@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29905.134
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1082
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigchainDBWebServer", "BigchainDBWebServer\BigchainDBWebServer.csproj", "{4AEBFB0D-913C-471F-9A31-DDA3307537F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QRCoder", "QRCoder\QRCoder.csproj", "{09EFBD60-38E4-43A6-A978-BD2B307FA96D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{4AEBFB0D-913C-471F-9A31-DDA3307537F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AEBFB0D-913C-471F-9A31-DDA3307537F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AEBFB0D-913C-471F-9A31-DDA3307537F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09EFBD60-38E4-43A6-A978-BD2B307FA96D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09EFBD60-38E4-43A6-A978-BD2B307FA96D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09EFBD60-38E4-43A6-A978-BD2B307FA96D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09EFBD60-38E4-43A6-A978-BD2B307FA96D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

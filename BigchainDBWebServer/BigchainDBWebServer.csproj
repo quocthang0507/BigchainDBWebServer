@@ -1985,6 +1985,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\themify.svg" />
     <Content Include="Global.asax" />
+    <Content Include="imgQR\test\KHOAI01.png" />
     <Content Include="img\bgcl.jpg" />
     <Content Include="img\bgUser.jpg" />
     <Content Include="img\favicon.ico" />
@@ -2396,6 +2397,7 @@
     <Content Include="Views\ProductPlanting\AddPlanting.cshtml" />
     <Content Include="Views\ProductPlanting\Update.cshtml" />
     <Content Include="Views\User\NoActiveLogin.cshtml" />
+    <Content Include="Views\Product\GetQRCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2420,6 +2422,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QRCoder\QRCoder.csproj">
+      <Project>{09efbd60-38e4-43a6-a978-bd2b307fa96d}</Project>
+      <Name>QRCoder</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
