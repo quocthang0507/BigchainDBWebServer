@@ -1,10 +1,15 @@
 ﻿using BigchainDBWebServer.DAO;
+using BigchainDBWebServer.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-
+using System.Web.Script.Serialization;
 
 namespace BigchainDBWebServer.Areas.Admin.Controllers
 {
@@ -36,6 +41,31 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			return View();
 		}
 
+		public async Task<ActionResult> RegistrationAD()
+		{
+			string Baseurl = "https://thongtindoanhnghiep.co/";
+			List<Tinh> lst = new List<Tinh>();
+			using (var client = new HttpClient())
+			{
+				client.BaseAddress = new Uri(Baseurl);
+
+				client.DefaultRequestHeaders.Clear();
+
+				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+				HttpResponseMessage Res = await client.GetAsync("/api/city");
+
+				if (Res.IsSuccessStatusCode)
+				{
+					//Storing the response details recieved from web api   
+					string SachResponse = Res.Content.ReadAsStringAsync().Result;
+					Area lstArea = new JavaScriptSerializer().Deserialize<Area>(SachResponse);
+					lst = lstArea.LtsItem;
+				}
+				this.ViewBag.lst = lst;
+				return View();
+			}
+		}
 		public static string MD5Hash(string text)
 		{
 			MD5 md5 = new MD5CryptoServiceProvider();
@@ -87,7 +117,38 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
                 return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
             }
         }
-
+		public JsonResult InsertRegisterAD(AdminBC item)
+		{
+			AccountDAO dao = new AccountDAO();
+			if (item == null)
+				return Json(new ResultOfRequest(false, "Dữ liệu nhận bị lỗi!"), JsonRequestBehavior.AllowGet);
+			var old = dao.Model.AdminBCs.FirstOrDefault(f => f.username == item.username);
+			if (old != null)
+			{
+				return Json(new ResultOfRequest(false, "Đã tồn tại tài khoản này, vui lòng nhập lại!"), JsonRequestBehavior.AllowGet);
+			}
+			else
+			{
+				old = new AdminBC();
+				old.username = item.username;
+				old.pwd = MD5Hash(item.pwd);
+				old.name = item.name;
+				old.adrs = item.adrs;
+				old.birthday = item.birthday;
+				old.phone = item.phone;
+				old.deleted = 0;
+				old.email = item.email;
+				old.dateCreated = DateTime.Now;
+				old.dateUpdate = DateTime.Now;
+				old.deleted = 0;
+				dao.Model.AdminBCs.Add(old);
+				if (dao.Model.SaveChanges() > 0)
+				{
+					return Json(new ResultOfRequest(true), JsonRequestBehavior.AllowGet);
+				}
+				return Json(new ResultOfRequest(false, "Lỗi lưu dữ liệu!"), JsonRequestBehavior.AllowGet);
+			}
+		}
 		public ActionResult LogOut()
 		{
 			Session.RemoveAll();

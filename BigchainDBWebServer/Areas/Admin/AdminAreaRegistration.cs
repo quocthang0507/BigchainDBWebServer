@@ -18,6 +18,8 @@ namespace BigchainDBWebServer.Areas.Admin
 				new { action = "Login", controller = "UserAD" });
 			context.MapRoute("AdminAction", "Admin/{action}",
 				new { controller = "HomeAD" });
+			context.MapRoute("AdminRegistration", "Admin/",
+				new { action = "RegistrationAD", controller = "UserAD" });
 			context.MapRoute(
 				"Admin_default",
 				"Admin/{controller}/{action}/{id}",

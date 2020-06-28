@@ -1,42 +1,42 @@
 ﻿
 @{
-	ViewBag.Title = "Login";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <link rel="stylesheet" href="~/Content/login.css">
 <section>
-	<div class="container">
+    <div class="container">
         <div class="login-form">
             <form action="/examples/actions/confirmation.php" method="post">
                 <div class="row d-flex justify-content-center">
-                    <div class="col-lg-6">
+                    <div class="col-lg-9">
                         <div class="section-tittle text-center">
-                            <h2>Login</h2>
+                            <h2>Đăng nhập</h2>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="userid" placeholder="Username" required="required">
+                    <input type="text" class="form-control" id="userid" placeholder="Tên đăng nhập" required="required">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="password" placeholder="Password" required="required">
+                    <input type="password" class="form-control" id="password" placeholder="Mật khẩu" required="required">
                 </div>
                 <div class="form-group">
-                    <button type="button" id="btnEnter" class="btn btn-primary btn-block" onclick="LogInNormal()">Log in</button>
+                    <button type="button" id="btnEnter" class="btn btn-primary btn-block" onclick="LogInNormal()">Đăng nhập</button>
                 </div>
                 <div class="clearfix">
-                    <label class="fa-pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+                    <label class="fa-pull-left checkbox-inline"><input type="checkbox"> Nhớ mật khẩu</label>
                 </div>
             </form>
-            <p class="text-center"><a href="@Url.Action("RegistrationNormal", "User")">Create an Account</a></p>
+            <p class="text-center"><a href="@Url.Action("RegistrationNormal", "User")">Tạo tài khoản</a></p>
             <a style="border-radius: 5px;" id="btnLoginFB" onclick="LockGO()" class="btn btn-lg btn-facebook btn-block text-uppercase" href="/User/LoginFacebook"><i class="fab fa-facebook-f mr-2"></i>Đăng nhập</a>
             <form action="@Url.Action("LoginWithGooglePlus", "User")" method="post" style="background:none;box-shadow:none;padding:0;margin-top:10px">
                 @Html.AntiForgeryToken()
                 <button type="submit" style="border-radius:7px" class="btn btn-lg btn-google btn-block text-uppercase" id="btnLoginGO" onclick="LockFB()"><i class="fab fa-google mr-2" onclick="LockFB()"></i>  Đăng nhập </button>
             </form>
         </div>
-	</div>
+    </div>
 </section>
 <script>
     function LockFB() {
@@ -61,7 +61,11 @@
                 if (response.Success) {
                     document.location.href = "@Url.Action("AddProduct", "Product")";
                 }
-                else {
+                else if (response.Success == "NoActive") {
+                    document.location.href = "@Url.Action("NoActiveLogin", "User")";
+                }
+            else
+                {
                     alert("Sai tên đăng nhập hoặc password");
                     //window.location.href = "@Url.Action("Login", "User")";
                 }

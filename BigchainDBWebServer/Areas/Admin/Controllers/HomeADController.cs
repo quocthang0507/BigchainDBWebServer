@@ -43,7 +43,26 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			}
 			return RedirectToAction("Login", "UserAD");
 		}
-
+		public int CheckRolesInAD(string item)
+		{
+			AccountDAO dao = new AccountDAO();
+			if (item == null)
+				return 0;
+			var old = dao.Model.UserBCs.FirstOrDefault(f => f.username == item);
+			if (old.idRole == 1)
+			{
+				return 1;
+			}
+			if (old.idRole == 2)
+			{
+				return 2;
+			}
+			if (old.idRole == 3)
+			{
+				return 3;
+			}
+			return 0;
+		}
 		public ActionResult UserBCDetailsProduct(string username)
 		{
 			if (Session["UserAD"] != null)
@@ -52,6 +71,7 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 					return RedirectToAction("Index", "Home");
 				ProductDAO dao = new ProductDAO();
 				ViewBag.userInfo = (from c in dao.Model.UserBCs where c.username == username select c).FirstOrDefault();
+				ViewBag.Roles = CheckRolesInAD(username.ToString());
 				ViewBag.lstPtoduct = dao.GetAllByUsername(username.ToString());
 				return View();
 			}

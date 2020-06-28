@@ -38,7 +38,10 @@ namespace BigchainDBWebServer.Controllers
 		{
 			return View();
 		}
-
+		public ActionResult NoActiveLogin()
+		{
+			return View();
+		}
 		public async Task<ActionResult> Registration()
 		{
 			string Baseurl = "https://thongtindoanhnghiep.co/";
@@ -165,11 +168,19 @@ namespace BigchainDBWebServer.Controllers
 		{
 			AccountDAO dao = new AccountDAO();
 			var Pwd = MD5Hash(password);
-			var data = (from c in dao.Model.UserBCs where c.username == userid && c.pwd == Pwd && c.active == 1 select c).ToList();
+			var data = (from c in dao.Model.UserBCs where c.username == userid && c.pwd == Pwd select c).ToList();
 			if (data.Count() > 0)
 			{
-				Session["UserID"] = userid;
-				return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+				var acitve = (from c in dao.Model.UserBCs where c.username == userid && c.pwd == Pwd && c.active == 1 select c).ToList();
+				if(acitve.Count()>0)
+				{
+					Session["UserID"] = userid;
+					return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+				}	
+				else
+				{
+					return Json(new { Success = "NoActive" }, JsonRequestBehavior.AllowGet);
+				}	
 			}
 			else
 				return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
@@ -226,7 +237,9 @@ namespace BigchainDBWebServer.Controllers
 				old.deleted = 0;
 				dao.Model.UserBCs.Add(old);
 				if (dao.Model.SaveChanges() > 0)
+				{
 					return Json(new ResultOfRequest(true), JsonRequestBehavior.AllowGet);
+				}	
 				return Json(new ResultOfRequest(false, "Lỗi lưu dữ liệu!"), JsonRequestBehavior.AllowGet);
 			}
 		}

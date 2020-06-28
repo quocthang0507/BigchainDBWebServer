@@ -26,8 +26,21 @@
                             <th>Mã sản phẩm</th>
                             <th>Tên sản phẩm</th>
                             <th>Chi tiết</th>
-                            <th>Ngày tạo</th>
-                            <th>Ngày cập nhật</th>
+                            @if (ViewBag.Roles == 1)
+                            {
+                                <th>Ngày trồng</th>
+                                <th>Ngày thu hoạch</th>
+                            }
+                            else if (ViewBag.Roles == 2)
+                            {
+                                <th>Ngày nhận</th>
+                                <th>Ngày chuyển xong</th>
+                            }
+                            else
+                            {
+                                <th>Ngày mua</th>
+                                <th>Ngày nhận</th>
+                            }
                             <th>Trạng thái</th>
                         </tr>
                     </thead>

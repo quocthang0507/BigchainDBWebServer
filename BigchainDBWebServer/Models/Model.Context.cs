@@ -26,6 +26,7 @@ namespace BigchainDBWebServer.Models
         }
     
         public virtual DbSet<AdminBC> AdminBCs { get; set; }
+        public virtual DbSet<ColumnSelected> ColumnSelecteds { get; set; }
         public virtual DbSet<NewNoti> NewNotis { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductDetail> ProductDetails { get; set; }

@@ -76,7 +76,7 @@ namespace BigchainDBWebServer.Controllers
 				ViewBag.lstTranfer = dao.GetListTranferUser();
 				return View();
 			}
-			return RedirectToAction("Login", "User");
+			return RedirectToAction("NoActiveLogin", "User");
 		}
 
 		public ActionResult AddProduct()
@@ -106,7 +106,7 @@ namespace BigchainDBWebServer.Controllers
 				else
 					return RedirectToAction("AddProductForDiffAc", "Product");
 			}
-			else { return RedirectToAction("Login", "User"); }
+			else { return RedirectToAction("NoActiveLogin", "User"); }
 
 		}
 
@@ -131,7 +131,7 @@ namespace BigchainDBWebServer.Controllers
 				if (CheckLogin(userName))
 					goto SetView;
 			}
-			return RedirectToAction("Login", "User");
+			return RedirectToAction("NoActiveLogin", "User");
 		SetView:
 			ProductDAO dao = new ProductDAO();
 			var user = dao.Model.UserBCs.FirstOrDefault(x => x.username == userName);

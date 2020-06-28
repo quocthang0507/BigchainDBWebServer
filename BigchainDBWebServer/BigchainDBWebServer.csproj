@@ -2310,6 +2310,7 @@
     <Content Include="Areas\Admin\Views\UserAD\Login.cshtml" />
     <Content Include="Areas\Admin\Views\UserAD\getNotification.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAD\ProductPlanting.cshtml" />
+    <Content Include="Areas\Admin\Views\UserAD\RegistrationAD.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\gijgo.min.js" />
@@ -2394,6 +2395,7 @@
     <Content Include="Views\ProductPlanting\Index.cshtml" />
     <Content Include="Views\ProductPlanting\AddPlanting.cshtml" />
     <Content Include="Views\ProductPlanting\Update.cshtml" />
+    <Content Include="Views\User\NoActiveLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

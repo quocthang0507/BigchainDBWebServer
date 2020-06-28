@@ -66,17 +66,17 @@
                                             if (Session["usernameGO"] != null)
                                             {
                                                 <li><a href="@Url.Content("/Product/Manager")">@Session["NameGO"] </a></li>
-                                                <li><a href="@Url.Content("/User/SignOutGO")">Logout</a></li>
+                                                <li><a href="@Url.Content("/User/SignOutGO")">Đăng xuất</a></li>
                                             }
                                             else if (Session["usernameFB"] != null)
                                             {
                                                 <li><a href="@Url.Content("/Product/Manager")">@Session["NameFB"] </a></li>
-                                                <li><a href="@Url.Content("/User/LogoutFb")">Logout</a></li>
+                                                <li><a href="@Url.Content("/User/LogoutFb")">Đăng xuất</a></li>
                                             }
                                             else if (Session["UserID"] != null)
                                             {
                                                 <li><a href="@Url.Content("/Product/Manager")">@Session["UserID"] </a></li>
-                                                <li><a href="@Url.Content("/User/LogoutFb")">Logout</a></li>
+                                                <li><a href="@Url.Content("/User/LogoutFb")">Đăng xuất</a></li>
                                             }
                                         }
 
