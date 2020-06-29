@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+}
+
+<script src="~/Areas/Admin/css/js/functionController.js"></script>
+<!-- Page Wrapper -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    @*<h1 class="h3 mb-2 text-gray-800">Tables</h1>
+        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>*@
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h3 class="m-0 font-weight-bold text-primary">Nhà sản xuất</h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Mã sản phẩm</th>
+                            <th>Người yêu cầu</th>
+                            <th>Số lượng</th>
+                            <th>Ngày yêu cầu</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ if (ViewBag.lstRequest.Count > 0)
+                            {
+                                foreach (var item in ViewBag.lstRequest)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.idProduct
+                                        </td>
+                                        <td>@item.idUserRequest</td>
+                                        <td>@item.amount</td>
+                                        <td>@item.dateCreated.ToString("dd/MM/yyyy")</td>
+                                        <td>
+                                            @if(item.accepted == 1)
+                                            {
+                                                <a class="btn btn-info" href="@Url.Content(item.linkImg)" target="_blank">Xem mã QR</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="#" onclick="createQRCode('@item.idProduct',this);" class="btn btn-success">Tạo mã QR</a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <th> </th>
+                                    <th> </th>
+                                    <th> </th>
+                                    <th> </th>
+                                    <th> </th>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <script>
+            function createQRCode(code, para) {
+                para.onclick = null;
+                $.when(generateQRCode(code)).done(function (result) {
+                    if (result == null) {
+                        para.setAttribute("onclick", "javascript: createQRCode('" + code + ",this')");
+                    } else {
+                        para.href = result;
+                    }
+                        
+                });
+            }
+        </script>
+    </div>
+</div>

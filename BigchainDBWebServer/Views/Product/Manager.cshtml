@@ -2,8 +2,10 @@
 @{
     ViewBag.Title = "Manager";
     Layout = "~/Views/Shared/AdminProduct.cshtml";
+    var folderImg = "/imgQR/test/";
 }
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -59,6 +61,10 @@
                             else
                             {
                                 <th>Trạng thái mua bán</th>
+                                if (ViewBag.Roles == 3)
+                                {
+                                    <th>Mã QR</th>
+                                }
                             }
                         </tr>
                     </thead>
@@ -83,7 +89,7 @@
                                         }
                                         @if (item.IsUpBD == 1)
                                         {
-                                            <td style="color:forestgreen"><b>Đã duyệt</b></td>
+                                            <td style="color:forestgreen"><b> Đã duyệt </b></td>
                                         }
                                         else
                                         {
@@ -91,11 +97,11 @@
                                         }
                                         @if (item.checkBuy == 1)
                                         {
-                                            if (item.idRole == 1 && item.isClick <2 )
+                                            if (item.idRole == 1 && item.isClick < 2)
                                             {
                                                 <td>
                                                     <button type="button" class="btn btn-warning"
-                                                            onclick="openModal('@item.idProduct','@item.nameProduct','@item.nameOfUser')">
+                                                            onclick="openModal('@item.idProduct','@item.nameProduct')">
                                                         Đang chờ vận chuyển
                                                     </button>
                                                 </td>
@@ -124,6 +130,30 @@
                                         else
                                         {
                                             <td style="color:red"><b>Đang chờ mua</b></td>
+                                        }
+                                        @if (ViewBag.Roles == 3)
+                                        {
+                                            <td>
+                                                @if (item.IsUpBD == 0)
+                                                {
+                                                    <b style="color:red"></b>
+                                                }
+                                                else
+                                                {
+                                                    if (item.accepted == -1)
+                                                    {
+                                                        <button class="btn btn-info" onclick="openModal('@item.idProduct','@item.nameProduct')">Yêu cầu mã QR</button>
+                                                    }
+                                                    else if (item.accepted == 0)
+                                                    {
+                                                        <b style="color:red">Đã gửi yêu cầu</b>
+                                                    }
+                                                    else if (item.accepted == 1)
+                                                    {
+                                                        <a href="@Url.Content(folderImg + item.idProduct + ".png")" target="_blank" class="btn btn-success">Xem thử mã QR</a>
+                                                    }
+                                                }
+                                            </td>
                                         }
                                     </tr>
                                 }
@@ -250,3 +280,81 @@
         </script>
     </div>
 </div>
+@if (ViewBag.Roles == 3)
+{
+
+    <div>
+        <div id="modalRequestQR" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <form id="formRequestQR">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Yêu cầu tạo mã QR</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card shadow mb-4">
+                                <div class="card-body">
+                                    <div class="col-12">
+                                        <div class="tm-edit-product-form">
+                                            <input class="form-control" name="idUserRequest" value="x" hidden />
+                                            <div class="form-group">
+                                                <label>Mã sản phẩm</label>
+                                                <input  class="form-control" name="idProduct" value="" id="idProduct_QR" readonly />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Tên sản phẩm</label>
+                                                <input class="form-control" id="nameProduct_QR" value="" readonly />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Số lượng</label>
+                                                <input class="form-control" name="amount" id="amount_QR" type="number" min="1" max="1000000" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" onclick="sendRequestQR()">Gửi</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </form>
+                <script>
+                    function openModal(idProduct, nameProduct) {
+                        $('#idProduct_QR').val(idProduct);
+                        $('#nameProduct_QR').val(nameProduct);
+                        $('#modalRequestQR').modal('show');
+                    }
+                    function sendRequestQR() {
+                        var amount = $('#amount_QR').val();
+                        if (amount == null || amount == "" || amount < 0) {
+                            alert("Số lượng không hợp lệ, vui lòng nhập lại!");
+                            return;
+                        }
+                        //if amount is null or < 0, it auto become 100!
+                        var fd = new FormData(document.getElementById("formRequestQR"));
+                        console.log(fd);
+                        $.ajax({
+                            url: '/Product/RequestQRCode',
+                            data: fd,
+                            processData: false,
+                            contentType: false,
+                            type: 'POST',
+                            success: function (res) {
+                                if (res.Success == true) {
+                                    alert("Đăng ký thành công chờ quản trị viên kiểm duyệt");
+                                    location.reload();
+                                }
+                                else {
+                                    alert(res.Message);
+                                }
+                            }
+                        });
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+}

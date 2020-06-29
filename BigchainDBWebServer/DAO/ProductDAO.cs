@@ -300,5 +300,39 @@ namespace BigchainDBWebServer.DAO
                 return "";
             return detail.idUser;
         }
+        public ResultOfRequest RequestQRCode(QRManager qRManager)
+        {
+            var old = Model.QRManagers.FirstOrDefault(f => f.idProduct == qRManager.idProduct);
+            if (old != null)
+                return new ResultOfRequest(false, "Đã gửi yêu cầu, vui lòng chờ người quản trị xem xét!");
+            qRManager.isDeleted = 0;
+            qRManager.linkImg = "";
+            qRManager.accepted = 0;
+            qRManager.dateCreated = DateTime.Today;
+            qRManager.dateUpdated = DateTime.Today;
+            if (qRManager.amount == null || qRManager.amount < 0)
+                qRManager.amount = 100;
+            Model.QRManagers.Add(qRManager);
+            if (Model.SaveChanges() > 0)
+                return new ResultOfRequest(true, "Gửi yêu cầu thành công!");
+            return new ResultOfRequest(false, "Lỗi gửi yêu cầu, vui lòng thử lại!");
+        }
+        public List<QRManager> GetListRequest(string search = null)
+        {
+            if (search == null)
+                return Model.QRManagers.Where(f => f.isDeleted == 0).ToList();
+            else
+                return Model.QRManagers.Where(f => f.isDeleted == 0 && f.idProduct == search).ToList();
+        }
+        public ResultOfRequest AcceptQRRequest(string code,string urlPath)
+        {
+            var qrManager = Model.QRManagers.FirstOrDefault(f => f.idProduct == code && f.isDeleted == 0);
+            qrManager.accepted = 1;
+            qrManager.linkImg = urlPath;
+            qrManager.dateUpdated = System.DateTime.Today;
+            if (Model.SaveChanges() > 0)
+                return new ResultOfRequest(true, "Tạo thành công!");
+            return new ResultOfRequest(false, "Lỗi cập nhật!");
+        }
     }
 }

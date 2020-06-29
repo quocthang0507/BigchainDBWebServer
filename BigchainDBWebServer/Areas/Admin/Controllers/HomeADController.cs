@@ -111,19 +111,35 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult GenerateQRCode(string code)
         {
-            QRCodeGenerator.ECCLevel eccLevel = QRCodeGenerator.ECCLevel.H;
-            string urlPath = this.Server.MapPath(@"~\imgQR\test\");
+            string linkImg = @"~\imgQR\test\";
             string fileName = code + ".png";
-            urlPath = System.IO.Path.Combine(urlPath, fileName);
-            if (System.IO.File.Exists(urlPath))
+            linkImg += fileName;
+            string urlPath = this.Server.MapPath(linkImg);
+            //urlPath = System.IO.Path.Combine(urlPath, fileName);
+            ProductDAO dao = new ProductDAO();
+            var qrManager = dao.Model.QRManagers.FirstOrDefault(f => f.idProduct == code && f.isDeleted == 0);
+            if (qrManager == null)
+                return Json(false, "Không có yêu cầu của mã sản phẩm này, vui lòng kiểm tra lại!");
+            if(qrManager != null && qrManager.accepted == 1)
                 return Json(new ResultOfRequest(false, "Đã tạo mã QR cho sản phẩm này!"));
+            GenerateQR(urlPath, code);
+            if (System.IO.File.Exists(urlPath))
+            {
+                var result = dao.AcceptQRRequest(code, linkImg);
+                return Json(result);
+            }
+            return Json(new ResultOfRequest(false, "Không tìm thấy file!"));
+        }
+        private void GenerateQR(string urlPath, string code)
+        {
+            QRCodeGenerator.ECCLevel eccLevel = QRCodeGenerator.ECCLevel.H;
             using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
             {
                 using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(code, eccLevel))
                 {
                     using (QRCode qrCode = new QRCode(qrCodeData))
                     {
-                        var qrImg = qrCode.GetGraphic(20, Color.Black, Color.White,true);
+                        var qrImg = qrCode.GetGraphic(20, Color.Black, Color.White, true);
                         Bitmap fileSave = new Bitmap(qrImg, new Size(400, 400));
                         using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
                         {
@@ -137,9 +153,12 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
                     }
                 }
             }
-            if (System.IO.File.Exists(urlPath))
-                return Json(new ResultOfRequest(true, "Tạo thành công!"));
-            return Json(new ResultOfRequest(false, "Không tìm thấy file!"));
+        }
+        public ActionResult QRRequestManager(string search = null)
+        {
+            ProductDAO dao = new ProductDAO();
+            ViewBag.lstRequest = dao.GetListRequest(search);
+            return View();
         }
 	}
 }
