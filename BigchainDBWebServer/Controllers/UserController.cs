@@ -175,6 +175,7 @@ namespace BigchainDBWebServer.Controllers
 				if(acitve.Count()>0)
 				{
 					Session["UserID"] = userid;
+					Session["ComNa"] = dao.GetCoByUsername(userid);
 					return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
 				}	
 				else
@@ -235,6 +236,7 @@ namespace BigchainDBWebServer.Controllers
 				old.dateUpdate = DateTime.Now;
 				old.active = 0;
 				old.deleted = 0;
+				old.company = item.company;
 				dao.Model.UserBCs.Add(old);
 				if (dao.Model.SaveChanges() > 0)
 				{
@@ -296,6 +298,8 @@ namespace BigchainDBWebServer.Controllers
 				{
 					return RedirectToAction("Registration", "User");
 				}
+				AccountDAO dao = new AccountDAO();
+				Session["ComNa"] = dao.GetCoByUsername(username);
 			}
 			return RedirectToAction("Manager", "Product");
 		}
@@ -380,6 +384,8 @@ namespace BigchainDBWebServer.Controllers
 				}
 				else
 				{
+					AccountDAO dao = new AccountDAO();
+					Session["ComNa"] = dao.GetCoByUsername(profile.Id);
 					return RedirectToAction("Manager", "Product");
 				}
 			}

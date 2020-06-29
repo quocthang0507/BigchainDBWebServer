@@ -56,6 +56,10 @@
                             <th>Tên sản phẩm</th>
                             <th>Tên nhà sản xuất</th>
                             <th>Chi tiết</th>
+                            @if (ViewBag.Roles == 2)
+                            {
+                                <th>Số lượng</th>
+                            }
                             <th>Trạng thái</th>
                         </tr>
                     </thead>
@@ -81,6 +85,8 @@
                                         <td>@item.nameProduct</td>
                                         <td>@item.nameUser</td>
                                         <td>@item.detail</td>
+                                        <td>@item.numberTranfer</td>
+
                                         @if (item.isClick != 0 && item.isClick != null)
                                         {
                                             <td>
@@ -93,7 +99,7 @@
                                         {
                                             <td>
                                                 <button type="button" class="btn btn-primary"
-                                                        onclick="openModal('@item.idProduct','@item.nameProduct','@item.nameUser')">
+                                                        onclick="openModal('@item.idProduct','@item.nameProduct','@item.nameUser','@item.numberTranfer','@item.idProductDetail')">
                                                     Nhận vận chuyển
                                                 </button>
                                             </td>
@@ -124,11 +130,12 @@
                                         <td>@item.nameProduct</td>
                                         <td>@item.nameOfUser</td>
                                         <td>@item.details</td>
-                                        @if (item.isClick > 0)
+
+                                        @if (item.numberhandling == 0)
                                         {
                                             <td>
                                                 <button type="button" class="btn btn-success">
-                                                    Đã mua
+                                                    Đã mua hết
                                                 </button>
                                             </td>
                                         }
@@ -163,10 +170,12 @@
         </div>
     </div>
     <script>
-        function openModal(idProduct, nameProduct, nameOfUser) {
+        function openModal(idProduct, nameProduct, nameOfUser, numberTranfer, idProductDetail) {
             $("#idProduct").val(idProduct);
             $("#nameProduct").val(nameProduct);
             $("#nameOfUser").val(nameOfUser);
+            $("#numberTranfer").val(numberTranfer);
+            $("#idProductDetail").val(idProductDetail);
             $("#dateCreate").val("");
             $("#dateReview").val("");
             $("#myModal").modal("show");
@@ -204,6 +213,14 @@
                     {
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input readonly id="numberTranfer" type="text" class="form-control" name="numberhandling" placeholder="Số lượng">
+                        </div>
+                        <div class="input-group" style="display:none">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input readonly id="idProductDetail" type="text" class="form-control" name="idProductDetail" placeholder="ID">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                             <input id="dateCreateMD" name="dateCreated" type="text" class="form-control" data-toggle="datepicker1" placeholder="Ngày nhận">
                         </div>
                         <div class="input-group">
@@ -215,6 +232,10 @@
                     {
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="number" name="numberhandling" type="number" class="form-control" placeholder="Số lượng">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                             <input id="dateCreateMD" name="dateCreated" type="text" class="form-control" data-toggle="datepicker1" placeholder="Ngày mua">
                         </div>
                     }
@@ -222,12 +243,44 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" onclick="update()">Lưu</button>
+                @if (ViewBag.Roles == 2)
+                {
+                    <button type="button" class="btn btn-default" onclick="update()">Lưu</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-default" onclick="update2()">Lưu</button>
+                }
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
         <script>
             function update() {
+                    //var dateCreated = $("$dateCreated").val();
+                    //var dateReview = $("dateReview").val();
+                    //if (dateCreated > dateReview)
+                    //    alert("Ngày tạo không được sau ngày xem");
+                    var fd = new FormData(document.getElementById("frmInput"));
+                // fd.append('file', input.files[0]);
+                $.ajax({
+                    url: '/Product/InsertProductdifferent',
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function (data) {
+                            if (data.Success == true) {
+                                alert(data.Message);
+                                document.location.href = "/Product/Manager";
+                            }
+                            else {
+                                alert(data.Message);
+                            }
+                            //document.location.href = "/Product/Manager";
+                        }
+                    });
+            }
+            function update2() {
                 //var dateCreated = $("$dateCreated").val();
                 //var dateReview = $("dateReview").val();
                 //if (dateCreated > dateReview)

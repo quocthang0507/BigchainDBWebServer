@@ -20,7 +20,7 @@
         <div class="form-group">
             <label for="Address" class="col-sm-3 control-label">Địa chỉ</label>
             <div class="col-sm-9">
-                <input type="text" id="Address" placeholder="Address" name="adrs" class="form-control" autofocus>
+                <input type="text" id="Address" placeholder="Địa chỉ" name="adrs" class="form-control" autofocus>
             </div>
         </div>
         <div class="form-group">
@@ -44,25 +44,31 @@
                 </select>
             </div>
         </div>
+        <div class="form-group">
+            <label for="Address" class="col-sm-3 control-label">Tên công ty:</label>
+            <div class="col-sm-9">
+                <input type="text" id="Company" placeholder="Công ty" name="company" class="form-control" autofocus>
+            </div>
+        </div>
         @*<div class="form-group">
-                <label for="email" class="col-sm-3 control-label">Tỉnh </label>
-                <div class="col-sm-9">
-                    <select style="height:35px" name="pwd" class="form-control">
-                        <option selected=""> Chọn tỉnh</option>
-                        @if (lstDetail == null)
+            <label for="email" class="col-sm-3 control-label">Tỉnh </label>
+            <div class="col-sm-9">
+                <select style="height:35px" name="pwd" class="form-control">
+                    <option selected=""> Chọn tỉnh</option>
+                    @if (lstDetail == null)
+                    {
+                        <option></option>
+                    }
+                    else
+                    {
+                        foreach (var item in lstDetail)
                         {
-                            <option></option>
+                            <option value="@item.Title">@item.Title</option>
                         }
-                        else
-                        {
-                            foreach (var item in lstDetail)
-                            {
-                                <option value="@item.Title">@item.Title</option>
-                            }
-                        }
-                    </select>
-                </div>
-            </div>*@
+                    }
+                </select>
+            </div>
+        </div>*@
         @if (Session["usernameFB"] != null)
         {
             <div class="form-group">
@@ -79,23 +85,23 @@
             </div>
         </div>
         @*<div class="form-group">
-                <label for="Mobilephone" class="col-sm-3 control-label">Mobilephone* </label>
-                <div class="col-sm-9">
-                    <input type="tel" id="Mobilephone" placeholder="Mobilephone" class="form-control" name="teleNum2">
-                </div>
-            </div>*@
-        @*<div class="form-group">
-                <label for="password" class="col-sm-3 control-label">Password*</label>
-                <div class="col-sm-9">
-                    <input type="password" id="password" placeholder="Password" class="form-control">
-                </div>
+            <label for="Mobilephone" class="col-sm-3 control-label">Mobilephone* </label>
+            <div class="col-sm-9">
+                <input type="tel" id="Mobilephone" placeholder="Mobilephone" class="form-control" name="teleNum2">
             </div>
-            <div class="form-group">
-                <label for="password" class="col-sm-3 control-label">Confirm Password*</label>
-                <div class="col-sm-9">
-                    <input type="password" id="password" placeholder="Password" class="form-control">
-                </div>
-            </div>*@
+        </div>*@
+        @*<div class="form-group">
+            <label for="password" class="col-sm-3 control-label">Password*</label>
+            <div class="col-sm-9">
+                <input type="password" id="password" placeholder="Password" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-3 control-label">Confirm Password*</label>
+            <div class="col-sm-9">
+                <input type="password" id="password" placeholder="Password" class="form-control">
+            </div>
+        </div>*@
         <div class="form-group">
             <label for="birthDate" class="col-sm-3 control-label">Ngày sinh*</label>
             <div class="col-sm-9">
@@ -103,12 +109,12 @@
             </div>
         </div>
         @*<div class="form-group">
-                <label for="phoneNumber" class="col-sm-3 control-label">Phone number </label>
-                <div class="col-sm-9">
-                    <input type="phoneNumber" id="phoneNumber" placeholder="Phone number" class="form-control">
-                    <span class="help-block">Your phone number won't be disclosed anywhere </span>
-                </div>
-            </div>*@
+            <label for="phoneNumber" class="col-sm-3 control-label">Phone number </label>
+            <div class="col-sm-9">
+                <input type="phoneNumber" id="phoneNumber" placeholder="Phone number" class="form-control">
+                <span class="help-block">Your phone number won't be disclosed anywhere </span>
+            </div>
+        </div>*@
         <div class="form-group">
             <label class="control-label col-sm-3">Vai Trò</label>
             <div class="col-sm-6">
@@ -145,6 +151,11 @@
         if (document.getElementById(theId).value == "") {
             document.getElementById(theId).focus();
             return "Vui lòng nhập địa chỉ";
+        }
+        theId = "Company";
+        if (document.getElementById(theId).value == "") {
+            document.getElementById(theId).focus();
+            return "Vui lòng nhập tên công ty";
         }
         theId = "areaList";
         if (document.getElementById(theId).value == "Chọn tỉnh") {

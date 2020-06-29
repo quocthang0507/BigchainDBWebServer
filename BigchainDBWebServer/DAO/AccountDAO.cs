@@ -41,5 +41,11 @@ namespace BigchainDBWebServer.DAO
 			var lst = Model.Notifications.OrderBy(p => p.dateCreate).ToList();
 			return lst;
 		}
+		public string GetCoByUsername(string username)
+		{
+			var userBC = Model.UserBCs.FirstOrDefault(x => x.username == username);
+			string companyName = userBC.company;
+			return companyName;
+		}
 	}
 }

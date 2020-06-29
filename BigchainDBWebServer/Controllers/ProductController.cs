@@ -1,5 +1,6 @@
 ﻿using BigchainDBWebServer.DAO;
 using BigchainDBWebServer.Models;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -74,6 +75,10 @@ namespace BigchainDBWebServer.Controllers
 				ViewBag.lst = dao.GetAllByUsername(idUser);
 				ViewBag.Roles = CheckRoles(idUser);
 				ViewBag.lstTranfer = dao.GetListTranferUser();
+				//if(CheckRoles(idUser)==1)
+				//{
+				//	ViewBag.number = dao.GetNumberProduct(idUser);
+				//}	
 				return View();
 			}
 			return RedirectToAction("NoActiveLogin", "User");
@@ -148,7 +153,6 @@ namespace BigchainDBWebServer.Controllers
 			return View();
 			// 
 		}
-
 		[HttpPost]
 		public JsonResult InsertProduct(Product pro, ProductDetail item)
 		{
@@ -177,6 +181,34 @@ namespace BigchainDBWebServer.Controllers
 			var result = dao.InsertProduct(pro, item, idUser);
 			return Json(result, JsonRequestBehavior.AllowGet);
 		}
+		[HttpPost]
+		public JsonResult InsertProductdifferent(Product pro, ProductDetail item, int idProductDetail)
+		{
+			ProductDAO dao = new ProductDAO();
+			var UserFb = Session["usernameFB"];
+			var UserGO = Session["usernameGO"];
+			var UserID = Session["UserID"];
+			if (item == null)
+				return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
+			var old = dao.Model.Products.FirstOrDefault(f => f.id == pro.id);
+			string idUser = null;
+			if (UserFb != null)
+			{
+				idUser = UserFb.ToString();
+			}
+			if (UserGO != null)
+			{
+				idUser = UserGO.ToString();
+			}
+			if (UserID != null)
+			{
+				idUser = UserID.ToString();
+			}
+			if (idUser == null)
+				return Json(false, JsonRequestBehavior.AllowGet);
+			var result = dao.InsertProductdiff(pro, item, idUser, idProductDetail);
+			return Json(result, JsonRequestBehavior.AllowGet);
+		}
 		public JsonResult InsertProductTranfer(ProductTranfer item)
 		{
 			ProductDAO dao = new ProductDAO();
@@ -195,11 +227,16 @@ namespace BigchainDBWebServer.Controllers
 				old.nameUser = item.nameUser;
 				old.detail = item.detail;
 				old.idUser = item.idUser;
+				old.numberTranfer = item.numberTranfer;
+				old.isClick = 0;
+				old.idProductDetail = item.idProductDetail;
 				dao.Model.ProductTranfers.Add(old);
-				ProductDetail product = dao.Model.ProductDetails.FirstOrDefault(f => f.idProduct == item.idProduct && f.idRole==1);
-				product.isClick = 2;
+				var pro = dao.Model.ProductDetails.FirstOrDefault(x => x.idProduct == item.idProduct && x.idRole == 3 && x.id== item.idProductDetail);
+				pro.checkBuy = 1;
 				if (dao.Model.SaveChanges() > 0)
+				{					
 					return Json(new ResultOfRequest(true, "Thành công!"), JsonRequestBehavior.AllowGet);
+				}	
 				return Json(new ResultOfRequest(false, "Lỗi lưu dữ liệu!"), JsonRequestBehavior.AllowGet);
 			}
 		}
