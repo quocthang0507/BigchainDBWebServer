@@ -6,64 +6,64 @@
 
 <!-- Topbar Search -->
 <!-- Begin Page Content -->
-<div class="container-fluid">
-    <!-- Page Heading -->
-    @*<h1 class="h3 mb-2 text-gray-800">Tables</h1>
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        @*<h1 class="h3 mb-2 text-gray-800">Tables</h1>
         <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>*@
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            @if (ViewBag.Roles == 1)
-            {
-                <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà sản xuất</h1>
-            }
-            else if (ViewBag.Roles == 2)
-            {
-                <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà vận chuyển</h1>
-            }
-            else if (ViewBag.Roles == 3)
-            {
-                <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà buôn bán</h1>
-            }
-        </div>
-        @if (ViewBag.Roles == 3)
-        {
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
             <div class="card-body">
-                <div class="container-fluid">
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-                          style="width:95% !important" method="get" action="AddProductForDiffAc">
-                        <div class="input-group">
-                            <input name="search" style="border: 1px solid #4dd0e1 !important; box-shadow: 0 0 0 1px #4dd0e1;" type="text" class="form-control bg-light border-0 small" placeholder="Nhập mã sản phẩm" aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                @if (ViewBag.Roles == 1)
+                {
+                    <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà sản xuất</h1>
+                }
+                else if (ViewBag.Roles == 2)
+                {
+                    <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà vận chuyển</h1>
+                }
+                else if (ViewBag.Roles == 3)
+                {
+                    <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà phân phối</h1>
+                }
             </div>
-        }
-        <div class="card-header py-3">
-            <h3 class="m-0 font-weight-bold text-primary">Danh sách sản phẩm</h3>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Mã sản phẩm</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Tên nhà sản xuất</th>
-                            <th>Chi tiết</th>
-                            @if (ViewBag.Roles == 2)
-                            {
-                                <th>Số lượng</th>
-                            }
-                            <th>Trạng thái</th>
-                        </tr>
-                    </thead>
-                    @*<tfoot>
+            @if (ViewBag.Roles == 3)
+            {
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+                              style="width:95% !important" method="get" action="AddProductForDiffAc">
+                            <div class="input-group">
+                                <input name="search" style="border: 1px solid #4dd0e1 !important; box-shadow: 0 0 0 1px #4dd0e1;" type="text" class="form-control bg-light border-0 small" placeholder="Nhập mã sản phẩm" aria-label="Search" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+            <div class="card-header py-3">
+                <h3 class="m-0 font-weight-bold text-primary">Danh sách sản phẩm</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Mã sản phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Tên nhà sản xuất</th>
+                                <th>Chi tiết</th>
+                                @if (ViewBag.Roles == 2)
+                                {
+                                    <th>Số lượng</th>
+                                }
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        @*<tfoot>
                             <tr>
                                 <th>Name</th>
                                 <th>Position</th>
@@ -73,115 +73,120 @@
                                 <th>Salary</th>
                             </tr>
                         </tfoot>*@
-                    <tbody>
-                        @if (ViewBag.Roles == 2)
-                        {
-                            if (ViewBag.lstProductSent != null)
+                        <tbody>
+                            @if (ViewBag.Roles == 2)
                             {
-                                foreach (var item in ViewBag.lstProductSent)
+                                if (ViewBag.lstProductSent != null)
+                                {
+                                    foreach (var item in ViewBag.lstProductSent)
+                                    {
+                                        <tr>
+                                            <td><a href="@Url.Action("Info","ProductPlanting")?IdProduct=@item.idProduct">@item.idProduct</a></td>
+                                            <td>@item.nameProduct</td>
+                                            <td>@item.nameUser</td>
+                                            <td>@item.detail</td>
+                                            <td>@item.numberTranfer</td>
+
+                                            @if (item.isClick != 0 && item.isClick != null)
+                                            {
+                                                <td>
+                                                    <div class="btn btn-success">
+                                                        Đã nhận
+                                                    </div>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <button type="button" class="btn btn-primary"
+                                                            onclick="openModal('@item.idProduct','@item.nameProduct','@item.nameUser','@item.numberTranfer','@item.idProductDetail')">
+                                                        Nhận vận chuyển
+                                                    </button>
+                                                </td>
+                                            }
+
+                                        </tr>
+                                    }
+                                }
+                                else
                                 {
                                     <tr>
-                                        <td><a href="@Url.Action("Info","ProductPlanting")?IdProduct=@item.idProduct">@item.idProduct</a></td>
-                                        <td>@item.nameProduct</td>
-                                        <td>@item.nameUser</td>
-                                        <td>@item.detail</td>
-                                        <td>@item.numberTranfer</td>
-
-                                        @if (item.isClick != 0 && item.isClick != null)
-                                        {
-                                            <td>
-                                                <div class="btn btn-success">
-                                                    Đã nhận
-                                                </div>
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td>
-                                                <button type="button" class="btn btn-primary"
-                                                        onclick="openModal('@item.idProduct','@item.nameProduct','@item.nameUser','@item.numberTranfer','@item.idProductDetail')">
-                                                    Nhận vận chuyển
-                                                </button>
-                                            </td>
-                                        }
-
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 }
                             }
-                            else
+                            else if (ViewBag.Roles == 3)
                             {
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            }
-                        }
-                        else if (ViewBag.Roles == 3)
-                        {
-                            if (ViewBag.lstProductSent != null)
-                            {
-                                foreach (var item in ViewBag.lstProductSent)
+                                if (ViewBag.lstProductSent != null)
+                                {
+                                    foreach (var item in ViewBag.lstProductSent)
+                                    {
+                                        <tr>
+                                            <td><a href="@Url.Action("Info","ProductPlanting")?IdProduct=@item.idProduct">@item.idProduct</a></td>
+                                            <td>@item.nameProduct</td>
+                                            <td>@item.nameOfUser</td>
+                                            <td>@item.details</td>
+
+                                            @if (item.numberhandling == 0)
+                                            {
+                                                <td>
+                                                    <button type="button" class="btn btn-success">
+                                                        Đã mua hết
+                                                    </button>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <button type="button" class="btn btn-primary"
+                                                            onclick="openModal('@item.idProduct','@item.nameProduct','@item.nameOfUser','@item.numberhandling')">
+                                                        Mua
+                                                    </button>
+                                                </td>
+                                            }
+
+                                        </tr>
+                                    }
+                                }
+                                else
                                 {
                                     <tr>
-                                        <td><a href="@Url.Action("Info","ProductPlanting")?IdProduct=@item.idProduct">@item.idProduct</a></td>
-                                        <td>@item.nameProduct</td>
-                                        <td>@item.nameOfUser</td>
-                                        <td>@item.details</td>
-
-                                        @if (item.numberhandling == 0)
-                                        {
-                                            <td>
-                                                <button type="button" class="btn btn-success">
-                                                    Đã mua hết
-                                                </button>
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td>
-                                                <button type="button" class="btn btn-primary"
-                                                        onclick="openModal('@item.idProduct','@item.nameProduct','@item.nameOfUser')">
-                                                    Mua
-                                                </button>
-                                            </td>
-                                        }
-
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 }
                             }
-                            else
-                            {
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            }
-                        }
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+
+        <script>
+            function openModal(idProduct, nameProduct, nameOfUser, numberTranfer, idProductDetail) {
+                $("#idProduct").val(idProduct);
+                $("#nameProduct").val(nameProduct);
+                $("#nameOfUser").val(nameOfUser);
+                $("#numberTranfer").val(numberTranfer);
+                $("#number").val(numberTranfer);
+                $("#idProductDetail").val(idProductDetail);
+                $("#dateCreate").val("");
+                $("#dateReview").val("");
+                $("#number").attr({
+                    "max": numberTranfer,
+                });
+                $("#myModal").modal("show");
+            }
+        </script>
     </div>
-    <script>
-        function openModal(idProduct, nameProduct, nameOfUser, numberTranfer, idProductDetail) {
-            $("#idProduct").val(idProduct);
-            $("#nameProduct").val(nameProduct);
-            $("#nameOfUser").val(nameOfUser);
-            $("#numberTranfer").val(numberTranfer);
-            $("#idProductDetail").val(idProductDetail);
-            $("#dateCreate").val("");
-            $("#dateReview").val("");
-            $("#myModal").modal("show");
-        }
-    </script>
-</div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -232,7 +237,7 @@
                     {
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="number" name="numberhandling" type="number" class="form-control" placeholder="Số lượng">
+                            <input id="number" name="numberhandling" type="number" class="form-control" placeholder="Số lượng" min="0">
                         </div>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -255,12 +260,33 @@
             </div>
         </div>
         <script>
+            function checkRequired() {
+                theId = "dateCreateMD";
+                if (document.getElementById(theId).value == "") {
+                    document.getElementById(theId).focus();
+                    return "Vui lòng nhập ngày";
+                }       
+                theId = "dateReviewMD";
+                if (document.getElementById(theId).value == "") {
+                    document.getElementById(theId).focus();
+                    return "Vui lòng nhập ngày";
+                }
+                return "";
+            }
+        </script>
+        <script>
             function update() {
-                    //var dateCreated = $("$dateCreated").val();
-                    //var dateReview = $("dateReview").val();
-                    //if (dateCreated > dateReview)
-                    //    alert("Ngày tạo không được sau ngày xem");
-                    var fd = new FormData(document.getElementById("frmInput"));
+                debugger
+                var errorMes = checkRequired();
+                if (errorMes != "") {
+                    alert(errorMes);
+                    return;
+                }
+                //var dateCreated = $("$dateCreated").val();
+                //var dateReview = $("dateReview").val();
+                //if (dateCreated > dateReview)
+                //    alert("Ngày tạo không được sau ngày xem");
+                var fd = new FormData(document.getElementById("frmInput"));
                 // fd.append('file', input.files[0]);
                 $.ajax({
                     url: '/Product/InsertProductdifferent',
@@ -269,18 +295,23 @@
                     contentType: false,
                     type: 'POST',
                     success: function (data) {
-                            if (data.Success == true) {
-                                alert(data.Message);
-                                document.location.href = "/Product/Manager";
-                            }
-                            else {
-                                alert(data.Message);
-                            }
-                            //document.location.href = "/Product/Manager";
+                        if (data.Success == true) {
+                            alert(data.Message);
+                            document.location.href = "/Product/Manager";
                         }
-                    });
+                        else {
+                            alert(data.Message);
+                        }
+                        //document.location.href = "/Product/Manager";
+                    }
+                });
             }
             function update2() {
+                var errorMes = checkRequired();
+                if (errorMes != "") {
+                    alert(errorMes);
+                    return;
+                }
                 //var dateCreated = $("$dateCreated").val();
                 //var dateReview = $("dateReview").val();
                 //if (dateCreated > dateReview)

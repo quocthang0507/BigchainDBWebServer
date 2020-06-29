@@ -66,7 +66,14 @@ namespace BigchainDBWebServer.DAO
                     };
                     if (checkNumber(pro.id, int.Parse(item.numberhandling.ToString())))
                     {
-                        temp.numberhandling = item.numberhandling;
+                        if(int.Parse(item.numberhandling.ToString()) >0)
+                        {
+                            temp.numberhandling = item.numberhandling;
+                        }
+                        else
+                        {
+                            return new ResultOfRequest(false, "Số lượng nhập phải lớn hơn 0");
+                        }    
                     }
                     else
                     {
@@ -310,7 +317,14 @@ namespace BigchainDBWebServer.DAO
                     };
                     if (checkNumber(pro.id, int.Parse(item.numberhandling.ToString())))
                     {
-                        temp.numberhandling = item.numberhandling;
+                        if (int.Parse(item.numberhandling.ToString()) > 0)
+                        {
+                            temp.numberhandling = item.numberhandling;
+                        }
+                        else
+                        {
+                            return new ResultOfRequest(false, "Số lượng nhập phải lớn hơn 0");
+                        }
                     }
                     else
                     {

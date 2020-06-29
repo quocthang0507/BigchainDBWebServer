@@ -117,8 +117,37 @@
             </div>
         </div>
     </div>
-
 </div>
+<script>
+    function checkRequired() {
+        theId = "IDProduct";
+        if (document.getElementById(theId).value == "") {
+            document.getElementById(theId).focus();
+            return "Vui lòng nhập mã sản phẩm";
+        }
+        theId = "name";
+        if (document.getElementById(theId).value == "") {
+            document.getElementById(theId).focus();
+            return "Vui lòng nhập tên sản phẩm";
+        }
+        theId = "number";
+        if (document.getElementById(theId).value == "") {
+            document.getElementById(theId).focus();
+            return "Vui lòng nhập số lượng";
+        }
+        theId = "dateCreated";
+        if (document.getElementById(theId).value == "") {
+            document.getElementById(theId).focus();
+            return "Vui lòng nhập ngày trồng";
+        }
+        theId = "dateReview";
+        if (document.getElementById(theId).value == "") {
+            document.getElementById(theId).focus();
+            return "Vui lòng nhập ngày thu hoạch";
+        }
+        return "";
+    }
+</script>
 <script>
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -138,6 +167,11 @@
         readURL(this);
     });
     function insertProduct() {
+        var errorMes = checkRequired();
+        if (errorMes != "") {
+            alert(errorMes);
+            return;
+        }
         //var dateCreated = $("$dateCreated").val();
         //var dateReview = $("dateReview").val();
         //if (dateCreated > dateReview)

@@ -24,7 +24,7 @@
             }
             else if (ViewBag.Roles == 3)
             {
-                <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà buôn bán</h1>
+                <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà phân phối</h1>
             }
         </div>
         <div class="card-header py-3">
@@ -142,7 +142,7 @@
                                             {
                                                 <td>
                                                     <button type="button" class="btn btn-info"
-                                                            onclick="openModal('@item.idProduct','@item.nameProduct','@item.nameOfUser','@item.numberhandling','@item.idProductDetail')">
+                                                            onclick="openModal1('@item.idProduct','@item.nameProduct','@item.nameOfUser','@item.numberhandling','@item.idProductDetail')">
                                                         Chọn nhà vận chuyển
                                                     </button>
                                                 </td>
@@ -189,7 +189,7 @@
         </div>
     </div>
     <script>
-        function openModal(idProduct, nameProduct, nameOfUser, numberhandling, idProductDetail) {
+        function openModal1(idProduct, nameProduct, nameOfUser, numberhandling, idProductDetail) {
             $("#idProduct").val(idProduct);
             $("#nameProduct").val(nameProduct);
             $("#nameOfUser").val(nameOfUser);
@@ -229,18 +229,18 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                         <input id="detail" type="text" class="form-control" name="detail" placeholder="Mô tả">
                     </div>
-                    @if (ViewBag.Roles == 1)
+                    @*@if (ViewBag.Roles == 1)
                     {
                         <div class="input-group">
                             <select id="idUser" style="height:35px" name="idUser" class="form-control">
                                 <option selected=""> Chọn nhà vận chuyển</option>
                                 @foreach (var item in ViewBag.lstTranfer)
                                 {
-                                    <option value="@item.username">@item.name</option>
+                                    <option value="@item.username">@item.company</option>
                                 }
                             </select>
                         </div>
-                    }
+                    }*@
                     @if (ViewBag.Roles == 2)
                     {
                         <div class="input-group">
@@ -267,7 +267,7 @@
                                 <option selected=""> Chọn nhà vận chuyển</option>
                                 @foreach (var item in ViewBag.lstTranfer)
                                 {
-                                    <option value="@item.username">@item.name</option>
+                                    <option value="@item.username">@item.company</option>
                                 }
                             </select>
                         </div>
