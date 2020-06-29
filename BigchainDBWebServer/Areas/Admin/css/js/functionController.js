@@ -71,7 +71,7 @@ function activeUser(username, active) {
 }
 function generateQRCode(code) {
     var fd = '{"code":"' + code + '"}';
-    $.ajax({
+    var result = $.ajax({
         url: '/Admin/HomeAD/GenerateQRCode',
         data: fd,
         processData: false,
@@ -80,11 +80,16 @@ function generateQRCode(code) {
         success: function (res) {
             if (res.Success == true) {
                 alert(res.Message);
-                window.location.href = "/imgQR/test/" + code + ".png";
+                var link = "/imgQR/test/" + code + ".png";
+                window.open(link, '_blank');
+                //window.location.href = link;
+                return link;
             }
             else {
                 alert(res.Message);
+                return null;
             }
         }
     });
+    return result;
 }

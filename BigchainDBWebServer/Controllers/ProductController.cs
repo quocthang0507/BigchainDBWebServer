@@ -25,7 +25,29 @@ namespace BigchainDBWebServer.Controllers
 			}
 			return true;
 		}
-
+        private string GetIdUser()
+        {
+            string idUser = null;
+            if (Session["usernameFB"] != null)
+            {
+                var userFB = Session["usernameFB"].ToString();
+                if (CheckLogin(userFB))
+                    idUser = userFB;
+            }
+            if (Session["usernameGO"] != null)
+            {
+                var userGO = Session["usernameGO"].ToString();
+                if (CheckLogin(userGO))
+                    idUser = userGO;
+            }
+            if (Session["UserID"] != null)
+            {
+                var user = Session["UserID"].ToString();
+                if (CheckLogin(user))
+                    idUser = user;
+            }
+            return idUser;
+        }
 		public int CheckRoles(string item)
 		{
 			AccountDAO dao = new AccountDAO();
@@ -50,25 +72,7 @@ namespace BigchainDBWebServer.Controllers
 		// GET: Product
 		public ActionResult Manager()
 		{
-			string idUser = null;
-			if (Session["usernameFB"] != null)
-			{
-				var userFB = Session["usernameFB"].ToString();
-				if (CheckLogin(userFB))
-					idUser = userFB;
-			}
-			if (Session["usernameGO"] != null)
-			{
-				var userGO = Session["usernameGO"].ToString();
-				if (CheckLogin(userGO))
-					idUser = userGO;
-			}
-			if (Session["UserID"] != null)
-			{
-				var user = Session["UserID"].ToString();
-				if (CheckLogin(user))
-					idUser = user;
-			}
+            string idUser = GetIdUser();
 			if (idUser != null)
 			{
 				ProductDAO dao = new ProductDAO();
@@ -86,56 +90,40 @@ namespace BigchainDBWebServer.Controllers
 
 		public ActionResult AddProduct()
 		{
-			string userName = null;
-			if (Session["usernameFB"] != null)
-			{
-				userName = Session["usernameFB"].ToString();
-				if (CheckLogin(userName) && CheckRoles(Session["usernameFB"].ToString()) == 1)
-					return View(); //
-				else
-					return RedirectToAction("AddProductForDiffAc", "Product");
-			}
-			if (Session["usernameGO"] != null)
-			{
-				userName = Session["usernameGO"].ToString();
-				if (CheckLogin(userName) && CheckRoles(Session["usernameGO"].ToString()) == 1)
-					return View();//
-				else
-					return RedirectToAction("AddProductForDiffAc", "Product");
-			}
-			if (Session["UserID"] != null)
-			{
-				userName = Session["UserID"].ToString();
-				if (CheckLogin(userName) && CheckRoles(Session["UserID"].ToString()) == 1)
-					return View();//
-				else
-					return RedirectToAction("AddProductForDiffAc", "Product");
-			}
-			else { return RedirectToAction("NoActiveLogin", "User"); }
+			string userName = GetIdUser();
+            if (CheckLogin(userName) && CheckRoles(userName) == 1)
+                return View(); //
+            else
+                return RedirectToAction("AddProductForDiffAc", "Product");
+   //         if (Session["usernameFB"] != null)
+			//{
+			//	userName = Session["usernameFB"].ToString();
+			//}
+			//if (Session["usernameGO"] != null)
+			//{
+			//	userName = Session["usernameGO"].ToString();
+			//	if (CheckLogin(userName) && CheckRoles(Session["usernameGO"].ToString()) == 1)
+			//		return View();//
+			//	else
+			//		return RedirectToAction("AddProductForDiffAc", "Product");
+			//}
+			//if (Session["UserID"] != null)
+			//{
+			//	userName = Session["UserID"].ToString();
+			//	if (CheckLogin(userName) && CheckRoles(Session["UserID"].ToString()) == 1)
+			//		return View();//
+			//	else
+			//		return RedirectToAction("AddProductForDiffAc", "Product");
+			//}
+			//else { return RedirectToAction("NoActiveLogin", "User"); }
 
 		}
 
 		public ActionResult AddProductForDiffAc(string search = null)
 		{
-			string userName = null;
-			if (Session["usernameFB"] != null)
-			{
-				userName = Session["usernameFB"].ToString();
-				if (CheckLogin(userName))
-					goto SetView;
-			}
-			if (Session["usernameGO"] != null)
-			{
-				userName = Session["usernameGO"].ToString();
-				if (CheckLogin(userName))
-					goto SetView;
-			}
-			if (Session["UserID"] != null)
-			{
-				userName = Session["UserID"].ToString();
-				if (CheckLogin(userName))
-					goto SetView;
-			}
+			string userName = GetIdUser();
+            if(CheckLogin(userName))
+                goto SetView;
 			return RedirectToAction("NoActiveLogin", "User");
 		SetView:
 			ProductDAO dao = new ProductDAO();
@@ -157,26 +145,26 @@ namespace BigchainDBWebServer.Controllers
 		public JsonResult InsertProduct(Product pro, ProductDetail item)
 		{
 			ProductDAO dao = new ProductDAO();
-			var UserFb = Session["usernameFB"];
-			var UserGO = Session["usernameGO"];
-			var UserID = Session["UserID"];
 			if (item == null)
 				return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
 			var old = dao.Model.Products.FirstOrDefault(f => f.id == pro.id);
-			string idUser = null;
-			if (UserFb != null)
-			{
-				idUser = UserFb.ToString();
-			}
-			if (UserGO != null)
-			{
-				idUser = UserGO.ToString();
-			}
-			if (UserID != null)
-			{
-				idUser = UserID.ToString();
-			}
-			if (idUser == null)
+			string idUser = GetIdUser();
+            //var UserFb = Session["usernameFB"];
+            //var UserGO = Session["usernameGO"];
+            //var UserID = Session["UserID"];
+            //if (UserFb != null)
+            //{
+            //	idUser = UserFb.ToString();
+            //}
+            //if (UserGO != null)
+            //{
+            //	idUser = UserGO.ToString();
+            //}
+            //if (UserID != null)
+            //{
+            //	idUser = UserID.ToString();
+            //}
+            if (idUser == null)
 				return Json(false, JsonRequestBehavior.AllowGet);
 			var result = dao.InsertProduct(pro, item, idUser);
 			return Json(result, JsonRequestBehavior.AllowGet);
@@ -259,6 +247,17 @@ namespace BigchainDBWebServer.Controllers
                 //ViewBag.file = "Khong thay san pham";
             return RedirectToAction("Index", "Home");
             //return View();
+        }
+        [HttpPost]
+        public JsonResult RequestQRCode(QRManager qRManager)
+        {
+            string idUser = this.GetIdUser();
+            if (idUser == null)
+                return Json(new ResultOfRequest(false, "Không tồn tại người dùng!"));
+            qRManager.idUserRequest = idUser;
+            ProductDAO dao = new ProductDAO();
+            var result = dao.RequestQRCode(qRManager);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 	}
 }

@@ -233,6 +233,9 @@
     <Compile Include="Models\ProductTranfer.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\QRManager.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Role.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -2312,6 +2315,7 @@
     <Content Include="Areas\Admin\Views\UserAD\getNotification.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAD\ProductPlanting.cshtml" />
     <Content Include="Areas\Admin\Views\UserAD\RegistrationAD.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAD\QRRequestManager.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\gijgo.min.js" />
