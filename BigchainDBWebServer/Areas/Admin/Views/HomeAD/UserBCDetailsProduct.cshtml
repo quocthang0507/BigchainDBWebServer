@@ -74,7 +74,8 @@
                                         }
                                         else
                                         {
-                                            <td>@item.dateReview.ToString("dd/MM/yyyy")</td>
+                                            <td></td>
+                                            <td></td>
                                         }
                                         @*<td><button class="btn btn-dark" onclick="generateQRCode('@item.idProduct')">Xem mã QR</button></td>*@
                                     </tr>
@@ -98,7 +99,7 @@
     </div>
 
     <script type="text/javascript">
-        function sendToBigchainDB(idProduct, nameProduct, idUser, nameOfUser, email, adrs, area, city, phone, idRole, dateBegin, dateEnd, idProductDetail) {
+        function sendToBigchainDB(idProduct, nameProduct, idUser, nameOfUser, email, adrs, area, city, phone, idRole, dateBegin, dateEnd, idProductDetail, company) {
             disableButton(idProductDetail, true);
 
             // BigchainDB server instance (e.g. https://example.com/api/v1/)
@@ -114,7 +115,7 @@
                 {
                     idProduct: idProduct, nameProduct: nameProduct, idUser: idUser,
                     nameOfUser: nameOfUser, email: email, adrs: adrs, area: area, city: city, phone: phone, idRole: idRole,
-                    dateBegin: dateBegin, dateEnd: dateEnd
+                    dateBegin: dateBegin, dateEnd: dateEnd, company: company
                 },
 
                 // Metadata contains information about the transaction itself
