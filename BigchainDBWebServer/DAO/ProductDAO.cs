@@ -412,6 +412,13 @@ namespace BigchainDBWebServer.DAO
                 return -1;
             return int.Parse(detail.number.ToString());
         }
+        public string GetCompanyName(string username)
+        {
+            var user = Model.UserBCs.FirstOrDefault(x => x.username == username);
+            if (user == null)
+                return "";
+            return user.company;
+        }
         public ResultOfRequest RequestQRCode(QRManager qRManager)
         {
             var old = Model.QRManagers.FirstOrDefault(f => f.idProduct == qRManager.idProduct);

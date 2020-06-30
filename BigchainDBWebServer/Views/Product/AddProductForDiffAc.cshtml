@@ -23,7 +23,7 @@
                 }
                 else if (ViewBag.Roles == 3)
                 {
-                    <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà phân phối</h1>
+                    <h1 class="h3 mb-2 text-gray-800" style="text-align:center">Nhà cung cấp</h1>
                 }
             </div>
             @if (ViewBag.Roles == 3)
@@ -83,7 +83,7 @@
                                         <tr>
                                             <td><a href="@Url.Action("Info","ProductPlanting")?IdProduct=@item.idProduct">@item.idProduct</a></td>
                                             <td>@item.nameProduct</td>
-                                            <td>@item.nameUser</td>
+                                            <td>@item.company</td>
                                             <td>@item.detail</td>
                                             <td>@item.numberTranfer</td>
 
@@ -265,6 +265,14 @@
                 if (document.getElementById(theId).value == "") {
                     document.getElementById(theId).focus();
                     return "Vui lòng nhập ngày";
+                }
+                return "";
+            }
+            function checkRequired2() {
+                theId = "dateCreateMD";
+                if (document.getElementById(theId).value == "") {
+                    document.getElementById(theId).focus();
+                    return "Vui lòng nhập ngày";
                 }       
                 theId = "dateReviewMD";
                 if (document.getElementById(theId).value == "") {
@@ -276,8 +284,7 @@
         </script>
         <script>
             function update() {
-                debugger
-                var errorMes = checkRequired();
+                var errorMes = checkRequired2();
                 if (errorMes != "") {
                     alert(errorMes);
                     return;

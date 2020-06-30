@@ -218,6 +218,7 @@ namespace BigchainDBWebServer.Controllers
 				old.numberTranfer = item.numberTranfer;
 				old.isClick = 0;
 				old.idProductDetail = item.idProductDetail;
+				old.company = dao.GetCompanyName(item.idUser);
 				dao.Model.ProductTranfers.Add(old);
 				var pro = dao.Model.ProductDetails.FirstOrDefault(x => x.idProduct == item.idProduct && x.idRole == 3 && x.id== item.idProductDetail);
 				pro.checkBuy = 1;
