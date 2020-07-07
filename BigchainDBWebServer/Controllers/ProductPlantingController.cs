@@ -38,7 +38,7 @@ namespace BigchainDBWebServer.Controllers
 				return RedirectToAction("Index");
 			ViewBag.curProduct = product;
 			ViewBag.idUser = getIdUser();
-            ViewBag.lstOptions = dao.GetListOption();
+			ViewBag.lstOptions = dao.GetListOption();
 			return View();
 		}
 		[HttpPost]

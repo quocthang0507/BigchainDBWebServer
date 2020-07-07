@@ -20,9 +20,9 @@ namespace BigchainDBWebServer.DAO
 				return new ResultOfRequest(false, "Lỗi mã sản phẩm!");
 			if (product.dateBegin < productDetail.dateCreated)
 				return new ResultOfRequest(false, "Ngày bắt đầu không được trước " + productDetail.dateCreated.GetValueOrDefault().ToString("dd/MM/yyyy"));
-            product.dateEnd = product.dateBegin;
+			product.dateEnd = product.dateBegin;
 			//if (product.dateEnd > productDetail.dateReview)
-				//return new ResultOfRequest(false, "Ngày kết thúc không được sau " + productDetail.dateReview.GetValueOrDefault().ToString("dd/MM/yyyy"));
+			//return new ResultOfRequest(false, "Ngày kết thúc không được sau " + productDetail.dateReview.GetValueOrDefault().ToString("dd/MM/yyyy"));
 			product.dateCreated = DateTime.Now;
 			product.isDelete = 0;
 			product.isUpBD = 0;
@@ -76,9 +76,9 @@ namespace BigchainDBWebServer.DAO
 				return new ResultOfRequest(true, "Thành công!");
 			return new ResultOfRequest(false, "Lỗi lưu!");
 		}
-        public List<ColumnSelected> GetListOption()
-        {
-            return Model.ColumnSelecteds.Where(f => f.idType == 1).OrderBy(f => f.id).ToList();
-        }
+		public List<ColumnSelected> GetListOption()
+		{
+			return Model.ColumnSelecteds.Where(f => f.idType == 1).OrderBy(f => f.id).ToList();
+		}
 	}
 }

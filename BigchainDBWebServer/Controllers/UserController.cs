@@ -172,16 +172,16 @@ namespace BigchainDBWebServer.Controllers
 			if (data.Count() > 0)
 			{
 				var acitve = (from c in dao.Model.UserBCs where c.username == userid && c.pwd == Pwd && c.active == 1 select c).ToList();
-				if(acitve.Count()>0)
+				if (acitve.Count() > 0)
 				{
 					Session["UserID"] = userid;
 					Session["ComNa"] = dao.GetCoByUsername(userid);
 					return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
-				}	
+				}
 				else
 				{
 					return Json(new { Success = "NoActive" }, JsonRequestBehavior.AllowGet);
-				}	
+				}
 			}
 			else
 				return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
@@ -241,7 +241,7 @@ namespace BigchainDBWebServer.Controllers
 				if (dao.Model.SaveChanges() > 0)
 				{
 					return Json(new ResultOfRequest(true), JsonRequestBehavior.AllowGet);
-				}	
+				}
 				return Json(new ResultOfRequest(false, "Lỗi lưu dữ liệu!"), JsonRequestBehavior.AllowGet);
 			}
 		}
