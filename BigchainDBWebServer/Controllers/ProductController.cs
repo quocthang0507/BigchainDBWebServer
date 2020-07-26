@@ -142,7 +142,7 @@ namespace BigchainDBWebServer.Controllers
 			// 
 		}
 		[HttpPost]
-		public JsonResult InsertProduct(Product pro, ProductDetail item)
+		public JsonResult InsertProduct(Product pro, ProductDetail item, System.Web.HttpPostedFileBase httpPostedFile)
 		{
 			ProductDAO dao = new ProductDAO();
 			if (item == null)
@@ -164,6 +164,8 @@ namespace BigchainDBWebServer.Controllers
             //{
             //	idUser = UserID.ToString();
             //}
+            string filePath = SaveFileImg(httpPostedFile, idUser);
+            pro.imgPath = filePath;
             if (idUser == null)
 				return Json(false, JsonRequestBehavior.AllowGet);
 			var result = dao.InsertProduct(pro, item, idUser);
@@ -260,5 +262,15 @@ namespace BigchainDBWebServer.Controllers
             var result = dao.RequestQRCode(qRManager);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-	}
+        private string SaveFileImg(System.Web.HttpPostedFileBase httpPostedFile, string idUser)
+        {
+            if (httpPostedFile == null)
+                return "";
+            string path = "/img/productImg";
+            string fileName = string.Format("{0}_{1}_{2}", idUser, DateTime.Now.ToString("ddMMyyyy_hhmmss"), httpPostedFile.FileName);
+            string fullPath = path + "/" + fileName;
+            httpPostedFile.SaveAs(HttpContext.Server.MapPath(fullPath));
+            return fullPath;
+        }
+    }
 }

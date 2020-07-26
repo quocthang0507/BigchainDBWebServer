@@ -42,7 +42,7 @@
                                             @if (item.isUpBD == 0)
                                             {
                                                 <button id="id-@item.id" class="btn btn-success"
-                                                        onclick="sendToBigchainDB('@item.id','@item.idProduct','@item.idUser','@item.name','@item.details','@item.dateBegin','@item.dateEnd','@item.dateCreated')">
+                                                        onclick="sendToBigchainDB('@item.id','@item.idProduct','@item.idUser','@item.name','@item.details','@item.dateBegin.ToString("dd/MM/yyyy")','@item.dateEnd.ToString("dd/MM/yyyy")','@item.dateCreated.ToString("dd/MM/yyyy")')">
                                                     Đưa lên block chain
                                                 </button>
                                             }
