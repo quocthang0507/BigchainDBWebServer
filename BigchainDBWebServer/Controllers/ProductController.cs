@@ -1,6 +1,5 @@
 ﻿using BigchainDBWebServer.DAO;
 using BigchainDBWebServer.Models;
-using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -25,29 +24,29 @@ namespace BigchainDBWebServer.Controllers
 			}
 			return true;
 		}
-        private string GetIdUser()
-        {
-            string idUser = null;
-            if (Session["usernameFB"] != null)
-            {
-                var userFB = Session["usernameFB"].ToString();
-                if (CheckLogin(userFB))
-                    idUser = userFB;
-            }
-            if (Session["usernameGO"] != null)
-            {
-                var userGO = Session["usernameGO"].ToString();
-                if (CheckLogin(userGO))
-                    idUser = userGO;
-            }
-            if (Session["UserID"] != null)
-            {
-                var user = Session["UserID"].ToString();
-                if (CheckLogin(user))
-                    idUser = user;
-            }
-            return idUser;
-        }
+		private string GetIdUser()
+		{
+			string idUser = null;
+			if (Session["usernameFB"] != null)
+			{
+				var userFB = Session["usernameFB"].ToString();
+				if (CheckLogin(userFB))
+					idUser = userFB;
+			}
+			if (Session["usernameGO"] != null)
+			{
+				var userGO = Session["usernameGO"].ToString();
+				if (CheckLogin(userGO))
+					idUser = userGO;
+			}
+			if (Session["UserID"] != null)
+			{
+				var user = Session["UserID"].ToString();
+				if (CheckLogin(user))
+					idUser = user;
+			}
+			return idUser;
+		}
 		public int CheckRoles(string item)
 		{
 			AccountDAO dao = new AccountDAO();
@@ -72,7 +71,7 @@ namespace BigchainDBWebServer.Controllers
 		// GET: Product
 		public ActionResult Manager()
 		{
-            string idUser = GetIdUser();
+			string idUser = GetIdUser();
 			if (idUser != null)
 			{
 				ProductDAO dao = new ProductDAO();
@@ -91,11 +90,11 @@ namespace BigchainDBWebServer.Controllers
 		public ActionResult AddProduct()
 		{
 			string userName = GetIdUser();
-            if (CheckLogin(userName) && CheckRoles(userName) == 1)
-                return View(); //
-            else
-                return RedirectToAction("AddProductForDiffAc", "Product");
-   //         if (Session["usernameFB"] != null)
+			if (CheckLogin(userName) && CheckRoles(userName) == 1)
+				return View(); //
+			else
+				return RedirectToAction("AddProductForDiffAc", "Product");
+			//         if (Session["usernameFB"] != null)
 			//{
 			//	userName = Session["usernameFB"].ToString();
 			//}
@@ -122,8 +121,8 @@ namespace BigchainDBWebServer.Controllers
 		public ActionResult AddProductForDiffAc(string search = null)
 		{
 			string userName = GetIdUser();
-            if(CheckLogin(userName))
-                goto SetView;
+			if (CheckLogin(userName))
+				goto SetView;
 			return RedirectToAction("NoActiveLogin", "User");
 		SetView:
 			ProductDAO dao = new ProductDAO();
@@ -149,6 +148,7 @@ namespace BigchainDBWebServer.Controllers
 				return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
 			var old = dao.Model.Products.FirstOrDefault(f => f.id == pro.id);
 			string idUser = GetIdUser();
+
             //var UserFb = Session["usernameFB"];
             //var UserGO = Session["usernameGO"];
             //var UserID = Session["UserID"];
@@ -167,6 +167,7 @@ namespace BigchainDBWebServer.Controllers
             string filePath = SaveFileImg(httpPostedFile, idUser);
             pro.imgPath = filePath;
             if (idUser == null)
+
 				return Json(false, JsonRequestBehavior.AllowGet);
 			var result = dao.InsertProduct(pro, item, idUser);
 			return Json(result, JsonRequestBehavior.AllowGet);
@@ -222,12 +223,12 @@ namespace BigchainDBWebServer.Controllers
 				old.idProductDetail = item.idProductDetail;
 				old.company = dao.GetCompanyName(item.idUser);
 				dao.Model.ProductTranfers.Add(old);
-				var pro = dao.Model.ProductDetails.FirstOrDefault(x => x.idProduct == item.idProduct && x.idRole == 3 && x.id== item.idProductDetail);
+				var pro = dao.Model.ProductDetails.FirstOrDefault(x => x.idProduct == item.idProduct && x.idRole == 3 && x.id == item.idProductDetail);
 				pro.checkBuy = 1;
 				if (dao.Model.SaveChanges() > 0)
-				{					
+				{
 					return Json(new ResultOfRequest(true, "Thành công!"), JsonRequestBehavior.AllowGet);
-				}	
+				}
 				return Json(new ResultOfRequest(false, "Lỗi lưu dữ liệu!"), JsonRequestBehavior.AllowGet);
 			}
 		}

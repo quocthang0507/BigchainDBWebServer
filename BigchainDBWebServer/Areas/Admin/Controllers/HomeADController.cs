@@ -1,9 +1,9 @@
 ﻿using BigchainDBWebServer.DAO;
-using System.Linq;
-using System.Web.Mvc;
 using QRCoder;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace BigchainDBWebServer.Areas.Admin.Controllers
 {
@@ -108,57 +108,57 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			var result = dao.HasUpBD(id);
 			return Json(result, JsonRequestBehavior.AllowGet);
 		}
-        [HttpPost]
-        public JsonResult GenerateQRCode(string code)
-        {
-            string linkImg = @"~\imgQR\test\";
-            string fileName = code + ".png";
-            linkImg += fileName;
-            string urlPath = this.Server.MapPath(linkImg);
-            //urlPath = System.IO.Path.Combine(urlPath, fileName);
-            ProductDAO dao = new ProductDAO();
-            var qrManager = dao.Model.QRManagers.FirstOrDefault(f => f.idProduct == code && f.isDeleted == 0);
-            if (qrManager == null)
-                return Json(false, "Không có yêu cầu của mã sản phẩm này, vui lòng kiểm tra lại!");
-            if(qrManager != null && qrManager.accepted == 1)
-                return Json(new ResultOfRequest(false, "Đã tạo mã QR cho sản phẩm này!"));
-            GenerateQR(urlPath, code);
-            if (System.IO.File.Exists(urlPath))
-            {
-                var result = dao.AcceptQRRequest(code, linkImg);
-                return Json(result);
-            }
-            return Json(new ResultOfRequest(false, "Không tìm thấy file!"));
-        }
-        private void GenerateQR(string urlPath, string code)
-        {
-            QRCodeGenerator.ECCLevel eccLevel = QRCodeGenerator.ECCLevel.H;
-            using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
-            {
-                using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(code, eccLevel))
-                {
-                    using (QRCode qrCode = new QRCode(qrCodeData))
-                    {
-                        var qrImg = qrCode.GetGraphic(20, Color.Black, Color.White, true);
-                        Bitmap fileSave = new Bitmap(qrImg, new Size(400, 400));
-                        using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
-                        {
-                            using (System.IO.FileStream fs = new System.IO.FileStream(urlPath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
-                            {
-                                fileSave.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                                byte[] bytes = ms.ToArray();
-                                fs.Write(bytes, 0, bytes.Length);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        public ActionResult QRRequestManager(string search = null)
-        {
-            ProductDAO dao = new ProductDAO();
-            ViewBag.lstRequest = dao.GetListRequest(search);
-            return View();
-        }
+		[HttpPost]
+		public JsonResult GenerateQRCode(string code)
+		{
+			string linkImg = @"~\imgQR\test\";
+			string fileName = code + ".png";
+			linkImg += fileName;
+			string urlPath = this.Server.MapPath(linkImg);
+			//urlPath = System.IO.Path.Combine(urlPath, fileName);
+			ProductDAO dao = new ProductDAO();
+			var qrManager = dao.Model.QRManagers.FirstOrDefault(f => f.idProduct == code && f.isDeleted == 0);
+			if (qrManager == null)
+				return Json(false, "Không có yêu cầu của mã sản phẩm này, vui lòng kiểm tra lại!");
+			if (qrManager != null && qrManager.accepted == 1)
+				return Json(new ResultOfRequest(false, "Đã tạo mã QR cho sản phẩm này!"));
+			GenerateQR(urlPath, code);
+			if (System.IO.File.Exists(urlPath))
+			{
+				var result = dao.AcceptQRRequest(code, linkImg);
+				return Json(result);
+			}
+			return Json(new ResultOfRequest(false, "Không tìm thấy file!"));
+		}
+		private void GenerateQR(string urlPath, string code)
+		{
+			QRCodeGenerator.ECCLevel eccLevel = QRCodeGenerator.ECCLevel.H;
+			using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+			{
+				using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(code, eccLevel))
+				{
+					using (QRCode qrCode = new QRCode(qrCodeData))
+					{
+						var qrImg = qrCode.GetGraphic(20, Color.Black, Color.White, true);
+						Bitmap fileSave = new Bitmap(qrImg, new Size(400, 400));
+						using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+						{
+							using (System.IO.FileStream fs = new System.IO.FileStream(urlPath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+							{
+								fileSave.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+								byte[] bytes = ms.ToArray();
+								fs.Write(bytes, 0, bytes.Length);
+							}
+						}
+					}
+				}
+			}
+		}
+		public ActionResult QRRequestManager(string search = null)
+		{
+			ProductDAO dao = new ProductDAO();
+			ViewBag.lstRequest = dao.GetListRequest(search);
+			return View();
+		}
 	}
 }

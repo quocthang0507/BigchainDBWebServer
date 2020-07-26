@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BigchainDBWebServer.BundleConfig" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\BundleConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.FilterConfig" Collapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\FilterConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.RouteConfig" Collapsed="true">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\RouteConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Startup" Collapsed="true">
+    <Position X="14.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAgAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\Startup.Auth.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.MvcApplication" Collapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Global.asax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Areas.Admin.AdminAreaRegistration" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Admin\AdminAreaRegistration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Areas.Admin.Controllers.HomeADController" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACEAAgAIAAIAAAAgBAAAYAACAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Areas\Admin\Controllers\HomeADController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Areas.Admin.Controllers.UserADController" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABACAAABAgAAAAAAAAAAQAAhCAAQAAAAAAA=</HashCode>
+      <FileName>Areas\Admin\Controllers\UserADController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Controllers.HomeController" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAEQCAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Controllers.ProductController" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KAAAAAAAAAACAAAgAABAQAAAAAQABiAAAACAAAAAAAA=</HashCode>
+      <FileName>Controllers\ProductController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Controllers.ProductPlantingController" Collapsed="true">
+    <Position X="12.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwAAEAAAAAABAAAAAAAIAAAAAEAAAAAAAEAAEAAAAA=</HashCode>
+      <FileName>Controllers\ProductPlantingController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Controllers.UserController" Collapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABACgBAAAAABABAAAAAAKAAAhAAAAICAgQAAEEAAA=</HashCode>
+      <FileName>Controllers\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.DAO.AccountDAO">
+    <Position X="0.5" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAASAAAAAAEAAAAAAgAAAAAAAABAAAAAA=</HashCode>
+      <FileName>DAO\AccountDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.DAO.BaseDAO" Collapsed="true">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>DAO\BaseDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.DAO.ResultOfRequest" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAIAAAIAAAAAA=</HashCode>
+      <FileName>DAO\BaseDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.DAO.ProductDAO">
+    <Position X="2.25" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ICAEIAAAAAACAAKABAAAAAQQAAQAQAAgAACCAEAAAIA=</HashCode>
+      <FileName>DAO\ProductDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.DAO.ProductPlantingDAO">
+    <Position X="4" Y="1.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAACACAAAIAAAAAAAAAAIAAAAAAAAEAAAA=</HashCode>
+      <FileName>DAO\ProductPlantingDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Models.Area" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Area.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Models.Tinh" Collapsed="true">
+    <Position X="16.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAACAAAgEAAAAAAAAAAAAAAAAQAQQAAAAAAIAA=</HashCode>
+      <FileName>Models\Area.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Models.GoogleProfile" Collapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAAACAAAACAAAAAAAQAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Models\GoogleProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Models.QLNongSanEntities" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAAAAAAAAAAgAAAAAAAIgAAAUgAAiAAAACEAAAAAAAQ=</HashCode>
+      <FileName>Models\Model.Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Models.AdminBC" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAwAAAAAAkAIBAEgAQgAAAAAAAAAgA=</HashCode>
+      <FileName>Models\AdminBC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Models.NewNoti" Collapsed="true">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAgAAAAAAAAAAAAAAAAABAAIAAAAAgA=</HashCode>
+      <FileName>Models\NewNoti.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Models.Notification" Collapsed="true">
+    <Position X="14.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAgAAAAAACAAEAAAAEAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Models\Notification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Models.Product" Collapsed="true">
+    <Position X="16.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAQAAAAAAAAAAAAABAAAAAAAAAgA=</HashCode>
+      <FileName>Models\Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Models.ProductDetail" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABABEAgAAAAAAAAAAAAAACQBAAAAAEEAAgA=</HashCode>
+      <FileName>Models\ProductDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Models.ProductDetailView" Collapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAAAABADEAwwAQAAAAAAAAAAACQgAAAAAEEAIgA=</HashCode>
+      <FileName>Models\ProductDetailView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Models.ProductPlantingProcess" Collapsed="true">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAgAEAgAAQAAAAAABAAEAAQBAAAAAAAAAgA=</HashCode>
+      <FileName>Models\ProductPlantingProcess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Models.ProductSentView" Collapsed="true">
+    <Position X="16.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAABACEAgAAQAAAAAAAAAAAAACAAAAAAAAAgA=</HashCode>
+      <FileName>Models\ProductSentView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Models.Role" Collapsed="true">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Models\Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigchainDBWebServer.Models.UserBC" Collapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAA4AAAAAAkAIBAEgAQgAAAAIQAAAgA=</HashCode>
+      <FileName>Models\UserBC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
