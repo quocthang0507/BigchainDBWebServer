@@ -18,14 +18,14 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 		public ActionResult getNotification()
 		{
 			AccountDAO dao = new AccountDAO();
-			List<Notification> lstNotifi = dao.GetAllNotification();
+			var lstNotifi = dao.GetAllNotification();
 			return PartialView(lstNotifi);
 		}
 
 		public ActionResult readedNotification(int ID, string UserName)
 		{
 			ProductDAO dao = new ProductDAO();
-			NewNoti old = dao.Model.NewNotis.FirstOrDefault(f => f.id == ID);
+			var old = dao.Model.NewNotis.FirstOrDefault(f => f.id == ID);
 			if (old != null)
 			{
 				dao.Model.NewNotis.Remove(old);
@@ -35,63 +35,63 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			return RedirectToAction("Farmer", "HomeAD");
 		}
 
-		// GET: Admin/User
-		public ActionResult Login()
-		{
-			return View();
-		}
+        // GET: Admin/User
+        public ActionResult Login()
+        {
+            return View();
+        }
 
 		public async Task<ActionResult> RegistrationAD()
 		{
 			string Baseurl = "https://thongtindoanhnghiep.co/";
 			List<Tinh> lst = new List<Tinh>();
-			using (HttpClient client = new HttpClient())
+			using (var client = new HttpClient())
 			{
 				client.BaseAddress = new Uri(Baseurl);
 
-				client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Clear();
 
-				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-				HttpResponseMessage Res = await client.GetAsync("/api/city");
+                HttpResponseMessage Res = await client.GetAsync("/api/city");
 
-				if (Res.IsSuccessStatusCode)
-				{
-					//Storing the response details recieved from web api   
-					string SachResponse = Res.Content.ReadAsStringAsync().Result;
-					Area lstArea = new JavaScriptSerializer().Deserialize<Area>(SachResponse);
-					lst = lstArea.LtsItem;
-				}
-				this.ViewBag.lst = lst;
-				return View();
-			}
-		}
-		public static string MD5Hash(string text)
-		{
-			MD5 md5 = new MD5CryptoServiceProvider();
+                if (Res.IsSuccessStatusCode)
+                {
+                    //Storing the response details recieved from web api   
+                    string SachResponse = Res.Content.ReadAsStringAsync().Result;
+                    Area lstArea = new JavaScriptSerializer().Deserialize<Area>(SachResponse);
+                    lst = lstArea.LtsItem;
+                }
+                this.ViewBag.lst = lst;
+                return View();
+            }
+        }
+        public static string MD5Hash(string text)
+        {
+            MD5 md5 = new MD5CryptoServiceProvider();
 
-			//compute hash from the bytes of text  
-			md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(text));
+            //compute hash from the bytes of text  
+            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(text));
 
-			//get hash result after compute it  
-			byte[] result = md5.Hash;
+            //get hash result after compute it  
+            byte[] result = md5.Hash;
 
-			StringBuilder strBuilder = new StringBuilder();
-			for (int i = 0; i < result.Length; i++)
-			{
-				//change it into 2 hexadecimal digits  
-				//for each byte  
-				strBuilder.Append(result[i].ToString("x2"));
-			}
+            StringBuilder strBuilder = new StringBuilder();
+            for (int i = 0; i < result.Length; i++)
+            {
+                //change it into 2 hexadecimal digits  
+                //for each byte  
+                strBuilder.Append(result[i].ToString("x2"));
+            }
 
-			return strBuilder.ToString();
-		}
+            return strBuilder.ToString();
+        }
 
 		public JsonResult ValidateUser(string userid, string password)
 		{
 			AccountDAO dao = new AccountDAO();
-			string Pwd = MD5Hash(password);
-			IQueryable<AdminBC> data = from c in dao.Model.AdminBCs where c.username == userid && c.pwd == Pwd select c;
+			var Pwd = MD5Hash(password);
+			var data = from c in dao.Model.AdminBCs where c.username == userid && c.pwd == Pwd select c;
 			if (data.Count() > 0)
 			{
 				Session["UserAD"] = userid;
@@ -122,7 +122,7 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			AccountDAO dao = new AccountDAO();
 			if (item == null)
 				return Json(new ResultOfRequest(false, "Dữ liệu nhận bị lỗi!"), JsonRequestBehavior.AllowGet);
-			AdminBC old = dao.Model.AdminBCs.FirstOrDefault(f => f.username == item.username);
+			var old = dao.Model.AdminBCs.FirstOrDefault(f => f.username == item.username);
 			if (old != null)
 			{
 				return Json(new ResultOfRequest(false, "Đã tồn tại tài khoản này, vui lòng nhập lại!"), JsonRequestBehavior.AllowGet);
@@ -160,7 +160,7 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 		{
 			//return Json(new ResultOfRequest(true,id), JsonRequestBehavior.AllowGet);
 			ProductDAO dao = new ProductDAO();
-			ResultOfRequest result = dao.UpBD(int.Parse(id));
+			var result = dao.UpBD(int.Parse(id));
 			return Json(result, JsonRequestBehavior.AllowGet);
 		}
 	}

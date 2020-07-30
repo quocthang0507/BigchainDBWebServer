@@ -21,22 +21,22 @@ namespace BigchainDBWebServer.DAO
 		{
 			if (item.dateCreated > item.dateReview)
 				return new ResultOfRequest(false, "Ngày tạo không được sau ngày xem xét!");
-			ProductDetailView tempDetail = Model.ProductDetailViews.FirstOrDefault(f => f.idProduct == pro.id);
+			var tempDetail = Model.ProductDetailViews.FirstOrDefault(f => f.idProduct == pro.id);
 			if (tempDetail != null && tempDetail.idUser == idUser)
 				return new ResultOfRequest(false, "Đã tồn tại ID này");
-			NewNoti noti = Model.NewNotis.FirstOrDefault(f => f.idProduct == pro.id);
+			var noti = Model.NewNotis.FirstOrDefault(f => f.idProduct == pro.id);
 			noti = new NewNoti();
 			noti.idUser = idUser;
 			noti.idProduct = pro.id;
 			noti.dateCreate = DateTime.Now;
 			Model.NewNotis.Add(noti);
-			UserBC user = Model.UserBCs.FirstOrDefault(f => f.username == idUser);
+			var user = Model.UserBCs.FirstOrDefault(f => f.username == idUser);
 			if (user == null)
 				return new ResultOfRequest(false, "Người dùng không đúng");
-			Product old = Model.Products.FirstOrDefault(f => f.id == pro.id);
+			var old = Model.Products.FirstOrDefault(f => f.id == pro.id);
 			if (old != null)
 			{
-				List<ProductDetail> prodetail = Model.ProductDetails.Where(f => f.idProduct == pro.id).OrderByDescending(f => f.dateCreated).ToList();
+				var prodetail = Model.ProductDetails.Where(f => f.idProduct == pro.id).OrderByDescending(f => f.dateCreated).ToList();
 				//if (prodetail.Count > 3)
 				//	return new ResultOfRequest(false, "Không được phép tạo thêm thông tin vào sản phẩm này!");
 				//if (prodetail.Where(f => f.idUser == idUser).ToList().Count > 1)
@@ -54,7 +54,7 @@ namespace BigchainDBWebServer.DAO
 					return new ResultOfRequest(false, "Ngày tạo không được phép! Phải trễ hơn!");
 				if (user.idRole == 3)
 				{
-					ProductDetail temp = new ProductDetail()
+					var temp = new ProductDetail()
 					{
 						idUser = idUser,
 						idProduct = pro.id,
@@ -83,7 +83,7 @@ namespace BigchainDBWebServer.DAO
 					if (Model.SaveChanges() > 0)
 					{
 						//UpdateBuy(pro.id);
-						ResultOfRequest result = UpdateClickTranfer(pro.id, int.Parse(item.numberhandling.ToString()));
+						var result = UpdateClickTranfer(pro.id, int.Parse(item.numberhandling.ToString()));
 						return result;
 						//return new ResultOfRequest(true, "Thêm thành công!");
 					}
@@ -92,7 +92,7 @@ namespace BigchainDBWebServer.DAO
 				{
 					if (item.dateCreated < prodetail.Where(f => f.idRole == 1).FirstOrDefault().dateReview)
 						return new ResultOfRequest(false, "Ngày vận chuyển không thể sớm hơn ngày thu hoạch!");
-					ProductDetail temp = new ProductDetail()
+					var temp = new ProductDetail()
 					{
 						idUser = idUser,
 						idProduct = pro.id,
@@ -109,7 +109,7 @@ namespace BigchainDBWebServer.DAO
 					{
 						//UpdateTranfer(pro.id);
 						UpdateClick(pro.id);
-						ProductDetail update = Model.ProductDetails.FirstOrDefault(x => x.idProduct == pro.id && x.idRole == 3 && x.id == idProductDetail);
+						var update = Model.ProductDetails.FirstOrDefault(x => x.idProduct == pro.id && x.idRole == 3 && x.id == idProductDetail);
 						update.checkBuy = 2;
 						UpdateDateOfBuy(pro.id, DateTime.Parse(item.dateReview.ToString()), idProductDetail);
 						return new ResultOfRequest(true, "Thêm thành công!");
@@ -129,7 +129,7 @@ namespace BigchainDBWebServer.DAO
 				old.number = pro.number;
 				Model.Products.Add(old);
 				Model.SaveChanges();
-				ProductDetail prodetail = new ProductDetail();
+				var prodetail = new ProductDetail();
 				prodetail.idUser = idUser;
 				prodetail.idProduct = old.id;
 				prodetail.dateCreated = item.dateCreated;
@@ -249,14 +249,14 @@ namespace BigchainDBWebServer.DAO
 		{
 			if (role == null || role == 1)
 				return null;
-			List<ProductDetailView> lst = Model.ProductDetailViews.Where(f => f.idProduct.Contains(idProduct) && f.IsUpBD == 1 && f.idRole == 1).ToList();
+			var lst = Model.ProductDetailViews.Where(f => f.idProduct.Contains(idProduct) && f.IsUpBD == 1 && f.idRole == 1).ToList();
 			return lst;
 		}
 		public List<ProductTranfer> GetListProductTranfer(string idUser, int? role)
 		{
 			if (role == null || role == 1 || role == 3)
 				return null;
-			List<ProductTranfer> lst = Model.ProductTranfers.Where(f => f.idUser.Contains(idUser)).ToList();
+			var lst = Model.ProductTranfers.Where(f => f.idUser.Contains(idUser)).ToList();
 			return lst;
 		}
 		public ResultOfRequest UpBD(int id)
@@ -272,22 +272,22 @@ namespace BigchainDBWebServer.DAO
 		{
 			if (item.dateCreated > item.dateReview)
 				return new ResultOfRequest(false, "Ngày tạo không được sau ngày xem xét!");
-			ProductDetailView tempDetail = Model.ProductDetailViews.FirstOrDefault(f => f.idProduct == pro.id);
+			var tempDetail = Model.ProductDetailViews.FirstOrDefault(f => f.idProduct == pro.id);
 			if (tempDetail != null && tempDetail.idUser == idUser)
 				return new ResultOfRequest(false, "Đã tồn tại ID này");
-			NewNoti noti = Model.NewNotis.FirstOrDefault(f => f.idProduct == pro.id);
+			var noti = Model.NewNotis.FirstOrDefault(f => f.idProduct == pro.id);
 			noti = new NewNoti();
 			noti.idUser = idUser;
 			noti.idProduct = pro.id;
 			noti.dateCreate = DateTime.Now;
 			Model.NewNotis.Add(noti);
-			UserBC user = Model.UserBCs.FirstOrDefault(f => f.username == idUser);
+			var user = Model.UserBCs.FirstOrDefault(f => f.username == idUser);
 			if (user == null)
 				return new ResultOfRequest(false, "Người dùng không đúng");
-			Product old = Model.Products.FirstOrDefault(f => f.id == pro.id);
+			var old = Model.Products.FirstOrDefault(f => f.id == pro.id);
 			if (old != null)
 			{
-				List<ProductDetail> prodetail = Model.ProductDetails.Where(f => f.idProduct == pro.id).OrderByDescending(f => f.dateCreated).ToList();
+				var prodetail = Model.ProductDetails.Where(f => f.idProduct == pro.id).OrderByDescending(f => f.dateCreated).ToList();
 				//if (prodetail.Count > 3)
 				//	return new ResultOfRequest(false, "Không được phép tạo thêm thông tin vào sản phẩm này!");
 				//if (prodetail.Where(f => f.idUser == idUser).ToList().Count > 1)
@@ -305,7 +305,7 @@ namespace BigchainDBWebServer.DAO
 					return new ResultOfRequest(false, "Ngày tạo không được phép! Phải trễ hơn!");
 				if (user.idRole == 3)
 				{
-					ProductDetail temp = new ProductDetail()
+					var temp = new ProductDetail()
 					{
 						idUser = idUser,
 						idProduct = pro.id,
@@ -334,7 +334,7 @@ namespace BigchainDBWebServer.DAO
 					if (Model.SaveChanges() > 0)
 					{
 						//UpdateBuy(pro.id);
-						ResultOfRequest result = UpdateClickTranfer(pro.id, int.Parse(item.numberhandling.ToString()));
+						var result = UpdateClickTranfer(pro.id, int.Parse(item.numberhandling.ToString()));
 						return result;
 						//return new ResultOfRequest(true, "Thêm thành công!");
 					}
@@ -343,7 +343,7 @@ namespace BigchainDBWebServer.DAO
 				{
 					if (item.dateCreated < prodetail.Where(f => f.idRole == 1).FirstOrDefault().dateReview)
 						return new ResultOfRequest(false, "Ngày vận chuyển không thể sớm hơn ngày thu hoạch!");
-					ProductDetail temp = new ProductDetail()
+					var temp = new ProductDetail()
 					{
 						idUser = idUser,
 						idProduct = pro.id,
@@ -376,7 +376,7 @@ namespace BigchainDBWebServer.DAO
 				old.number = pro.number;
 				Model.Products.Add(old);
 				Model.SaveChanges();
-				ProductDetail prodetail = new ProductDetail();
+				var prodetail = new ProductDetail();
 				prodetail.idUser = idUser;
 				prodetail.idProduct = old.id;
 				prodetail.dateCreated = item.dateCreated;
@@ -406,7 +406,7 @@ namespace BigchainDBWebServer.DAO
 		}
 		public int GetNumberProduct(string username)
 		{
-			ProductDetail num = Model.ProductDetails.FirstOrDefault(x => x.idUser == username && x.idRole == 1);
+			var num = Model.ProductDetails.FirstOrDefault(x => x.idUser == username && x.idRole == 1);
 			Product detail = Model.Products.Where(f => f.id == num.idProduct).FirstOrDefault();
 			if (detail == null)
 				return -1;
@@ -414,7 +414,7 @@ namespace BigchainDBWebServer.DAO
 		}
 		public string GetCompanyName(string username)
 		{
-			UserBC user = Model.UserBCs.FirstOrDefault(x => x.username == username);
+			var user = Model.UserBCs.FirstOrDefault(x => x.username == username);
 			if (user == null)
 				return "";
 			return user.company;

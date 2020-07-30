@@ -7,34 +7,34 @@ using System.Web.Mvc;
 
 namespace BigchainDBWebServer.Areas.Admin.Controllers
 {
-	public class HomeADController : Controller
-	{
-		// GET: Admin/Home
-		//public ActionResult Index()
-		//{
-		//	return View();
-		//}
-		public ActionResult Supplier()
-		{
-			if (Session["UserAD"] != null)
-			{
-				AccountDAO dao = new AccountDAO();
-				ViewBag.lstUserBC = dao.GetListUserByIdRoles(3);
-				return View();
-			}
-			return RedirectToAction("Login", "UserAD");
-		}
+    public class HomeADController : Controller
+    {
+        // GET: Admin/Home
+        //public ActionResult Index()
+        //{
+        //	return View();
+        //}
+        public ActionResult Supplier()
+        {
+            if (Session["UserAD"] != null)
+            {
+                AccountDAO dao = new AccountDAO();
+                ViewBag.lstUserBC = dao.GetListUserByIdRoles(3);
+                return View();
+            }
+            return RedirectToAction("Login", "UserAD");
+        }
 
-		public ActionResult Distributor()
-		{
-			if (Session["UserAD"] != null)
-			{
-				AccountDAO dao = new AccountDAO();
-				ViewBag.lstUserBC = dao.GetListUserByIdRoles(2);
-				return View();
-			}
-			return RedirectToAction("Login", "UserAD");
-		}
+        public ActionResult Distributor()
+        {
+            if (Session["UserAD"] != null)
+            {
+                AccountDAO dao = new AccountDAO();
+                ViewBag.lstUserBC = dao.GetListUserByIdRoles(2);
+                return View();
+            }
+            return RedirectToAction("Login", "UserAD");
+        }
 
 		public ActionResult Farmer()
 		{
@@ -51,7 +51,7 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			AccountDAO dao = new AccountDAO();
 			if (item == null)
 				return 0;
-			Models.UserBC old = dao.Model.UserBCs.FirstOrDefault(f => f.username == item);
+			var old = dao.Model.UserBCs.FirstOrDefault(f => f.username == item);
 			if (old.idRole == 1)
 			{
 				return 1;
@@ -86,7 +86,7 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 		{
 			AccountDAO dao = new AccountDAO();
 			//var result = new ResultOfRequest(true, username);
-			ResultOfRequest result = dao.ActiveUser(username, active == 1);
+			var result = dao.ActiveUser(username, active == 1);
 			return Json(result, JsonRequestBehavior.AllowGet);
 		}
 		[HttpGet]
@@ -105,7 +105,7 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 		{
 			//return Json(new ResultOfRequest(true,id), JsonRequestBehavior.AllowGet);
 			ProductPlantingDAO dao = new ProductPlantingDAO();
-			ResultOfRequest result = dao.HasUpBD(id);
+			var result = dao.HasUpBD(id);
 			return Json(result, JsonRequestBehavior.AllowGet);
 		}
 		[HttpPost]
@@ -125,7 +125,7 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			GenerateQR(urlPath, code);
 			if (System.IO.File.Exists(urlPath))
 			{
-				ResultOfRequest result = dao.AcceptQRRequest(code, linkImg);
+				var result = dao.AcceptQRRequest(code, linkImg);
 				return Json(result);
 			}
 			return Json(new ResultOfRequest(false, "Không tìm thấy file!"));
@@ -139,7 +139,7 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 				{
 					using (QRCode qrCode = new QRCode(qrCodeData))
 					{
-						Bitmap qrImg = qrCode.GetGraphic(20, Color.Black, Color.White, true);
+						var qrImg = qrCode.GetGraphic(20, Color.Black, Color.White, true);
 						Bitmap fileSave = new Bitmap(qrImg, new Size(400, 400));
 						using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
 						{
