@@ -22,9 +22,9 @@ namespace QRCoder
 		/// </summary>
 		public byte[] GetGraphic(int pixelsPerModule)
 		{
-			using (var png = new PngBuilder())
+			using (PngBuilder png = new PngBuilder())
 			{
-				var size = this.QrCodeData.ModuleMatrix.Count * pixelsPerModule;
+				int size = this.QrCodeData.ModuleMatrix.Count * pixelsPerModule;
 				png.WriteHeader(size, size, 1, PngBuilder.ColorType.Greyscale);
 				png.WriteScanlines(this.DrawScanlines(pixelsPerModule));
 				png.WriteEnd();
@@ -37,9 +37,9 @@ namespace QRCoder
 		/// </summary>
 		public byte[] GetGraphic(int pixelsPerModule, byte[] darkColorRgba, byte[] lightColorRgba)
 		{
-			using (var png = new PngBuilder())
+			using (PngBuilder png = new PngBuilder())
 			{
-				var size = this.QrCodeData.ModuleMatrix.Count * pixelsPerModule;
+				int size = this.QrCodeData.ModuleMatrix.Count * pixelsPerModule;
 				png.WriteHeader(size, size, 1, PngBuilder.ColorType.Indexed);
 				png.WritePalette(darkColorRgba, lightColorRgba);
 				png.WriteScanlines(this.DrawScanlines(pixelsPerModule));
@@ -53,26 +53,26 @@ namespace QRCoder
 		/// </summary>
 		private byte[] DrawScanlines(int pixelsPerModule)
 		{
-			var moduleMatrix = this.QrCodeData.ModuleMatrix;
-			var matrixSize = moduleMatrix.Count;
-			var bytesPerScanline = (matrixSize * pixelsPerModule + 7) / 8 + 1; // A monochrome scanline is one byte for filter type then one bit per pixel.
-			var scanlines = new byte[bytesPerScanline * matrixSize * pixelsPerModule];
+			System.Collections.Generic.List<System.Collections.BitArray> moduleMatrix = this.QrCodeData.ModuleMatrix;
+			int matrixSize = moduleMatrix.Count;
+			int bytesPerScanline = (matrixSize * pixelsPerModule + 7) / 8 + 1; // A monochrome scanline is one byte for filter type then one bit per pixel.
+			byte[] scanlines = new byte[bytesPerScanline * matrixSize * pixelsPerModule];
 
-			for (var y = 0; y < matrixSize; y++)
+			for (int y = 0; y < matrixSize; y++)
 			{
-				var modules = moduleMatrix[y];
-				var scanlineOffset = y * pixelsPerModule * bytesPerScanline;
+				System.Collections.BitArray modules = moduleMatrix[y];
+				int scanlineOffset = y * pixelsPerModule * bytesPerScanline;
 
 				// Draw a scanline with the modules from the QR code.
-				for (var x = 0; x < matrixSize; x++)
+				for (int x = 0; x < matrixSize; x++)
 				{
 					if (modules[x])
 					{
 						continue;
 					}
 
-					var pixelIndex = x * pixelsPerModule;
-					var endIndex = pixelIndex + pixelsPerModule;
+					int pixelIndex = x * pixelsPerModule;
+					int endIndex = pixelIndex + pixelsPerModule;
 					for (; pixelIndex < endIndex; pixelIndex++)
 					{
 						scanlines[scanlineOffset + 1 + pixelIndex / 8] |= (byte)(0x80 >> (pixelIndex % 8));
@@ -80,7 +80,7 @@ namespace QRCoder
 				}
 
 				// Copy the scanline required number of times.
-				for (var copyCount = 1; copyCount < pixelsPerModule; copyCount++)
+				for (int copyCount = 1; copyCount < pixelsPerModule; copyCount++)
 				{
 					Array.Copy(scanlines, scanlineOffset, scanlines, scanlineOffset + copyCount * bytesPerScanline, bytesPerScanline);
 				}
@@ -135,20 +135,20 @@ namespace QRCoder
 
 			public byte[] GetBytes()
 			{
-				var bytes = this.stream.ToArray();
+				byte[] bytes = this.stream.ToArray();
 
 				// Enumerate chunks in file and insert their CRC32 checksums.
-				var chunkOffset = PngSignature.Length;
+				int chunkOffset = PngSignature.Length;
 				while (chunkOffset < bytes.Length)
 				{
 					// Read length field.
-					var dataLength = (bytes[chunkOffset] << 24) | (bytes[chunkOffset + 1] << 16) | (bytes[chunkOffset + 2] << 8) | bytes[chunkOffset + 3];
+					int dataLength = (bytes[chunkOffset] << 24) | (bytes[chunkOffset + 1] << 16) | (bytes[chunkOffset + 2] << 8) | bytes[chunkOffset + 3];
 
 					// CRC is computed from type and data fields.
-					var crc = Crc32(bytes, chunkOffset + 4, dataLength + 4);
+					uint crc = Crc32(bytes, chunkOffset + 4, dataLength + 4);
 
 					// Write CRC to end of chunk.
-					var crcOffset = chunkOffset + 8 + dataLength;
+					int crcOffset = chunkOffset + 8 + dataLength;
 					bytes[crcOffset + 0] = (byte)(crc >> 24);
 					bytes[crcOffset + 1] = (byte)(crc >> 16);
 					bytes[crcOffset + 2] = (byte)(crc >> 8);
@@ -192,10 +192,10 @@ namespace QRCoder
 			{
 				const int Red = 0, Green = 1, Blue = 2, Alpha = 3;
 				const byte Opaque = 255;
-				var hasAlpha = false;
+				bool hasAlpha = false;
 
 				this.WriteChunkStart(PLTE, 3 * rgbaColors.Length);
-				foreach (var color in rgbaColors)
+				foreach (byte[] color in rgbaColors)
 				{
 					hasAlpha |= color.Length > Alpha && color[Alpha] < Opaque;
 					this.stream.WriteByte(color[Red]);
@@ -210,7 +210,7 @@ namespace QRCoder
 				}
 
 				this.WriteChunkStart(tRNS, rgbaColors.Length);
-				foreach (var color in rgbaColors)
+				foreach (byte[] color in rgbaColors)
 				{
 					this.stream.WriteByte(color.Length > Alpha ? color[Alpha] : Opaque);
 				}
@@ -222,7 +222,7 @@ namespace QRCoder
 			/// </summary>
 			public void WriteScanlines(byte[] scanlines)
 			{
-				using (var idatStream = new MemoryStream())
+				using (MemoryStream idatStream = new MemoryStream())
 				{
 					Deflate(idatStream, scanlines);
 
@@ -240,7 +240,7 @@ namespace QRCoder
 					idatStream.CopyTo(this.stream);
 #endif
 					// Deflate checksum.
-					var adler = Adler32(scanlines, 0, scanlines.Length);
+					uint adler = Adler32(scanlines, 0, scanlines.Length);
 					this.WriteIntBigEndian(adler);
 
 					this.WriteChunkEnd();
@@ -279,7 +279,7 @@ namespace QRCoder
 
 			private static void Deflate(Stream output, byte[] bytes)
 			{
-				using (var deflateStream = new DeflateStream(output, CompressionMode.Compress, leaveOpen: true))
+				using (DeflateStream deflateStream = new DeflateStream(output, CompressionMode.Compress, leaveOpen: true))
 				{
 					deflateStream.Write(bytes, 0, bytes.Length);
 				}
@@ -291,8 +291,8 @@ namespace QRCoder
 				const uint Base = 65521;
 				uint s1 = 1, s2 = 0;
 
-				var end = index + length;
-				for (var n = index; n < end; n++)
+				int end = index + length;
+				for (int n = index; n < end; n++)
 				{
 					s1 = (s1 + data[n]) % Base;
 					s2 = (s2 + s1) % Base;
@@ -304,10 +304,10 @@ namespace QRCoder
 			// Reference implementation from REC-PNG-20031110. Not optimized.
 			private static uint Crc32(byte[] data, int index, int length)
 			{
-				var c = 0xffffffff;
+				uint c = 0xffffffff;
 
-				var end = index + length;
-				for (var n = index; n < end; n++)
+				int end = index + length;
+				for (int n = index; n < end; n++)
 				{
 					c = CrcTable[(c ^ data[n]) & 0xff] ^ (c >> 8);
 				}
@@ -321,9 +321,9 @@ namespace QRCoder
 	{
 		public static byte[] GetQRCode(string plainText, int pixelsPerModule, byte[] darkColorRgba, byte[] lightColorRgba, ECCLevel eccLevel, bool forceUtf8 = false, bool utf8BOM = false, EciMode eciMode = EciMode.Default, int requestedVersion = -1)
 		{
-			using (var qrGenerator = new QRCodeGenerator())
-			using (var qrCodeData = qrGenerator.CreateQrCode(plainText, eccLevel, forceUtf8, utf8BOM, eciMode, requestedVersion))
-			using (var qrCode = new PngByteQRCode(qrCodeData))
+			using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+			using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(plainText, eccLevel, forceUtf8, utf8BOM, eciMode, requestedVersion))
+			using (PngByteQRCode qrCode = new PngByteQRCode(qrCodeData))
 				return qrCode.GetGraphic(pixelsPerModule, darkColorRgba, lightColorRgba);
 		}
 
@@ -331,9 +331,9 @@ namespace QRCoder
 
 		public static byte[] GetQRCode(string txt, QRCodeGenerator.ECCLevel eccLevel, int size)
 		{
-			using (var qrGen = new QRCodeGenerator())
-			using (var qrCode = qrGen.CreateQrCode(txt, eccLevel))
-			using (var qrPng = new PngByteQRCode(qrCode))
+			using (QRCodeGenerator qrGen = new QRCodeGenerator())
+			using (QRCodeData qrCode = qrGen.CreateQrCode(txt, eccLevel))
+			using (PngByteQRCode qrPng = new PngByteQRCode(qrCode))
 				return qrPng.GetGraphic(size);
 		}
 	}

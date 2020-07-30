@@ -35,7 +35,7 @@ namespace QRCoder
 
 		public static bool IsAllDigit(string str)
 		{
-			foreach (var c in str)
+			foreach (char c in str)
 			{
 				if (!char.IsDigit(c))
 				{

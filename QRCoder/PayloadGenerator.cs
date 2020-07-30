@@ -482,7 +482,7 @@ namespace QRCoder
 				}
 				else
 				{
-					var version = outputType.ToString().Substring(5);
+					string version = outputType.ToString().Substring(5);
 					if (version.Length > 1)
 						version = version.Insert(1, ".");
 					else
@@ -623,7 +623,7 @@ namespace QRCoder
 			{
 				string query = null;
 
-				var queryValues = new KeyValuePair<string, string>[]{
+				KeyValuePair<string, string>[] queryValues = new KeyValuePair<string, string>[]{
 				  new KeyValuePair<string, string>(nameof(label), label),
 				  new KeyValuePair<string, string>(nameof(message), message),
 				  new KeyValuePair<string, string>(nameof(amount), amount.HasValue ? amount.Value.ToString("#.########", CultureInfo.InvariantCulture) : null)
@@ -834,8 +834,8 @@ namespace QRCoder
 
 			public class Iban
 			{
-				private string iban;
-				private IbanType ibanType;
+				private readonly string iban;
+				private readonly IbanType ibanType;
 
 				/// <summary>
 				/// IBAN object with type information
@@ -891,9 +891,9 @@ namespace QRCoder
 			public class Contact
 			{
 				private static readonly HashSet<string> twoLetterCodes = ValidTwoLetterCodes();
-				private string br = "\r\n";
-				private string name, streetOrAddressline1, houseNumberOrAddressline2, zipCode, city, country;
-				private AddressType adrType;
+				private readonly string br = "\r\n";
+				private readonly string name, streetOrAddressline1, houseNumberOrAddressline2, zipCode, city, country;
+				private readonly AddressType adrType;
 
 				/// <summary>
 				/// Contact type. Can be used for payee, ultimate payee, etc. with address in structured mode (S).
@@ -936,7 +936,7 @@ namespace QRCoder
 				private Contact(string name, string zipCode, string city, string country, string streetOrAddressline1, string houseNumberOrAddressline2, AddressType addressType)
 				{
 					//Pattern extracted from https://qr-validation.iso-payments.ch as explained in https://github.com/codebude/QRCoder/issues/97
-					var charsetPattern = @"^([a-zA-Z0-9\.,;:'\ \+\-/\(\)?\*\[\]\{\}\\`´~ ]|[!""#%&<>÷=@_$£]|[àáâäçèéêëìíîïñòóôöùúûüýßÀÁÂÄÇÈÉÊËÌÍÎÏÒÓÔÖÙÚÛÜÑ])*$";
+					string charsetPattern = @"^([a-zA-Z0-9\.,;:'\ \+\-/\(\)?\*\[\]\{\}\\`´~ ]|[!""#%&<>÷=@_$£]|[àáâäçèéêëìíîïñòóôöùúûüýßÀÁÂÄÇÈÉÊËÌÍÎÏÒÓÔÖÙÚÛÜÑ])*$";
 
 					this.adrType = addressType;
 
@@ -1053,7 +1053,7 @@ namespace QRCoder
 			public override string ToString()
 			{
 				//Header "logical" element
-				var SwissQrCodePayload = "SPC" + br; //QRType
+				string SwissQrCodePayload = "SPC" + br; //QRType
 				SwissQrCodePayload += "0200" + br; //Version
 				SwissQrCodePayload += "1" + br; //Coding
 
@@ -1140,7 +1140,7 @@ namespace QRCoder
 			//Keep in mind, that the ECC level has to be set to "M" when generating a Girocode!
 			//Girocode specification: http://www.europeanpaymentscouncil.eu/index.cfm/knowledge-bank/epc-documents/quick-response-code-guidelines-to-enable-data-capture-for-the-initiation-of-a-sepa-credit-transfer/epc069-12-quick-response-code-guidelines-to-enable-data-capture-for-the-initiation-of-a-sepa-credit-transfer1/
 
-			private string br = "\n";
+			private readonly string br = "\n";
 			private readonly string iban, bic, name, purposeOfCreditTransfer, remittanceInformation, messageToGirocodeUser;
 			private readonly decimal amount;
 			private readonly GirocodeVersion version;
@@ -1197,7 +1197,7 @@ namespace QRCoder
 
 			public override string ToString()
 			{
-				var girocodePayload = "BCD" + br;
+				string girocodePayload = "BCD" + br;
 				girocodePayload += ((version == GirocodeVersion.Version1) ? "001" : "002") + br;
 				girocodePayload += (int)encoding + 1 + br;
 				girocodePayload += "SCT" + br;
@@ -1368,8 +1368,8 @@ namespace QRCoder
 
 					if (authority != AuthorityType.contact_v2)
 					{
-						var oldFilled = (!string.IsNullOrEmpty(account) && !string.IsNullOrEmpty(bnc));
-						var newFilled = (!string.IsNullOrEmpty(iban) && !string.IsNullOrEmpty(bic));
+						bool oldFilled = (!string.IsNullOrEmpty(account) && !string.IsNullOrEmpty(bnc));
+						bool newFilled = (!string.IsNullOrEmpty(iban) && !string.IsNullOrEmpty(bic));
 						if ((!oldFilled && !newFilled) || (oldFilled && newFilled))
 							throw new BezahlCodeException("When using authority type 'contact_v2' either the parameters 'account' and 'bnc' or the parameters 'iban' and 'bic' must be set. Leave the other parameter pair empty.");
 					}
@@ -1400,8 +1400,8 @@ namespace QRCoder
 					throw new BezahlCodeException("Reasons texts have to be shorter than 28 chars.");
 				this.reason = reason;
 
-				var oldWayFilled = (!string.IsNullOrEmpty(account) && !string.IsNullOrEmpty(bnc));
-				var newWayFilled = (!string.IsNullOrEmpty(iban) && !string.IsNullOrEmpty(bic));
+				bool oldWayFilled = (!string.IsNullOrEmpty(account) && !string.IsNullOrEmpty(bnc));
+				bool newWayFilled = (!string.IsNullOrEmpty(iban) && !string.IsNullOrEmpty(bic));
 
 				//Non-SEPA payment types
 				if (authority == AuthorityType.periodicsinglepayment || authority == AuthorityType.singledirectdebit || authority == AuthorityType.singlepayment || authority == AuthorityType.contact || (authority == AuthorityType.contact_v2 && oldWayFilled))
@@ -1490,7 +1490,7 @@ namespace QRCoder
 
 			public override string ToString()
 			{
-				var bezahlCodePayload = $"bank://{authority}?";
+				string bezahlCodePayload = $"bank://{authority}?";
 
 				bezahlCodePayload += $"name={Uri.EscapeDataString(name)}&";
 
@@ -1843,7 +1843,7 @@ namespace QRCoder
 
 			public override string ToString()
 			{
-				var vEvent = $"BEGIN:VEVENT{Environment.NewLine}";
+				string vEvent = $"BEGIN:VEVENT{Environment.NewLine}";
 				vEvent += $"SUMMARY:{this.subject}{Environment.NewLine}";
 				vEvent += !string.IsNullOrEmpty(this.description) ? $"DESCRIPTION:{this.description}{Environment.NewLine}" : "";
 				vEvent += !string.IsNullOrEmpty(this.location) ? $"LOCATION:{this.location}{Environment.NewLine}" : "";
@@ -1923,9 +1923,9 @@ namespace QRCoder
 			// Defaults are 6 digits and 30 for Period
 			private string HMACToString()
 			{
-				var sb = new StringBuilder("otpauth://hotp/");
+				StringBuilder sb = new StringBuilder("otpauth://hotp/");
 				ProcessCommonFields(sb);
-				var actualCounter = Counter ?? 1;
+				int actualCounter = Counter ?? 1;
 				sb.Append("&counter=" + actualCounter);
 				return sb.ToString();
 			}
@@ -1937,7 +1937,7 @@ namespace QRCoder
 					throw new Exception("Period must be set when using OneTimePasswordAuthType.TOTP");
 				}
 
-				var sb = new StringBuilder("otpauth://totp/");
+				StringBuilder sb = new StringBuilder("otpauth://totp/");
 
 				ProcessCommonFields(sb);
 
@@ -2013,7 +2013,7 @@ namespace QRCoder
 			private readonly string hostname, password, tag, methodStr, parameter;
 			private readonly Method method;
 			private readonly int port;
-			private Dictionary<string, string> encryptionTexts = new Dictionary<string, string>() {
+			private readonly Dictionary<string, string> encryptionTexts = new Dictionary<string, string>() {
 				{ "Chacha20IetfPoly1305", "chacha20-ietf-poly1305" },
 				{ "Aes128Gcm", "aes-128-gcm" },
 				{ "Aes192Gcm", "aes-192-gcm" },
@@ -2081,7 +2081,7 @@ namespace QRCoder
 				)
 				}, tag)
 			{ }
-			private Dictionary<string, string> UrlEncodeTable = new Dictionary<string, string>
+			private readonly Dictionary<string, string> UrlEncodeTable = new Dictionary<string, string>
 			{
 				[" "] = "+",
 				["\0"] = "%00",
@@ -2118,7 +2118,7 @@ namespace QRCoder
 			private string UrlEncode(string i)
 			{
 				string j = i;
-				foreach (var kv in UrlEncodeTable)
+				foreach (KeyValuePair<string, string> kv in UrlEncodeTable)
 				{
 					j = j.Replace(kv.Key, kv.Value);
 				}
@@ -2150,12 +2150,12 @@ namespace QRCoder
 			{
 				if (string.IsNullOrEmpty(parameter))
 				{
-					var connectionString = $"{methodStr}:{password}@{hostname}:{port}";
-					var connectionStringEncoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(connectionString));
+					string connectionString = $"{methodStr}:{password}@{hostname}:{port}";
+					string connectionStringEncoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(connectionString));
 					return $"ss://{connectionStringEncoded}{(!string.IsNullOrEmpty(tag) ? $"#{tag}" : string.Empty)}";
 				}
-				var authString = $"{methodStr}:{password}";
-				var authStringEncoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(authString))
+				string authString = $"{methodStr}:{password}";
+				string authStringEncoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(authString))
 					.Replace('+', '-')
 					.Replace('/', '_')
 					.TrimEnd('=');
@@ -2256,7 +2256,7 @@ namespace QRCoder
 
 			public override string ToString()
 			{
-				var moneroUri = $"monero://{address}{(!string.IsNullOrEmpty(txPaymentId) || !string.IsNullOrEmpty(recipientName) || !string.IsNullOrEmpty(txDescription) || txAmount != null ? "?" : string.Empty)}";
+				string moneroUri = $"monero://{address}{(!string.IsNullOrEmpty(txPaymentId) || !string.IsNullOrEmpty(recipientName) || !string.IsNullOrEmpty(txDescription) || txAmount != null ? "?" : string.Empty)}";
 				moneroUri += (!string.IsNullOrEmpty(txPaymentId) ? $"tx_payment_id={Uri.EscapeDataString(txPaymentId)}&" : string.Empty);
 				moneroUri += (!string.IsNullOrEmpty(recipientName) ? $"recipient_name={Uri.EscapeDataString(recipientName)}&" : string.Empty);
 				moneroUri += (txAmount != null ? $"tx_amount={txAmount.ToString().Replace(",", ".")}&" : string.Empty);
@@ -2288,19 +2288,19 @@ namespace QRCoder
 			//Keep in mind, that the ECC level has to be set to "M", version to 15 and ECI to EciMode.Iso8859_2 when generating a SlovenianUpnQr!
 			//SlovenianUpnQr specification: https://www.upn-qr.si/uploads/files/NavodilaZaProgramerjeUPNQR.pdf
 
-			private string _payerName = "";
-			private string _payerAddress = "";
-			private string _payerPlace = "";
-			private string _amount = "";
-			private string _code = "";
-			private string _purpose = "";
-			private string _deadLine = "";
-			private string _recipientIban = "";
-			private string _recipientName = "";
-			private string _recipientAddress = "";
-			private string _recipientPlace = "";
-			private string _recipientSiModel = "";
-			private string _recipientSiReference = "";
+			private readonly string _payerName = "";
+			private readonly string _payerAddress = "";
+			private readonly string _payerPlace = "";
+			private readonly string _amount = "";
+			private readonly string _code = "";
+			private readonly string _purpose = "";
+			private readonly string _deadLine = "";
+			private readonly string _recipientIban = "";
+			private readonly string _recipientName = "";
+			private readonly string _recipientAddress = "";
+			private readonly string _recipientPlace = "";
+			private readonly string _recipientSiModel = "";
+			private readonly string _recipientSiReference = "";
 
 			public override int Version { get { return 15; } }
 			public override QRCodeGenerator.ECCLevel EccLevel { get { return QRCodeGenerator.ECCLevel.M; } }
@@ -2359,7 +2359,7 @@ namespace QRCoder
 
 			public override string ToString()
 			{
-				var _sb = new StringBuilder();
+				StringBuilder _sb = new StringBuilder();
 				_sb.Append("UPNQR");
 				_sb.Append('\n').Append('\n').Append('\n').Append('\n').Append('\n');
 				_sb.Append(_payerName).Append('\n');
@@ -2382,28 +2382,27 @@ namespace QRCoder
 		private static bool IsValidIban(string iban)
 		{
 			//Clean IBAN
-			var ibanCleared = iban.ToUpper().Replace(" ", "").Replace("-", "");
+			string ibanCleared = iban.ToUpper().Replace(" ", "").Replace("-", "");
 
 			//Check for general structure
-			var structurallyValid = Regex.IsMatch(ibanCleared, @"^[a-zA-Z]{2}[0-9]{2}([a-zA-Z0-9]?){16,30}$");
+			bool structurallyValid = Regex.IsMatch(ibanCleared, @"^[a-zA-Z]{2}[0-9]{2}([a-zA-Z0-9]?){16,30}$");
 
 			//Check IBAN checksum
-			var sum = $"{ibanCleared.Substring(4)}{ibanCleared.Substring(0, 4)}".ToCharArray().Aggregate("", (current, c) => current + (char.IsLetter(c) ? (c - 55).ToString() : c.ToString()));
-			decimal sumDec;
-			if (!decimal.TryParse(sum, out sumDec))
+			string sum = $"{ibanCleared.Substring(4)}{ibanCleared.Substring(0, 4)}".ToCharArray().Aggregate("", (current, c) => current + (char.IsLetter(c) ? (c - 55).ToString() : c.ToString()));
+			if (!decimal.TryParse(sum, out decimal sumDec))
 				return false;
-			var checksumValid = (sumDec % 97) == 1;
+			bool checksumValid = (sumDec % 97) == 1;
 
 			return structurallyValid && checksumValid;
 		}
 
 		private static bool IsValidQRIban(string iban)
 		{
-			var foundQrIid = false;
+			bool foundQrIid = false;
 			try
 			{
-				var ibanCleared = iban.ToUpper().Replace(" ", "").Replace("-", "");
-				var possibleQrIid = Convert.ToInt32(ibanCleared.Substring(4, 5));
+				string ibanCleared = iban.ToUpper().Replace(" ", "").Replace("-", "");
+				int possibleQrIid = Convert.ToInt32(ibanCleared.Substring(4, 5));
 				foundQrIid = possibleQrIid >= 30000 && possibleQrIid <= 31999;
 			}
 			catch { }
@@ -2436,7 +2435,7 @@ namespace QRCoder
 			{
 				forbiddenChars = new char[1] { ':' };
 			}
-			foreach (var c in forbiddenChars)
+			foreach (char c in forbiddenChars)
 			{
 				inp = inp.Replace(c.ToString(), "\\" + c);
 			}
@@ -2454,10 +2453,10 @@ namespace QRCoder
 			int remainder = 0;
 			for (int i = 0; i < digits.Length - 1; i++)
 			{
-				var num = Convert.ToInt32(digits[i]) - 48;
+				int num = Convert.ToInt32(digits[i]) - 48;
 				remainder = mods[(num + remainder) % 10];
 			}
-			var checksum = (10 - remainder) % 10;
+			int checksum = (10 - remainder) % 10;
 			return checksum == Convert.ToInt32(digits[digits.Length - 1]) - 48;
 		}
 

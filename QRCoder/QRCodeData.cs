@@ -15,9 +15,9 @@ namespace QRCoder
 		public QRCodeData(int version)
 		{
 			this.Version = version;
-			var size = ModulesPerSideFromVersion(version);
+			int size = ModulesPerSideFromVersion(version);
 			this.ModuleMatrix = new List<BitArray>();
-			for (var i = 0; i < size; i++)
+			for (int i = 0; i < size; i++)
 				this.ModuleMatrix.Add(new BitArray(size));
 		}
 #if NETFRAMEWORK || NETSTANDARD2_0
@@ -27,16 +27,16 @@ namespace QRCoder
 #endif
 		public QRCodeData(byte[] rawData, Compression compressMode)
 		{
-			var bytes = new List<byte>(rawData);
+			List<byte> bytes = new List<byte>(rawData);
 
 			//Decompress
 			if (compressMode == Compression.Deflate)
 			{
-				using (var input = new MemoryStream(bytes.ToArray()))
+				using (MemoryStream input = new MemoryStream(bytes.ToArray()))
 				{
-					using (var output = new MemoryStream())
+					using (MemoryStream output = new MemoryStream())
 					{
-						using (var dstream = new DeflateStream(input, CompressionMode.Decompress))
+						using (DeflateStream dstream = new DeflateStream(input, CompressionMode.Decompress))
 						{
 							Stream4Methods.CopyTo(dstream, output);
 						}
@@ -46,11 +46,11 @@ namespace QRCoder
 			}
 			else if (compressMode == Compression.GZip)
 			{
-				using (var input = new MemoryStream(bytes.ToArray()))
+				using (MemoryStream input = new MemoryStream(bytes.ToArray()))
 				{
-					using (var output = new MemoryStream())
+					using (MemoryStream output = new MemoryStream())
 					{
-						using (var dstream = new GZipStream(input, CompressionMode.Decompress))
+						using (GZipStream dstream = new GZipStream(input, CompressionMode.Decompress))
 						{
 							Stream4Methods.CopyTo(dstream, output);
 						}
@@ -63,15 +63,15 @@ namespace QRCoder
 				throw new Exception("Invalid raw data file. Filetype doesn't match \"QRR\".");
 
 			//Set QR code version
-			var sideLen = (int)bytes[4];
+			int sideLen = bytes[4];
 			bytes.RemoveRange(0, 5);
 			this.Version = (sideLen - 21 - 8) / 4 + 1;
 
 			//Unpack
-			var modules = new Queue<bool>(8 * bytes.Count);
-			foreach (var b in bytes)
+			Queue<bool> modules = new Queue<bool>(8 * bytes.Count);
+			foreach (byte b in bytes)
 			{
-				var bArr = new BitArray(new byte[] { b });
+				BitArray bArr = new BitArray(new byte[] { b });
 				for (int i = 7; i >= 0; i--)
 				{
 					modules.Enqueue((b & (1 << i)) != 0);
@@ -93,7 +93,7 @@ namespace QRCoder
 
 		public byte[] GetRawData(Compression compressMode)
 		{
-			var bytes = new List<byte>();
+			List<byte> bytes = new List<byte>();
 
 			//Add header - signature ("QRR")
 			bytes.AddRange(new byte[] { 0x51, 0x52, 0x52, 0x00 });
@@ -102,10 +102,10 @@ namespace QRCoder
 			bytes.Add((byte)ModuleMatrix.Count);
 
 			//Build data queue
-			var dataQueue = new Queue<int>();
-			foreach (var row in ModuleMatrix)
+			Queue<int> dataQueue = new Queue<int>();
+			foreach (BitArray row in ModuleMatrix)
 			{
-				foreach (var module in row)
+				foreach (object module in row)
 				{
 					dataQueue.Enqueue((bool)module ? 1 : 0);
 				}
@@ -125,14 +125,14 @@ namespace QRCoder
 				}
 				bytes.Add(b);
 			}
-			var rawData = bytes.ToArray();
+			byte[] rawData = bytes.ToArray();
 
 			//Compress stream (optional)
 			if (compressMode == Compression.Deflate)
 			{
-				using (var output = new MemoryStream())
+				using (MemoryStream output = new MemoryStream())
 				{
-					using (var dstream = new DeflateStream(output, CompressionMode.Compress))
+					using (DeflateStream dstream = new DeflateStream(output, CompressionMode.Compress))
 					{
 						dstream.Write(rawData, 0, rawData.Length);
 					}
@@ -141,7 +141,7 @@ namespace QRCoder
 			}
 			else if (compressMode == Compression.GZip)
 			{
-				using (var output = new MemoryStream())
+				using (MemoryStream output = new MemoryStream())
 				{
 					using (GZipStream gzipStream = new GZipStream(output, CompressionMode.Compress, true))
 					{

@@ -28,10 +28,10 @@ namespace QRCoder
 
 		public byte[] GetGraphic(int pixelsPerModule, byte[] darkColorRgb, byte[] lightColorRgb)
 		{
-			var sideLength = this.QrCodeData.ModuleMatrix.Count * pixelsPerModule;
+			int sideLength = this.QrCodeData.ModuleMatrix.Count * pixelsPerModule;
 
-			var moduleDark = darkColorRgb.Reverse();
-			var moduleLight = lightColorRgb.Reverse();
+			IEnumerable<byte> moduleDark = darkColorRgb.Reverse();
+			IEnumerable<byte> moduleLight = lightColorRgb.Reverse();
 
 			List<byte> bmp = new List<byte>();
 
@@ -47,13 +47,13 @@ namespace QRCoder
 			bmp.AddRange(new byte[] { 0x01, 0x00, 0x18, 0x00 });
 
 			//draw qr code
-			for (var x = sideLength - 1; x >= 0; x = x - pixelsPerModule)
+			for (int x = sideLength - 1; x >= 0; x = x - pixelsPerModule)
 			{
 				for (int pm = 0; pm < pixelsPerModule; pm++)
 				{
-					for (var y = 0; y < sideLength; y = y + pixelsPerModule)
+					for (int y = 0; y < sideLength; y = y + pixelsPerModule)
 					{
-						var module =
+						bool module =
 							this.QrCodeData.ModuleMatrix[(x + pixelsPerModule) / pixelsPerModule - 1][(y + pixelsPerModule) / pixelsPerModule - 1];
 						for (int i = 0; i < pixelsPerModule; i++)
 						{
@@ -105,19 +105,19 @@ namespace QRCoder
 			string lightColorHtmlHex, ECCLevel eccLevel, bool forceUtf8 = false, bool utf8BOM = false,
 			EciMode eciMode = EciMode.Default, int requestedVersion = -1)
 		{
-			using (var qrGenerator = new QRCodeGenerator())
+			using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
 			using (
-				var qrCodeData = qrGenerator.CreateQrCode(plainText, eccLevel, forceUtf8, utf8BOM, eciMode,
+				QRCodeData qrCodeData = qrGenerator.CreateQrCode(plainText, eccLevel, forceUtf8, utf8BOM, eciMode,
 					requestedVersion))
-			using (var qrCode = new BitmapByteQRCode(qrCodeData))
+			using (BitmapByteQRCode qrCode = new BitmapByteQRCode(qrCodeData))
 				return qrCode.GetGraphic(pixelsPerModule, darkColorHtmlHex, lightColorHtmlHex);
 		}
 
 		public static byte[] GetQRCode(string txt, QRCodeGenerator.ECCLevel eccLevel, int size)
 		{
-			using (var qrGen = new QRCodeGenerator())
-			using (var qrCode = qrGen.CreateQrCode(txt, eccLevel))
-			using (var qrBmp = new BitmapByteQRCode(qrCode))
+			using (QRCodeGenerator qrGen = new QRCodeGenerator())
+			using (QRCodeData qrCode = qrGen.CreateQrCode(txt, eccLevel))
+			using (BitmapByteQRCode qrBmp = new BitmapByteQRCode(qrCode))
 				return qrBmp.GetGraphic(size);
 
 		}

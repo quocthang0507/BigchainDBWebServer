@@ -19,10 +19,10 @@ namespace BigchainDBWebServer.Controllers
 		public ActionResult Info(string IdProduct)
 		{
 			ProductPlantingDAO dao = new ProductPlantingDAO();
-			var product = dao.Model.Products.FirstOrDefault(x => x.id == IdProduct);
+			Product product = dao.Model.Products.FirstOrDefault(x => x.id == IdProduct);
 			if (product == null)
 				return RedirectToAction("Index", "ProductPlanting");
-			var result = dao.GetListProductPlantingProcessesByIdProduct(IdProduct);
+			System.Collections.Generic.List<ProductPlantingProcess> result = dao.GetListProductPlantingProcessesByIdProduct(IdProduct);
 			ViewBag.product = product;
 			ViewBag.isOwner = CheckOwner(product);
 			ViewBag.lstPlanting = result;
@@ -31,7 +31,7 @@ namespace BigchainDBWebServer.Controllers
 		public ActionResult AddPlanting(string IdProduct)
 		{
 			ProductPlantingDAO dao = new ProductPlantingDAO();
-			var product = dao.Model.Products.FirstOrDefault(x => x.id == IdProduct);
+			Product product = dao.Model.Products.FirstOrDefault(x => x.id == IdProduct);
 			if (product == null)
 				return RedirectToAction("Index");
 			if (!CheckOwner(product))
@@ -45,7 +45,7 @@ namespace BigchainDBWebServer.Controllers
 		public JsonResult Insert(ProductPlantingProcess product)
 		{
 			ProductPlantingDAO dao = new ProductPlantingDAO();
-			var result = dao.InsertPlanting(product);
+			ResultOfRequest result = dao.InsertPlanting(product);
 			return Json(result, JsonRequestBehavior.AllowGet);
 		}
 		[HttpGet]
@@ -55,7 +55,7 @@ namespace BigchainDBWebServer.Controllers
 			ProductPlantingProcess curr = dao.Model.ProductPlantingProcesses.FirstOrDefault(x => x.id == id && x.isDelete == 0 && x.isUpBD == 0);
 			if (curr == null)
 				return RedirectToAction("Index");
-			var curPro = dao.Model.Products.FirstOrDefault(f => f.id == curr.idProduct);
+			Product curPro = dao.Model.Products.FirstOrDefault(f => f.id == curr.idProduct);
 			if (curr == null || curPro.isDeleted == 1 || !CheckOwner(curPro))
 				return RedirectToAction("Index");
 			ViewBag.curPlanting = curr;

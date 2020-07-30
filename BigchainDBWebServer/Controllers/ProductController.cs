@@ -13,7 +13,7 @@ namespace BigchainDBWebServer.Controllers
 			AccountDAO dao = new AccountDAO();
 			if (item == null)
 				return false;
-			var old = dao.Model.UserBCs.FirstOrDefault(f => f.username == item);
+			UserBC old = dao.Model.UserBCs.FirstOrDefault(f => f.username == item);
 			if (old == null)
 			{
 				Session.RemoveAll();
@@ -30,19 +30,19 @@ namespace BigchainDBWebServer.Controllers
 			string idUser = null;
 			if (Session["usernameFB"] != null)
 			{
-				var userFB = Session["usernameFB"].ToString();
+				string userFB = Session["usernameFB"].ToString();
 				if (CheckLogin(userFB))
 					idUser = userFB;
 			}
 			if (Session["usernameGO"] != null)
 			{
-				var userGO = Session["usernameGO"].ToString();
+				string userGO = Session["usernameGO"].ToString();
 				if (CheckLogin(userGO))
 					idUser = userGO;
 			}
 			if (Session["UserID"] != null)
 			{
-				var user = Session["UserID"].ToString();
+				string user = Session["UserID"].ToString();
 				if (CheckLogin(user))
 					idUser = user;
 			}
@@ -53,7 +53,7 @@ namespace BigchainDBWebServer.Controllers
 			AccountDAO dao = new AccountDAO();
 			if (item == null)
 				return 0;
-			var old = dao.Model.UserBCs.FirstOrDefault(f => f.username == item);
+			UserBC old = dao.Model.UserBCs.FirstOrDefault(f => f.username == item);
 			if (old.idRole == 1)
 			{
 				return 1;
@@ -127,7 +127,7 @@ namespace BigchainDBWebServer.Controllers
 			return RedirectToAction("NoActiveLogin", "User");
 		SetView:
 			ProductDAO dao = new ProductDAO();
-			var user = dao.Model.UserBCs.FirstOrDefault(x => x.username == userName);
+			UserBC user = dao.Model.UserBCs.FirstOrDefault(x => x.username == userName);
 			ViewBag.TheRole = user.idRole;
 			if (user.idRole == 2)
 			{
@@ -147,42 +147,42 @@ namespace BigchainDBWebServer.Controllers
 			ProductDAO dao = new ProductDAO();
 			if (item == null)
 				return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
-			var old = dao.Model.Products.FirstOrDefault(f => f.id == pro.id);
+			Product old = dao.Model.Products.FirstOrDefault(f => f.id == pro.id);
 			string idUser = GetIdUser();
 
-            //var UserFb = Session["usernameFB"];
-            //var UserGO = Session["usernameGO"];
-            //var UserID = Session["UserID"];
-            //if (UserFb != null)
-            //{
-            //	idUser = UserFb.ToString();
-            //}
-            //if (UserGO != null)
-            //{
-            //	idUser = UserGO.ToString();
-            //}
-            //if (UserID != null)
-            //{
-            //	idUser = UserID.ToString();
-            //}
-            string filePath = SaveFileImg(httpPostedFile, idUser);
-            pro.imgPath = filePath;
-            if (idUser == null)
+			//var UserFb = Session["usernameFB"];
+			//var UserGO = Session["usernameGO"];
+			//var UserID = Session["UserID"];
+			//if (UserFb != null)
+			//{
+			//	idUser = UserFb.ToString();
+			//}
+			//if (UserGO != null)
+			//{
+			//	idUser = UserGO.ToString();
+			//}
+			//if (UserID != null)
+			//{
+			//	idUser = UserID.ToString();
+			//}
+			string filePath = SaveFileImg(httpPostedFile, idUser);
+			pro.imgPath = filePath;
+			if (idUser == null)
 
 				return Json(false, JsonRequestBehavior.AllowGet);
-			var result = dao.InsertProduct(pro, item, idUser);
+			ResultOfRequest result = dao.InsertProduct(pro, item, idUser);
 			return Json(result, JsonRequestBehavior.AllowGet);
 		}
 		[HttpPost]
 		public JsonResult InsertProductdifferent(Product pro, ProductDetail item, int idProductDetail)
 		{
 			ProductDAO dao = new ProductDAO();
-			var UserFb = Session["usernameFB"];
-			var UserGO = Session["usernameGO"];
-			var UserID = Session["UserID"];
+			object UserFb = Session["usernameFB"];
+			object UserGO = Session["usernameGO"];
+			object UserID = Session["UserID"];
 			if (item == null)
 				return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
-			var old = dao.Model.Products.FirstOrDefault(f => f.id == pro.id);
+			Product old = dao.Model.Products.FirstOrDefault(f => f.id == pro.id);
 			string idUser = null;
 			if (UserFb != null)
 			{
@@ -198,7 +198,7 @@ namespace BigchainDBWebServer.Controllers
 			}
 			if (idUser == null)
 				return Json(false, JsonRequestBehavior.AllowGet);
-			var result = dao.InsertProductdiff(pro, item, idUser, idProductDetail);
+			ResultOfRequest result = dao.InsertProductdiff(pro, item, idUser, idProductDetail);
 			return Json(result, JsonRequestBehavior.AllowGet);
 		}
 		public JsonResult InsertProductTranfer(ProductTranfer item)
@@ -224,7 +224,7 @@ namespace BigchainDBWebServer.Controllers
 				old.idProductDetail = item.idProductDetail;
 				old.company = dao.GetCompanyName(item.idUser);
 				dao.Model.ProductTranfers.Add(old);
-				var pro = dao.Model.ProductDetails.FirstOrDefault(x => x.idProduct == item.idProduct && x.idRole == 3 && x.id == item.idProductDetail);
+				ProductDetail pro = dao.Model.ProductDetails.FirstOrDefault(x => x.idProduct == item.idProduct && x.idRole == 3 && x.id == item.idProductDetail);
 				pro.checkBuy = 1;
 				if (dao.Model.SaveChanges() > 0)
 				{
@@ -233,46 +233,46 @@ namespace BigchainDBWebServer.Controllers
 				return Json(new ResultOfRequest(false, "Lỗi lưu dữ liệu!"), JsonRequestBehavior.AllowGet);
 			}
 		}
-        public ActionResult GetQRCode(string idProduct)
-        {
-            ProductDAO dao = new ProductDAO();
-            var item = dao.Model.Products.FirstOrDefault(f => f.id == idProduct);
-            if(item != null)
-            {
-                string fileName = string.Format(@"~\imgQR\test\{0}.png", idProduct);
-                string path = this.Server.MapPath(fileName);
-                if (System.IO.File.Exists(path))
-                {
-                    ViewBag.file = fileName;
-                    return View();
-                }
-                //ViewBag.file = "Khong ton tai file --- " + path;
-            }
-            //else
-                //ViewBag.file = "Khong thay san pham";
-            return RedirectToAction("Index", "Home");
-            //return View();
-        }
-        [HttpPost]
-        public JsonResult RequestQRCode(QRManager qRManager)
-        {
-            string idUser = this.GetIdUser();
-            if (idUser == null)
-                return Json(new ResultOfRequest(false, "Không tồn tại người dùng!"));
-            qRManager.idUserRequest = idUser;
-            ProductDAO dao = new ProductDAO();
-            var result = dao.RequestQRCode(qRManager);
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        private string SaveFileImg(System.Web.HttpPostedFileBase httpPostedFile, string idUser)
-        {
-            if (httpPostedFile == null)
-                return "";
-            string path = "/img/productImg";
-            string fileName = string.Format("{0}_{1}_{2}", idUser, DateTime.Now.ToString("ddMMyyyy_hhmmss"), httpPostedFile.FileName);
-            string fullPath = path + "/" + fileName;
-            httpPostedFile.SaveAs(HttpContext.Server.MapPath(fullPath));
-            return fullPath;
-        }
-    }
+		public ActionResult GetQRCode(string idProduct)
+		{
+			ProductDAO dao = new ProductDAO();
+			Product item = dao.Model.Products.FirstOrDefault(f => f.id == idProduct);
+			if (item != null)
+			{
+				string fileName = string.Format(@"~\imgQR\test\{0}.png", idProduct);
+				string path = this.Server.MapPath(fileName);
+				if (System.IO.File.Exists(path))
+				{
+					ViewBag.file = fileName;
+					return View();
+				}
+				//ViewBag.file = "Khong ton tai file --- " + path;
+			}
+			//else
+			//ViewBag.file = "Khong thay san pham";
+			return RedirectToAction("Index", "Home");
+			//return View();
+		}
+		[HttpPost]
+		public JsonResult RequestQRCode(QRManager qRManager)
+		{
+			string idUser = this.GetIdUser();
+			if (idUser == null)
+				return Json(new ResultOfRequest(false, "Không tồn tại người dùng!"));
+			qRManager.idUserRequest = idUser;
+			ProductDAO dao = new ProductDAO();
+			ResultOfRequest result = dao.RequestQRCode(qRManager);
+			return Json(result, JsonRequestBehavior.AllowGet);
+		}
+		private string SaveFileImg(System.Web.HttpPostedFileBase httpPostedFile, string idUser)
+		{
+			if (httpPostedFile == null)
+				return "";
+			string path = "/img/productImg";
+			string fileName = string.Format("{0}_{1}_{2}", idUser, DateTime.Now.ToString("ddMMyyyy_hhmmss"), httpPostedFile.FileName);
+			string fullPath = path + "/" + fileName;
+			httpPostedFile.SaveAs(HttpContext.Server.MapPath(fullPath));
+			return fullPath;
+		}
+	}
 }

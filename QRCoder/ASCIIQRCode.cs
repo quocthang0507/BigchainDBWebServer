@@ -59,23 +59,23 @@ namespace QRCoder
 		/// <returns></returns>
 		public string[] GetLineByLineGraphic(int repeatPerModule, string darkColorString, string whiteSpaceString)
 		{
-			var qrCode = new List<string>();
+			List<string> qrCode = new List<string>();
 			//We need to adjust the repeatPerModule based on number of characters in darkColorString
 			//(we assume whiteSpaceString has the same number of characters)
 			//to keep the QR code as square as possible.
-			var adjustmentValueForNumberOfCharacters = darkColorString.Length / 2 != 1 ? darkColorString.Length / 2 : 0;
-			var verticalNumberOfRepeats = repeatPerModule + adjustmentValueForNumberOfCharacters;
-			var sideLength = QrCodeData.ModuleMatrix.Count * verticalNumberOfRepeats;
-			for (var y = 0; y < sideLength; y++)
+			int adjustmentValueForNumberOfCharacters = darkColorString.Length / 2 != 1 ? darkColorString.Length / 2 : 0;
+			int verticalNumberOfRepeats = repeatPerModule + adjustmentValueForNumberOfCharacters;
+			int sideLength = QrCodeData.ModuleMatrix.Count * verticalNumberOfRepeats;
+			for (int y = 0; y < sideLength; y++)
 			{
 				bool emptyLine = true;
-				var lineBuilder = new StringBuilder();
+				StringBuilder lineBuilder = new StringBuilder();
 
-				for (var x = 0; x < QrCodeData.ModuleMatrix.Count; x++)
+				for (int x = 0; x < QrCodeData.ModuleMatrix.Count; x++)
 				{
-					var module = QrCodeData.ModuleMatrix[x][(y + verticalNumberOfRepeats) / verticalNumberOfRepeats - 1];
+					bool module = QrCodeData.ModuleMatrix[x][(y + verticalNumberOfRepeats) / verticalNumberOfRepeats - 1];
 
-					for (var i = 0; i < repeatPerModule; i++)
+					for (int i = 0; i < repeatPerModule; i++)
 					{
 						lineBuilder.Append(module ? darkColorString : whiteSpaceString);
 					}
@@ -98,9 +98,9 @@ namespace QRCoder
 	{
 		public static string GetQRCode(string plainText, int pixelsPerModule, string darkColorString, string whiteSpaceString, ECCLevel eccLevel, bool forceUtf8 = false, bool utf8BOM = false, EciMode eciMode = EciMode.Default, int requestedVersion = -1, string endOfLine = "\n")
 		{
-			using (var qrGenerator = new QRCodeGenerator())
-			using (var qrCodeData = qrGenerator.CreateQrCode(plainText, eccLevel, forceUtf8, utf8BOM, eciMode, requestedVersion))
-			using (var qrCode = new AsciiQRCode(qrCodeData))
+			using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+			using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(plainText, eccLevel, forceUtf8, utf8BOM, eciMode, requestedVersion))
+			using (AsciiQRCode qrCode = new AsciiQRCode(qrCodeData))
 				return qrCode.GetGraphic(pixelsPerModule, darkColorString, whiteSpaceString, endOfLine);
 		}
 	}

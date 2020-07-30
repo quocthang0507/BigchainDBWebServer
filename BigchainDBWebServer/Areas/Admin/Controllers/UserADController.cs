@@ -18,14 +18,14 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 		public ActionResult getNotification()
 		{
 			AccountDAO dao = new AccountDAO();
-			var lstNotifi = dao.GetAllNotification();
+			List<Notification> lstNotifi = dao.GetAllNotification();
 			return PartialView(lstNotifi);
 		}
 
 		public ActionResult readedNotification(int ID, string UserName)
 		{
 			ProductDAO dao = new ProductDAO();
-			var old = dao.Model.NewNotis.FirstOrDefault(f => f.id == ID);
+			NewNoti old = dao.Model.NewNotis.FirstOrDefault(f => f.id == ID);
 			if (old != null)
 			{
 				dao.Model.NewNotis.Remove(old);
@@ -45,7 +45,7 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 		{
 			string Baseurl = "https://thongtindoanhnghiep.co/";
 			List<Tinh> lst = new List<Tinh>();
-			using (var client = new HttpClient())
+			using (HttpClient client = new HttpClient())
 			{
 				client.BaseAddress = new Uri(Baseurl);
 
@@ -90,8 +90,8 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 		public JsonResult ValidateUser(string userid, string password)
 		{
 			AccountDAO dao = new AccountDAO();
-			var Pwd = MD5Hash(password);
-			var data = from c in dao.Model.AdminBCs where c.username == userid && c.pwd == Pwd select c;
+			string Pwd = MD5Hash(password);
+			IQueryable<AdminBC> data = from c in dao.Model.AdminBCs where c.username == userid && c.pwd == Pwd select c;
 			if (data.Count() > 0)
 			{
 				Session["UserAD"] = userid;
@@ -122,7 +122,7 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			AccountDAO dao = new AccountDAO();
 			if (item == null)
 				return Json(new ResultOfRequest(false, "Dữ liệu nhận bị lỗi!"), JsonRequestBehavior.AllowGet);
-			var old = dao.Model.AdminBCs.FirstOrDefault(f => f.username == item.username);
+			AdminBC old = dao.Model.AdminBCs.FirstOrDefault(f => f.username == item.username);
 			if (old != null)
 			{
 				return Json(new ResultOfRequest(false, "Đã tồn tại tài khoản này, vui lòng nhập lại!"), JsonRequestBehavior.AllowGet);
@@ -160,7 +160,7 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 		{
 			//return Json(new ResultOfRequest(true,id), JsonRequestBehavior.AllowGet);
 			ProductDAO dao = new ProductDAO();
-			var result = dao.UpBD(int.Parse(id));
+			ResultOfRequest result = dao.UpBD(int.Parse(id));
 			return Json(result, JsonRequestBehavior.AllowGet);
 		}
 	}

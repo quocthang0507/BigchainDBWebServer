@@ -25,7 +25,7 @@ namespace BigchainDBWebServer.Controllers
 		{
 			get
 			{
-				var uriBuilder = new UriBuilder(Request.Url);
+				UriBuilder uriBuilder = new UriBuilder(Request.Url);
 				uriBuilder.Query = null;
 				uriBuilder.Fragment = null;
 				uriBuilder.Path = Url.Action("FacebookCallback");
@@ -46,7 +46,7 @@ namespace BigchainDBWebServer.Controllers
 		{
 			string Baseurl = "https://thongtindoanhnghiep.co/";
 			List<Tinh> lst = new List<Tinh>();
-			using (var client = new HttpClient())
+			using (HttpClient client = new HttpClient())
 			{
 				client.BaseAddress = new Uri(Baseurl);
 
@@ -71,7 +71,7 @@ namespace BigchainDBWebServer.Controllers
 		{
 			string Baseurl = "https://thongtindoanhnghiep.co/";
 			List<Tinh> lst = new List<Tinh>();
-			using (var client = new HttpClient())
+			using (HttpClient client = new HttpClient())
 			{
 				client.BaseAddress = new Uri(Baseurl);
 
@@ -98,7 +98,7 @@ namespace BigchainDBWebServer.Controllers
 			string Baseurl = "https://thongtindoanhnghiep.co/";
 			List<Tinh> lstCity = new List<Tinh>();
 			List<Tinh> lst = new List<Tinh>();
-			using (var client = new HttpClient())
+			using (HttpClient client = new HttpClient())
 			{
 				client.BaseAddress = new Uri(Baseurl);
 
@@ -117,14 +117,14 @@ namespace BigchainDBWebServer.Controllers
 				}
 			}
 			int ID = 0;
-			foreach (var item in lst)
+			foreach (Tinh item in lst)
 			{
 				if (name == item.Title)
 				{
 					ID = item.ID;
 				}
 			}
-			using (var client = new HttpClient())
+			using (HttpClient client = new HttpClient())
 			{
 				client.BaseAddress = new Uri(Baseurl);
 
@@ -167,11 +167,11 @@ namespace BigchainDBWebServer.Controllers
 		public JsonResult ValidateUser(string userid, string password)
 		{
 			AccountDAO dao = new AccountDAO();
-			var Pwd = MD5Hash(password);
-			var data = (from c in dao.Model.UserBCs where c.username == userid && c.pwd == Pwd select c).ToList();
+			string Pwd = MD5Hash(password);
+			List<UserBC> data = (from c in dao.Model.UserBCs where c.username == userid && c.pwd == Pwd select c).ToList();
 			if (data.Count() > 0)
 			{
-				var acitve = (from c in dao.Model.UserBCs where c.username == userid && c.pwd == Pwd && c.active == 1 select c).ToList();
+				List<UserBC> acitve = (from c in dao.Model.UserBCs where c.username == userid && c.pwd == Pwd && c.active == 1 select c).ToList();
 				if (acitve.Count() > 0)
 				{
 					Session["UserID"] = userid;
@@ -191,18 +191,18 @@ namespace BigchainDBWebServer.Controllers
 			AccountDAO dao = new AccountDAO();
 			if (item == null)
 				return Json(new ResultOfRequest(false, "Dữ liệu nhận bị lỗi!"), JsonRequestBehavior.AllowGet);
-			var old = dao.Model.UserBCs.FirstOrDefault(f => f.username == item.username);
+			UserBC old = dao.Model.UserBCs.FirstOrDefault(f => f.username == item.username);
 			if (old != null)
 			{
 				return Json(new ResultOfRequest(false, "Đã tồn tại tài khoản này, vui lòng nhập lại!"), JsonRequestBehavior.AllowGet);
 			}
 			else
 			{
-				var UserFb = Session["usernameFB"];
-				var NameFB = Session["NameFB"];
-				var UserGo = Session["usernameGO"];
-				var NameGo = Session["NameGO"];
-				var EmailGo = Session["Email"];
+				object UserFb = Session["usernameFB"];
+				object NameFB = Session["NameFB"];
+				object UserGo = Session["usernameGO"];
+				object NameGo = Session["NameGO"];
+				object EmailGo = Session["Email"];
 				old = new UserBC();
 				if (UserGo != null)
 				{
@@ -251,7 +251,7 @@ namespace BigchainDBWebServer.Controllers
 			AccountDAO dao = new AccountDAO();
 			if (item == null)
 				return false;
-			var old = dao.Model.UserBCs.FirstOrDefault(f => f.username == item);
+			UserBC old = dao.Model.UserBCs.FirstOrDefault(f => f.username == item);
 			if (old != null)
 			{
 				return false;
@@ -261,8 +261,8 @@ namespace BigchainDBWebServer.Controllers
 
 		public ActionResult LoginFacebook()
 		{
-			var fb = new FacebookClient();
-			var loginUrl = fb.GetLoginUrl(new
+			FacebookClient fb = new FacebookClient();
+			Uri loginUrl = fb.GetLoginUrl(new
 			{
 				client_id = ConfigurationManager.AppSettings["FbAppId"],
 				client_secret = ConfigurationManager.AppSettings["FbAppSecret"],
@@ -275,7 +275,7 @@ namespace BigchainDBWebServer.Controllers
 
 		public ActionResult FacebookCallback(string code)
 		{
-			var fb = new FacebookClient("access_token");
+			FacebookClient fb = new FacebookClient("access_token");
 			dynamic result = fb.Post("oauth/access_token", new
 			{
 				client_id = ConfigurationManager.AppSettings["FbAppId"],
@@ -284,7 +284,7 @@ namespace BigchainDBWebServer.Controllers
 				code = code
 			});
 
-			var accessToken = result.access_token;
+			dynamic accessToken = result.access_token;
 			if (!string.IsNullOrEmpty(accessToken))
 			{
 				fb.AccessToken = accessToken;
