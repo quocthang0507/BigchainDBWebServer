@@ -19,7 +19,7 @@
                     <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
                         <div class="row">
                             <div class="col-12">
-                                <h2 class="tm-block-title d-inline-block">Thêm sản phẩm</h2>
+                                <h2 class="tm-block-title d-inline-block">Thêm nông sản</h2>
                             </div>
                         </div>
                         <div class="row tm-edit-product-row">
@@ -27,7 +27,7 @@
                                 <form id="frmInputProduct" class="tm-edit-product-form">
                                     <div class="form-group mb-3">
                                         <label for="IDProduct">
-                                            Mã sản phẩm
+                                            Mã nông sản
                                         </label>
                                         <input id="IDProduct"
                                                name="id"
@@ -37,7 +37,7 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">
-                                            Tên sản phẩm
+                                            Tên nông sản
                                         </label>
                                         <input id="name"
                                                name="nameProduct"
@@ -116,7 +116,7 @@
 
                                 </form>
                                 <div>
-                                    <button type="button" onclick="insertProduct();" class="btn btn-primary btn-block text-uppercase">Tạo sản phẩm</button>
+                                    <button type="button" onclick="insertProduct();" class="btn btn-primary btn-block text-uppercase">Tạo nông sản</button>
                                 </div>
 
                             </div>
@@ -132,12 +132,12 @@
         theId = "IDProduct";
         if (document.getElementById(theId).value == "") {
             document.getElementById(theId).focus();
-            return "Vui lòng nhập mã sản phẩm";
+            return "Vui lòng nhập mã nông sản";
         }
         theId = "name";
         if (document.getElementById(theId).value == "") {
             document.getElementById(theId).focus();
-            return "Vui lòng nhập tên sản phẩm";
+            return "Vui lòng nhập tên nông sản";
         }
         theId = "number";
         if (document.getElementById(theId).value == "") {

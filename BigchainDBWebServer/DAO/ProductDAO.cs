@@ -197,7 +197,7 @@ namespace BigchainDBWebServer.DAO
 				return new ResultOfRequest(false, "ID không tồn tại! Kiểm tra lại!");
 			ProductDetail productDetail = Model.ProductDetails.FirstOrDefault(f => f.idProduct == idProduct);
 			if (productDetail == null)
-				return new ResultOfRequest(false, "Lỗi mã sản phẩm!");
+				return new ResultOfRequest(false, "Lỗi mã nông sản!");
 			process.dateReview = date;
 			if (Model.SaveChanges() > 0)
 				return new ResultOfRequest(true, "Thành công!");
@@ -423,7 +423,7 @@ namespace BigchainDBWebServer.DAO
 		{
 			var old = Model.QRManagers.FirstOrDefault(f => f.idProduct == qRManager.idProduct);
 			if (old != null)
-				return new ResultOfRequest(false, "Đã gửi yêu cầu, vui lòng chờ người quản trị xem xét!");
+				return new ResultOfRequest(false, "Đã gửi yêu cầu, vui lòng chờ quản trị viên xem xét!");
 			qRManager.isDeleted = 0;
 			qRManager.linkImg = "";
 			qRManager.accepted = 0;

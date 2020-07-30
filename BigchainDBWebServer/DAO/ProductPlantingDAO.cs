@@ -17,7 +17,7 @@ namespace BigchainDBWebServer.DAO
 		{
 			ProductDetail productDetail = Model.ProductDetails.FirstOrDefault(f => f.idProduct == product.idProduct && f.idUser == product.idUser);
 			if (productDetail == null)
-				return new ResultOfRequest(false, "Lỗi mã sản phẩm!");
+				return new ResultOfRequest(false, "Lỗi mã nông sản!");
 			if (product.dateBegin < productDetail.dateCreated)
 				return new ResultOfRequest(false, "Ngày bắt đầu không được trước " + productDetail.dateCreated.GetValueOrDefault().ToString("dd/MM/yyyy"));
 			product.dateEnd = product.dateBegin;
@@ -39,7 +39,7 @@ namespace BigchainDBWebServer.DAO
 				return new ResultOfRequest(false, "ID không tồn tại! Kiểm tra lại!");
 			ProductDetail productDetail = Model.ProductDetails.FirstOrDefault(f => f.idProduct == product.idProduct && f.idUser == product.idUser);
 			if (productDetail == null)
-				return new ResultOfRequest(false, "Lỗi mã sản phẩm!");
+				return new ResultOfRequest(false, "Lỗi mã nông sản!");
 			if (product.dateBegin < productDetail.dateCreated)
 				return new ResultOfRequest(false, "Ngày bắt đầu không được trước " + productDetail.dateCreated.GetValueOrDefault().ToString("dd/MM/yyyy"));
 			if (product.dateEnd > productDetail.dateReview)

@@ -119,9 +119,9 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			ProductDAO dao = new ProductDAO();
 			var qrManager = dao.Model.QRManagers.FirstOrDefault(f => f.idProduct == code && f.isDeleted == 0);
 			if (qrManager == null)
-				return Json(false, "Không có yêu cầu của mã sản phẩm này, vui lòng kiểm tra lại!");
+				return Json(false, "Không có yêu cầu của mã nông sản này, vui lòng kiểm tra lại!");
 			if (qrManager != null && qrManager.accepted == 1)
-				return Json(new ResultOfRequest(false, "Đã tạo mã QR cho sản phẩm này!"));
+				return Json(new ResultOfRequest(false, "Đã tạo mã QR cho nông sản này!"));
 			GenerateQR(urlPath, code);
 			if (System.IO.File.Exists(urlPath))
 			{
