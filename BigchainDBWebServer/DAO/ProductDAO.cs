@@ -374,6 +374,7 @@ namespace BigchainDBWebServer.DAO
 				old.details = pro.details;
 				old.isDeleted = 0;
 				old.number = pro.number;
+                old.imgPath = pro.imgPath;
 				Model.Products.Add(old);
 				Model.SaveChanges();
 				var prodetail = new ProductDetail();
