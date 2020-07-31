@@ -1998,6 +1998,10 @@
     <Content Include="img\logo\logo2_footer.png" />
     <Content Include="img\logo\testimonial.png" />
     <Content Include="img\service\BigchainDB.png" />
+    <Content Include="img\service\ethereum.png" />
+    <Content Include="img\service\hyperledger.png" />
+    <Content Include="img\service\logoBigchainDB.png" />
+    <Content Include="img\service\ripple.png" />
     <Content Include="img\service\supply-chain.png" />
     <Content Include="img\shape\app-shape-left.png" />
     <Content Include="img\shape\app-shape-right.png" />
@@ -2388,7 +2392,6 @@
     <Content Include="scss\_testimonial.scss" />
     <Content Include="scss\_variables.scss" />
     <Content Include="Views\Home\Feature.cshtml" />
-    <Content Include="Views\Home\Services.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Shared\Registration.cshtml" />
     <Content Include="Views\User\Registration.cshtml" />
