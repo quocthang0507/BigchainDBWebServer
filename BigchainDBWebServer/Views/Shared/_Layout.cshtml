@@ -53,34 +53,35 @@
 							<!-- Main-menu -->
 							<div class="main-menu f-right d-none d-lg-block">
 								<nav>
-                                    <ul id="navigation">
-                                        <li>@Html.ActionLink("Trang chủ", "Index", "Home")</li>
-                                        <li>@Html.ActionLink("Mô hình", "Feature", "Home")</li>
-                                        @*<li>@Html.ActionLink("Hệ thống truy xuất", "Services", "Home")</li>*@
-                                        @if (Session["usernameFB"] == null && Session["usernameGO"] == null && Session["UserID"] == null) 
-                                        {
-                                            <li>@Html.ActionLink("Đăng nhập", "Login", "User")</li>
-                                        }
-                                        else
-                                        {
-                                            if (Session["usernameGO"] != null)
-                                            {
-                                                <li><a href="@Url.Content("/Product/Manager")">@Session["NameGO"] </a></li>
-                                                <li><a href="@Url.Content("/User/SignOutGO")">Đăng xuất</a></li>
-                                            }
-                                            else if (Session["usernameFB"] != null)
-                                            {
-                                                <li><a href="@Url.Content("/Product/Manager")">@Session["NameFB"] </a></li>
-                                                <li><a href="@Url.Content("/User/LogoutFb")">Đăng xuất</a></li>
-                                            }
-                                            else if (Session["UserID"] != null)
-                                            {
-                                                <li><a href="@Url.Content("/Product/Manager")">@Session["UserID"] </a></li>
-                                                <li><a href="@Url.Content("/User/LogoutFb")">Đăng xuất</a></li>
-                                            }
-                                        }
+									<ul id="navigation">
+										<li>@Html.ActionLink("Trang chủ", "Index", "Home")</li>
+										<li>@Html.ActionLink("Giới thiệu", "Introduction", "Home")</li>
+										<li>@Html.ActionLink("Hướng dẫn sử dụng", "Instruction", "Home")</li>
+										@*<li>@Html.ActionLink("Hệ thống truy xuất", "Services", "Home")</li>*@
+										@if (Session["usernameFB"] == null && Session["usernameGO"] == null && Session["UserID"] == null)
+										{
+											<li>@Html.ActionLink("Đăng nhập", "Login", "User")</li>
+										}
+										else
+										{
+											if (Session["usernameGO"] != null)
+											{
+												<li><a href="@Url.Content("/Product/Manager")">@Session["NameGO"] </a></li>
+												<li><a href="@Url.Content("/User/SignOutGO")">Đăng xuất</a></li>
+											}
+											else if (Session["usernameFB"] != null)
+											{
+												<li><a href="@Url.Content("/Product/Manager")">@Session["NameFB"] </a></li>
+												<li><a href="@Url.Content("/User/LogoutFb")">Đăng xuất</a></li>
+											}
+											else if (Session["UserID"] != null)
+											{
+												<li><a href="@Url.Content("/Product/Manager")">@Session["UserID"] </a></li>
+												<li><a href="@Url.Content("/User/LogoutFb")">Đăng xuất</a></li>
+											}
+										}
 
-                                    </ul>
+									</ul>
 								</nav>
 							</div>
 						</div>

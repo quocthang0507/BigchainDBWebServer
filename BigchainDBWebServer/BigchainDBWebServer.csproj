@@ -2391,7 +2391,7 @@
     <Content Include="scss\_team.scss" />
     <Content Include="scss\_testimonial.scss" />
     <Content Include="scss\_variables.scss" />
-    <Content Include="Views\Home\Feature.cshtml" />
+    <Content Include="Views\Home\Instruction.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Shared\Registration.cshtml" />
     <Content Include="Views\User\Registration.cshtml" />
@@ -2406,6 +2406,7 @@
     <Content Include="Views\ProductPlanting\Update.cshtml" />
     <Content Include="Views\User\NoActiveLogin.cshtml" />
     <Content Include="Views\Product\GetQRCode.cshtml" />
+    <Content Include="Views\Home\Introduction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
