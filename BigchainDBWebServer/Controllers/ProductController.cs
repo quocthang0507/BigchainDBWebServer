@@ -25,29 +25,29 @@ namespace BigchainDBWebServer.Controllers
 			}
 			return true;
 		}
-        private string GetIdUser()
-        {
-            string idUser = null;
-            if (Session["usernameFB"] != null)
-            {
-                var userFB = Session["usernameFB"].ToString();
-                if (CheckLogin(userFB))
-                    idUser = userFB;
-            }
-            if (Session["usernameGO"] != null)
-            {
-                var userGO = Session["usernameGO"].ToString();
-                if (CheckLogin(userGO))
-                    idUser = userGO;
-            }
-            if (Session["UserID"] != null)
-            {
-                var user = Session["UserID"].ToString();
-                if (CheckLogin(user))
-                    idUser = user;
-            }
-            return idUser;
-        }
+		private string GetIdUser()
+		{
+			string idUser = null;
+			if (Session["usernameFB"] != null)
+			{
+				var userFB = Session["usernameFB"].ToString();
+				if (CheckLogin(userFB))
+					idUser = userFB;
+			}
+			if (Session["usernameGO"] != null)
+			{
+				var userGO = Session["usernameGO"].ToString();
+				if (CheckLogin(userGO))
+					idUser = userGO;
+			}
+			if (Session["UserID"] != null)
+			{
+				var user = Session["UserID"].ToString();
+				if (CheckLogin(user))
+					idUser = user;
+			}
+			return idUser;
+		}
 		public int CheckRoles(string item)
 		{
 			AccountDAO dao = new AccountDAO();
@@ -69,61 +69,61 @@ namespace BigchainDBWebServer.Controllers
 			return 0;
 		}
 
-		// GET: Product
-		public ActionResult Manager()
-		{
+        // GET: Product
+        public ActionResult Manager()
+        {
             string idUser = GetIdUser();
-			if (idUser != null)
-			{
-				ProductDAO dao = new ProductDAO();
-				ViewBag.lst = dao.GetAllByUsername(idUser);
-				ViewBag.Roles = CheckRoles(idUser);
-				ViewBag.lstTranfer = dao.GetListTranferUser();
-				//if(CheckRoles(idUser)==1)
-				//{
-				//	ViewBag.number = dao.GetNumberProduct(idUser);
-				//}	
-				return View();
-			}
-			return RedirectToAction("NoActiveLogin", "User");
-		}
+            if (idUser != null)
+            {
+                ProductDAO dao = new ProductDAO();
+                ViewBag.lst = dao.GetAllByUsername(idUser);
+                ViewBag.Roles = CheckRoles(idUser);
+                ViewBag.lstTranfer = dao.GetListTranferUser();
+                //if(CheckRoles(idUser)==1)
+                //{
+                //	ViewBag.number = dao.GetNumberProduct(idUser);
+                //}	
+                return View();
+            }
+            return RedirectToAction("NoActiveLogin", "User");
+        }
 
-		public ActionResult AddProduct()
-		{
-			string userName = GetIdUser();
+        public ActionResult AddProduct()
+        {
+            string userName = GetIdUser();
             if (CheckLogin(userName) && CheckRoles(userName) == 1)
                 return View(); //
             else
                 return RedirectToAction("AddProductForDiffAc", "Product");
-   //         if (Session["usernameFB"] != null)
-			//{
-			//	userName = Session["usernameFB"].ToString();
-			//}
-			//if (Session["usernameGO"] != null)
-			//{
-			//	userName = Session["usernameGO"].ToString();
-			//	if (CheckLogin(userName) && CheckRoles(Session["usernameGO"].ToString()) == 1)
-			//		return View();//
-			//	else
-			//		return RedirectToAction("AddProductForDiffAc", "Product");
-			//}
-			//if (Session["UserID"] != null)
-			//{
-			//	userName = Session["UserID"].ToString();
-			//	if (CheckLogin(userName) && CheckRoles(Session["UserID"].ToString()) == 1)
-			//		return View();//
-			//	else
-			//		return RedirectToAction("AddProductForDiffAc", "Product");
-			//}
-			//else { return RedirectToAction("NoActiveLogin", "User"); }
+            //         if (Session["usernameFB"] != null)
+            //{
+            //	userName = Session["usernameFB"].ToString();
+            //}
+            //if (Session["usernameGO"] != null)
+            //{
+            //	userName = Session["usernameGO"].ToString();
+            //	if (CheckLogin(userName) && CheckRoles(Session["usernameGO"].ToString()) == 1)
+            //		return View();//
+            //	else
+            //		return RedirectToAction("AddProductForDiffAc", "Product");
+            //}
+            //if (Session["UserID"] != null)
+            //{
+            //	userName = Session["UserID"].ToString();
+            //	if (CheckLogin(userName) && CheckRoles(Session["UserID"].ToString()) == 1)
+            //		return View();//
+            //	else
+            //		return RedirectToAction("AddProductForDiffAc", "Product");
+            //}
+            //else { return RedirectToAction("NoActiveLogin", "User"); }
 
-		}
+        }
 
 		public ActionResult AddProductForDiffAc(string search = null)
 		{
 			string userName = GetIdUser();
-            if(CheckLogin(userName))
-                goto SetView;
+			if (CheckLogin(userName))
+				goto SetView;
 			return RedirectToAction("NoActiveLogin", "User");
 		SetView:
 			ProductDAO dao = new ProductDAO();
@@ -142,29 +142,33 @@ namespace BigchainDBWebServer.Controllers
 			// 
 		}
 		[HttpPost]
-		public JsonResult InsertProduct(Product pro, ProductDetail item)
+		public JsonResult InsertProduct(Product pro, ProductDetail item, System.Web.HttpPostedFileBase httpPostedFile)
 		{
 			ProductDAO dao = new ProductDAO();
 			if (item == null)
 				return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
 			var old = dao.Model.Products.FirstOrDefault(f => f.id == pro.id);
 			string idUser = GetIdUser();
-            //var UserFb = Session["usernameFB"];
-            //var UserGO = Session["usernameGO"];
-            //var UserID = Session["UserID"];
-            //if (UserFb != null)
-            //{
-            //	idUser = UserFb.ToString();
-            //}
-            //if (UserGO != null)
-            //{
-            //	idUser = UserGO.ToString();
-            //}
-            //if (UserID != null)
-            //{
-            //	idUser = UserID.ToString();
-            //}
-            if (idUser == null)
+
+			//var UserFb = Session["usernameFB"];
+			//var UserGO = Session["usernameGO"];
+			//var UserID = Session["UserID"];
+			//if (UserFb != null)
+			//{
+			//	idUser = UserFb.ToString();
+			//}
+			//if (UserGO != null)
+			//{
+			//	idUser = UserGO.ToString();
+			//}
+			//if (UserID != null)
+			//{
+			//	idUser = UserID.ToString();
+			//}
+			string filePath = SaveFileImg(httpPostedFile, idUser);
+			pro.imgPath = filePath;
+			if (idUser == null)
+
 				return Json(false, JsonRequestBehavior.AllowGet);
 			var result = dao.InsertProduct(pro, item, idUser);
 			return Json(result, JsonRequestBehavior.AllowGet);
@@ -220,12 +224,12 @@ namespace BigchainDBWebServer.Controllers
 				old.idProductDetail = item.idProductDetail;
 				old.company = dao.GetCompanyName(item.idUser);
 				dao.Model.ProductTranfers.Add(old);
-				var pro = dao.Model.ProductDetails.FirstOrDefault(x => x.idProduct == item.idProduct && x.idRole == 3 && x.id== item.idProductDetail);
+				var pro = dao.Model.ProductDetails.FirstOrDefault(x => x.idProduct == item.idProduct && x.idRole == 3 && x.id == item.idProductDetail);
 				pro.checkBuy = 1;
 				if (dao.Model.SaveChanges() > 0)
-				{					
+				{
 					return Json(new ResultOfRequest(true, "Thành công!"), JsonRequestBehavior.AllowGet);
-				}	
+				}
 				return Json(new ResultOfRequest(false, "Lỗi lưu dữ liệu!"), JsonRequestBehavior.AllowGet);
 			}
 		}
@@ -260,5 +264,15 @@ namespace BigchainDBWebServer.Controllers
             var result = dao.RequestQRCode(qRManager);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-	}
+        private string SaveFileImg(System.Web.HttpPostedFileBase httpPostedFile, string idUser)
+        {
+            if (httpPostedFile == null)
+                return "";
+            string path = "/img/productImg";
+            string fileName = string.Format("{0}_{1}_{2}", idUser, DateTime.Now.ToString("ddMMyyyy_hhmmss"), httpPostedFile.FileName);
+            string fullPath = path + "/" + fileName;
+            httpPostedFile.SaveAs(HttpContext.Server.MapPath(fullPath));
+            return fullPath;
+        }
+    }
 }

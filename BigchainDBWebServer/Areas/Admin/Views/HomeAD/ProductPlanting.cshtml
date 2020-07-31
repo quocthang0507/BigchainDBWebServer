@@ -19,7 +19,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Mã sản phẩm</th>
+                            <th>Mã nông sản</th>
                             <th>Tên quá trình</th>
                             <th>Chi tiết</th>
                             <th>Ngày thực hiện</th>
@@ -42,7 +42,7 @@
                                             @if (item.isUpBD == 0)
                                             {
                                                 <button id="id-@item.id" class="btn btn-success"
-                                                        onclick="sendToBigchainDB('@item.id','@item.idProduct','@item.idUser','@item.name','@item.details','@item.dateBegin','@item.dateEnd','@item.dateCreated')">
+                                                        onclick="sendToBigchainDB('@item.id','@item.idProduct','@item.idUser','@item.name','@item.details','@item.dateBegin.ToString("dd/MM/yyyy")','@item.dateEnd.ToString("dd/MM/yyyy")','@item.dateCreated.ToString("dd/MM/yyyy")')">
                                                     Đưa lên block chain
                                                 </button>
                                             }

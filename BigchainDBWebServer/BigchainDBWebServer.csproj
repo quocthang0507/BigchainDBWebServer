@@ -2316,6 +2316,7 @@
     <Content Include="Areas\Admin\Views\HomeAD\ProductPlanting.cshtml" />
     <Content Include="Areas\Admin\Views\UserAD\RegistrationAD.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAD\QRRequestManager.cshtml" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\gijgo.min.js" />

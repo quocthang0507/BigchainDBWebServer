@@ -8,13 +8,13 @@ namespace BigchainDBWebServer.DAO
 	{
 		public List<UserBC> GetAllSP()
 		{
-			var lst = Model.UserBCs.OrderBy(p => p.id).ToList();
+			List<UserBC> lst = Model.UserBCs.OrderBy(p => p.id).ToList();
 			return lst;
 		}
 
 		public List<AdminBC> GetAllUserAD()
 		{
-			var lst = Model.AdminBCs.OrderBy(p => p.id).ToList();
+			List<AdminBC> lst = Model.AdminBCs.OrderBy(p => p.id).ToList();
 			return lst;
 		}
 
@@ -25,7 +25,7 @@ namespace BigchainDBWebServer.DAO
 		}
 		public ResultOfRequest ActiveUser(string username, bool active = true)
 		{
-			var userBC = Model.UserBCs.FirstOrDefault(x => x.username == username);
+			UserBC userBC = Model.UserBCs.FirstOrDefault(x => x.username == username);
 			if (userBC == null)
 				return new ResultOfRequest(false, "Không tồn tại tài khoản này!");
 			if (active == true)
@@ -38,12 +38,12 @@ namespace BigchainDBWebServer.DAO
 
 		public List<Notification> GetAllNotification()
 		{
-			var lst = Model.Notifications.OrderBy(p => p.dateCreate).ToList();
+			List<Notification> lst = Model.Notifications.OrderBy(p => p.dateCreate).ToList();
 			return lst;
 		}
 		public string GetCoByUsername(string username)
 		{
-			var userBC = Model.UserBCs.FirstOrDefault(x => x.username == username);
+			UserBC userBC = Model.UserBCs.FirstOrDefault(x => x.username == username);
 			string companyName = userBC.company;
 			return companyName;
 		}
