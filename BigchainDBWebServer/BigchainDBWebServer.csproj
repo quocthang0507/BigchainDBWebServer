@@ -1989,6 +1989,7 @@
     <Content Include="fonts\themify.svg" />
     <Content Include="Global.asax" />
     <Content Include="imgQR\test\KHOAI01.png" />
+    <Content Include="img\background.jpg" />
     <Content Include="img\bgcl.jpg" />
     <Content Include="img\bgUser.jpg" />
     <Content Include="img\favicon.ico" />
@@ -1997,12 +1998,16 @@
     <Content Include="img\logo\logo.png" />
     <Content Include="img\logo\logo2_footer.png" />
     <Content Include="img\logo\testimonial.png" />
-    <Content Include="img\service\BigchainDB.png" />
+    <Content Include="img\service\bdb.png" />
     <Content Include="img\service\ethereum.png" />
     <Content Include="img\service\hyperledger.png" />
+    <Content Include="img\service\ionic.png" />
     <Content Include="img\service\logoBigchainDB.png" />
+    <Content Include="img\service\model.jpg" />
+    <Content Include="img\service\mvc.png" />
     <Content Include="img\service\ripple.png" />
     <Content Include="img\service\supply-chain.png" />
+    <Content Include="img\service\use-case-diagram.png" />
     <Content Include="img\shape\app-shape-left.png" />
     <Content Include="img\shape\app-shape-right.png" />
     <Content Include="img\shape\app-shape-top.png" />
@@ -2321,6 +2326,7 @@
     <Content Include="Areas\Admin\Views\UserAD\RegistrationAD.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAD\QRRequestManager.cshtml" />
     <Content Include="ClassDiagram1.cd" />
+    <Content Include="files\POSTER.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\gijgo.min.js" />

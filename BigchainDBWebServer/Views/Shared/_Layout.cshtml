@@ -24,116 +24,119 @@
     <link href="~/Content/bootstrap-social.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
-<body style="background-color: #f4feff;">
-	<!-- Preloader Start -->
-	<div id="preloader-active">
-		<div class="preloader d-flex align-items-center justify-content-center">
-			<div class="preloader-inner position-relative">
-				<div class="preloader-circle"></div>
-				<div class="preloader-img pere-text">
-					<img src="~/img/logo/logo.png" alt="">
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Preloader Start -->
-	<header>
-		<!-- Header Start -->
-		<div class="header-area header-transparrent ">
-			<div class="main-header header-sticky">
-				<div class="container">
-					<div class="row align-items-center">
-						<!-- Logo -->
-						<div class="col-xl-2 col-lg-2 col-md-2">
-							<div class="logo">
-								<a href="/"><img src="~/img/logo/logo.png" alt=""></a>
-							</div>
-						</div>
-						<div class="col-xl-10 col-lg-10 col-md-10">
-							<!-- Main-menu -->
-							<div class="main-menu f-right d-none d-lg-block">
-								<nav>
-									<ul id="navigation">
-										<li>@Html.ActionLink("Trang chủ", "Index", "Home")</li>
-										<li>@Html.ActionLink("Giới thiệu", "Introduction", "Home")</li>
-										<li>@Html.ActionLink("Hướng dẫn sử dụng", "Instruction", "Home")</li>
-										@*<li>@Html.ActionLink("Hệ thống truy xuất", "Services", "Home")</li>*@
-										@if (Session["usernameFB"] == null && Session["usernameGO"] == null && Session["UserID"] == null)
-										{
-											<li>@Html.ActionLink("Đăng nhập", "Login", "User")</li>
-										}
-										else
-										{
-											if (Session["usernameGO"] != null)
-											{
-												<li><a href="@Url.Content("/Product/Manager")">@Session["NameGO"] </a></li>
-												<li><a href="@Url.Content("/User/SignOutGO")">Đăng xuất</a></li>
-											}
-											else if (Session["usernameFB"] != null)
-											{
-												<li><a href="@Url.Content("/Product/Manager")">@Session["NameFB"] </a></li>
-												<li><a href="@Url.Content("/User/LogoutFb")">Đăng xuất</a></li>
-											}
-											else if (Session["UserID"] != null)
-											{
-												<li><a href="@Url.Content("/Product/Manager")">@Session["UserID"] </a></li>
-												<li><a href="@Url.Content("/User/LogoutFb")">Đăng xuất</a></li>
-											}
-										}
-
-									</ul>
-								</nav>
-							</div>
-						</div>
-						<!-- Mobile Menu -->
-						<div class="col-12">
-							<div class="mobile_menu d-block d-lg-none"></div>
-						</div>
+<body>
+	<div class="transparent">
+		<!-- Preloader Start -->
+		<div id="preloader-active">
+			<div class="preloader d-flex align-items-center justify-content-center">
+				<div class="preloader-inner position-relative">
+					<div class="preloader-circle"></div>
+					<div class="preloader-img pere-text">
+						<img src="~/img/logo/logo.png" alt="">
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- Header End -->
-	</header>
 
-	<main>
-		@RenderBody()
-	</main>
-	<footer style="border-top: 1px solid lightgrey;">
-		<!-- Footer Start-->
-		<div class="footer-main">
-			<div class="footer-area footer-padding">
-				<div class="container">
-					<div class="row  justify-content-between">
-						<div class="single-footer-caption mb-30">
-							<!-- logo -->
-							<div class="footer-logo">
-								<a href="index.html"><img src="~/img/logo/logo2_footer.png" alt=""></a>
+		<header>
+			<!-- Header Start -->
+			<div class="header-area header-transparrent ">
+				<div class="main-header header-sticky">
+					<div class="container">
+						<div class="row align-items-center">
+							<!-- Logo -->
+							<div class="col-xl-2 col-lg-2 col-md-2">
+								<div class="logo">
+									<a href="/"><img src="~/img/logo/logo.png" alt=""></a>
+								</div>
 							</div>
-							<div class="footer-tittle">
-								<div class="footer-pera">
-									<p class="info1">Mục tiêu của chúng tôi là giải quyết vấn đề truy xuất nguồn gốc nông sản bằng nền tảng Blockchain. Bằng cách này, bạn có thể truy xuất toàn bộ chuỗi cung ứng, và thông tin được minh bạch và bất biến.</p>
+							<div class="col-xl-10 col-lg-10 col-md-10">
+								<!-- Main-menu -->
+								<div class="main-menu f-right d-none d-lg-block">
+									<nav>
+										<ul id="navigation">
+											<li>@Html.ActionLink("Trang chủ", "Index", "Home")</li>
+											<li>@Html.ActionLink("Giới thiệu", "Introduction", "Home")</li>
+											<li>@Html.ActionLink("Hướng dẫn sử dụng", "Instruction", "Home")</li>
+											<li><a href="~/files/POSTER.pdf" target="_blank">Poster</a></li>
+											@if (Session["usernameFB"] == null && Session["usernameGO"] == null && Session["UserID"] == null)
+											{
+												<li>@Html.ActionLink("Đăng nhập", "Login", "User")</li>
+											}
+											else
+											{
+												if (Session["usernameGO"] != null)
+												{
+													<li><a href="@Url.Content("/Product/Manager")">@Session["NameGO"] </a></li>
+													<li><a href="@Url.Content("/User/SignOutGO")">Đăng xuất</a></li>
+												}
+												else if (Session["usernameFB"] != null)
+												{
+													<li><a href="@Url.Content("/Product/Manager")">@Session["NameFB"] </a></li>
+													<li><a href="@Url.Content("/User/LogoutFb")">Đăng xuất</a></li>
+												}
+												else if (Session["UserID"] != null)
+												{
+													<li><a href="@Url.Content("/Product/Manager")">@Session["UserID"] </a></li>
+													<li><a href="@Url.Content("/User/LogoutFb")">Đăng xuất</a></li>
+												}
+											}
+
+										</ul>
+									</nav>
+								</div>
+							</div>
+							<!-- Mobile Menu -->
+							<div class="col-12">
+								<div class="mobile_menu d-block d-lg-none"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Header End -->
+		</header>
+
+		<main>
+			@RenderBody()
+		</main>
+
+		<footer style="border-top: 1px solid lightgrey;">
+			<!-- Footer Start-->
+			<div class="footer-main">
+				<div class="footer-area footer-padding">
+					<div class="container">
+						<div class="row  justify-content-between">
+							<div class="single-footer-caption mb-30">
+								<!-- logo -->
+								<div class="footer-logo">
+									<a href="index.html"><img src="~/img/logo/logo2_footer.png" alt=""></a>
+								</div>
+								<div class="footer-tittle">
+									<div class="footer-pera">
+										<p class="info1">Mục tiêu của chúng tôi là giải quyết vấn đề truy xuất nguồn gốc nông sản bằng nền tảng Blockchain. Bằng cách này, bạn có thể truy xuất toàn bộ chuỗi cung ứng, và thông tin được minh bạch và bất biến.</p>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<!-- Copy-Right -->
-					@*<div class="row align-items-center">
-						<div class="col-xl-12 ">
-							<div class="footer-copy-right">
-								<p>
-									Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a><br />
-									Copyright &copy; @DateTime.Now.Year All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-								</p>
+						<!-- Copy-Right -->
+						@*<div class="row align-items-center">
+							<div class="col-xl-12 ">
+								<div class="footer-copy-right">
+									<p>
+										Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a><br />
+										Copyright &copy; @DateTime.Now.Year All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+									</p>
+								</div>
 							</div>
-						</div>
-					</div>*@
+						</div>*@
+					</div>
 				</div>
 			</div>
-		</div>
-		<!-- Footer End-->
+			<!-- Footer End-->
 
-	</footer>
+		</footer>
+	</div>
 	<!-- JS here -->
 	<!-- All JS Custom Plugins Link Here here -->
 	<script src="~/Scripts/vendor/modernizr-3.5.0.min.js"></script>
@@ -150,6 +153,7 @@
 	<script src="~/Scripts/slick.min.js"></script>
 	<!-- Date Picker -->
 	<script src="~/Scripts/gijgo.min.js"></script>
+
 	<!-- One Page, Animated-HeadLin -->
 	<script src="~/Scripts/wow.min.js"></script>
 	<script src="~/Scripts/animated.headline.js"></script>
@@ -159,13 +163,6 @@
 	<script src="~/Scripts/jquery.scrollUp.min.js"></script>
 	<script src="~/Scripts/jquery.nice-select.min.js"></script>
 	<script src="~/Scripts/jquery.sticky.js"></script>
-
-	<!-- contact js -->
-	<script src="~/Scripts/contact.js"></script>
-	<script src="~/Scripts/jquery.form.js"></script>
-	<script src="~/Scripts/jquery.validate.min.js"></script>
-	<script src="~/Scripts/mail-script.js"></script>
-	<script src="~/Scripts/jquery.ajaxchimp.min.js"></script>
 
 	<!-- Jquery Plugins, main Jquery -->
 	<script src="~/Scripts/plugins.js"></script>
