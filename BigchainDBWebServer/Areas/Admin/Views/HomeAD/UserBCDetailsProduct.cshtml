@@ -62,7 +62,7 @@
                                                 {
                                                     <button id="id-@item.idProductDetail" class="btn btn-success"
                                                             onclick="sendToBigchainDB('@item.idProduct','@item.nameProduct','@item.idUser', '@item.nameOfUser','@item.email','@item.adrs','@item.userArea','@item.userCity','@item.phone','@item.idRole',
-                                                    '@item.dateCreated.ToString("dd/MM/yyyy")','@item.dateReview.ToString("dd/MM/yyyy")','@item.idProductDetail','@item.company','@item.imgPath')">
+                                                    '@item.dateCreated.ToString("dd/MM/yyyy")','@item.dateReview.ToString("dd/MM/yyyy")','@item.idProductDetail','@item.company.Replace("'","\\'")','@item.imgPath')">
                                                         Đưa lên block chain
                                                     </button>
                                                 }
@@ -103,7 +103,7 @@
             disableButton(idProductDetail, true);
 
             // BigchainDB server instance (e.g. https://example.com/api/v1/)
-            const API_PATH = '@System.Web.Configuration.WebConfigurationManager.AppSettings["linkBD"]'
+            const API_PATH = '@System.Web.Configuration.WebConfigurationManager.AppSettings["linkBD0"]'
 
             // Create a new keypair.
             const alice = new BigchainDB.Ed25519Keypair()
