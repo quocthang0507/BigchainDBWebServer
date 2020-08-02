@@ -84,7 +84,9 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 		[HttpPost]
 		public JsonResult ActiveUser(string username, int active = 1)
 		{
-			AccountDAO dao = new AccountDAO();
+            if(Session["UserAD"] == null)
+                return null;
+            AccountDAO dao = new AccountDAO();
 			//var result = new ResultOfRequest(true, username);
 			var result = dao.ActiveUser(username, active == 1);
 			return Json(result, JsonRequestBehavior.AllowGet);
@@ -155,8 +157,9 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			}
 		}
 		public ActionResult QRRequestManager(string search = null)
-		{
-			ProductDAO dao = new ProductDAO();
+        {
+            if (Session["UserAD"] == null)
+                return RedirectToAction("Login", "UserAD"); ProductDAO dao = new ProductDAO();
 			ViewBag.lstRequest = dao.GetListRequest(search);
 			return View();
 		}
