@@ -6785,3 +6785,8 @@ z .slider-area .hero-cap h2 {
 	font-size: 50px;
 	font-weight: 700
 }
+@media (max-width: 767px) {
+	#logoit {
+		float: none !important;
+	}
+}
