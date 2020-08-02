@@ -48,6 +48,7 @@
           <Property Name="details" Type="nvarchar(max)" />
           <Property Name="isDeleted" Type="int" />
           <Property Name="number" Type="int" />
+          <Property Name="imgPath" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="ProductDetail">
           <Key>
@@ -180,6 +181,7 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductDetailView' does not have a p
           <Property Name="numberhandling" Type="int" />
           <Property Name="accepted" Type="int" Nullable="false" />
           <Property Name="company" Type="nvarchar" MaxLength="1000" />
+          <Property Name="imgPath" Type="varchar" MaxLength="1000" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -239,7 +241,8 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
     [ProductDetailView].[checkBuy] AS [checkBuy], 
     [ProductDetailView].[numberhandling] AS [numberhandling], 
     [ProductDetailView].[accepted] AS [accepted], 
-    [ProductDetailView].[company] AS [company]
+    [ProductDetailView].[company] AS [company], 
+    [ProductDetailView].[imgPath] AS [imgPath]
     FROM [dbo].[ProductDetailView] AS [ProductDetailView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ProductSentView" EntityType="Self.ProductSentView" store:Type="Views" store:Schema="dbo">
@@ -273,6 +276,7 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <EntitySet Name="Notifications" EntityType="QLNongSanModel.Notification" />
           <EntitySet Name="ProductDetailViews" EntityType="QLNongSanModel.ProductDetailView" />
           <EntitySet Name="ProductSentViews" EntityType="QLNongSanModel.ProductSentView" />
+          <EntitySet Name="QRManagers" EntityType="QLNongSanModel.QRManager" />
         </EntityContainer>
         <EntityType Name="AdminBC">
           <Key>
@@ -317,6 +321,7 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <Property Name="details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="isDeleted" Type="Int32" />
           <Property Name="number" Type="Int32" />
+          <Property Name="imgPath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ProductDetail">
           <Key>
@@ -333,6 +338,7 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <Property Name="IsUpBD" Type="Int32" />
           <Property Name="checkBuy" Type="Int32" />
           <Property Name="idRole" Type="Int32" />
+          <Property Name="isClick" Type="Int32" />
           <Property Name="numberhandling" Type="Int32" />
         </EntityType>
         <EntityType Name="ProductPlantingProcess">
@@ -362,22 +368,9 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <Property Name="idUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="numberTranfer" Type="Int32" />
           <Property Name="isClick" Type="Int32" />
+          <Property Name="numberTranfer" Type="Int32" />
           <Property Name="idProductDetail" Type="Int32" />
           <Property Name="company" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="QRManager">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idProduct" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="linkImg" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="idUserRequest" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="amount" Type="Int32" />
-          <Property Name="accepted" Type="Int32" />
-          <Property Name="dateCreated" Type="DateTime" Precision="3" />
-          <Property Name="dateUpdated" Type="DateTime" Precision="3" />
-          <Property Name="isDeleted" Type="Int32" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -442,9 +435,11 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <Property Name="userArea" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="userCity" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="checkBuy" Type="Int32" />
+          <Property Name="isClick" Type="Int32" />
           <Property Name="numberhandling" Type="Int32" />
           <Property Name="accepted" Type="Int32" Nullable="false" />
           <Property Name="company" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="imgPath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ProductSentView">
           <Key>
@@ -459,6 +454,20 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <Property Name="details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="idRole" Type="Int32" />
           <Property Name="sentNumber" Type="Int32" />
+        </EntityType>
+        <EntityType Name="QRManager">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idProduct" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="linkImg" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="idUserRequest" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="Int32" />
+          <Property Name="accepted" Type="Int32" />
+          <Property Name="dateCreated" Type="DateTime" Precision="3" />
+          <Property Name="dateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="isDeleted" Type="Int32" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -506,6 +515,7 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="QLNongSanModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="imgPath" ColumnName="imgPath" />
                 <ScalarProperty Name="number" ColumnName="number" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="details" ColumnName="details" />
@@ -551,6 +561,7 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
               <MappingFragment StoreEntitySet="ProductTranfer">
                 <ScalarProperty Name="company" ColumnName="company" />
                 <ScalarProperty Name="idProductDetail" ColumnName="idProductDetail" />
+                <ScalarProperty Name="numberTranfer" ColumnName="numberTranfer" />
                 <ScalarProperty Name="isClick" ColumnName="isClick" />
                 <ScalarProperty Name="numberTranfer" ColumnName="numberTranfer" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
@@ -623,6 +634,7 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
           <EntitySetMapping Name="ProductDetailViews">
             <EntityTypeMapping TypeName="QLNongSanModel.ProductDetailView">
               <MappingFragment StoreEntitySet="ProductDetailView">
+                <ScalarProperty Name="imgPath" ColumnName="imgPath" />
                 <ScalarProperty Name="company" ColumnName="company" />
                 <ScalarProperty Name="accepted" ColumnName="accepted" />
                 <ScalarProperty Name="numberhandling" ColumnName="numberhandling" />
@@ -655,6 +667,21 @@ warning 6002: The table/view 'QLNongSan.dbo.ProductSentView' does not have a pri
                 <ScalarProperty Name="nameOfUser" ColumnName="nameOfUser" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="nameProduct" ColumnName="nameProduct" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QRManagers">
+            <EntityTypeMapping TypeName="QLNongSanModel.QRManager">
+              <MappingFragment StoreEntitySet="QRManager">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="dateUpdated" ColumnName="dateUpdated" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="accepted" ColumnName="accepted" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="idUserRequest" ColumnName="idUserRequest" />
+                <ScalarProperty Name="linkImg" ColumnName="linkImg" />
                 <ScalarProperty Name="idProduct" ColumnName="idProduct" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

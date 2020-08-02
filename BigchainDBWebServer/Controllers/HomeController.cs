@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using Antlr.Runtime.Misc;
+using System.Web.Mvc;
 
 namespace BigchainDBWebServer.Controllers
 {
@@ -9,17 +10,12 @@ namespace BigchainDBWebServer.Controllers
 			return View();
 		}
 
-		public ActionResult Feature()
+		public ActionResult Instruction()
 		{
 			return View();
 		}
 
-		public ActionResult Services()
-		{
-			return View();
-		}
-
-		public ActionResult Pricing()
+		public ActionResult Introduction()
 		{
 			return View();
 		}

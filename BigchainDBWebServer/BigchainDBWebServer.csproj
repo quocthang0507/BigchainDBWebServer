@@ -1989,6 +1989,7 @@
     <Content Include="fonts\themify.svg" />
     <Content Include="Global.asax" />
     <Content Include="imgQR\test\KHOAI01.png" />
+    <Content Include="img\background.jpg" />
     <Content Include="img\bgcl.jpg" />
     <Content Include="img\bgUser.jpg" />
     <Content Include="img\favicon.ico" />
@@ -1997,8 +1998,16 @@
     <Content Include="img\logo\logo.png" />
     <Content Include="img\logo\logo2_footer.png" />
     <Content Include="img\logo\testimonial.png" />
-    <Content Include="img\service\BigchainDB.png" />
+    <Content Include="img\service\bdb.png" />
+    <Content Include="img\service\ethereum.png" />
+    <Content Include="img\service\hyperledger.png" />
+    <Content Include="img\service\ionic.png" />
+    <Content Include="img\service\logoBigchainDB.png" />
+    <Content Include="img\service\model.jpg" />
+    <Content Include="img\service\mvc.png" />
+    <Content Include="img\service\ripple.png" />
     <Content Include="img\service\supply-chain.png" />
+    <Content Include="img\service\use-case-diagram.png" />
     <Content Include="img\shape\app-shape-left.png" />
     <Content Include="img\shape\app-shape-right.png" />
     <Content Include="img\shape\app-shape-top.png" />
@@ -2317,6 +2326,7 @@
     <Content Include="Areas\Admin\Views\UserAD\RegistrationAD.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAD\QRRequestManager.cshtml" />
     <Content Include="ClassDiagram1.cd" />
+    <Content Include="files\POSTER.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\gijgo.min.js" />
@@ -2387,8 +2397,7 @@
     <Content Include="scss\_team.scss" />
     <Content Include="scss\_testimonial.scss" />
     <Content Include="scss\_variables.scss" />
-    <Content Include="Views\Home\Feature.cshtml" />
-    <Content Include="Views\Home\Services.cshtml" />
+    <Content Include="Views\Home\Instruction.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Shared\Registration.cshtml" />
     <Content Include="Views\User\Registration.cshtml" />
@@ -2403,6 +2412,7 @@
     <Content Include="Views\ProductPlanting\Update.cshtml" />
     <Content Include="Views\User\NoActiveLogin.cshtml" />
     <Content Include="Views\Product\GetQRCode.cshtml" />
+    <Content Include="Views\Home\Introduction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2452,7 +2462,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62308</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44310/</IISUrl>
+          <IISUrl>http://localhost:44310/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
