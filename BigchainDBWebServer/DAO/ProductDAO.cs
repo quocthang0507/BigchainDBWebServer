@@ -1,6 +1,7 @@
 ﻿using BigchainDBWebServer.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace BigchainDBWebServer.DAO
@@ -453,5 +454,20 @@ namespace BigchainDBWebServer.DAO
 				return new ResultOfRequest(true, "Tạo thành công!");
 			return new ResultOfRequest(false, "Lỗi cập nhật!");
 		}
+        public List<MyViewIntro> GetViewIntro(string company)
+        {
+            string sql = "select Product.id as idProduct, Product.nameProduct as nameProduct, UserBC.company,Product.details, Product.imgPath, QRManager.linkImg as imgQR from UserBC left join ProductDetail on UserBC.username = ProductDetail.idUser left join Product on ProductDetail.idProduct = Product.id left join QRManager on Product.id = QRManager.idProduct where company=@company";
+            List<MyViewIntro> data = Model.Database.SqlQuery<MyViewIntro>(sql, new SqlParameter("@company", company)).ToList();
+            return data;
+        }
 	}
+    public class MyViewIntro
+    {
+        public string idProduct { get; set; }
+        public string nameProduct { get; set; }
+        public string company { get; set; }
+        public string details { get; set; }
+        public string imgPath { get; set; }
+        public string imgQR { get; set; }
+    }
 }

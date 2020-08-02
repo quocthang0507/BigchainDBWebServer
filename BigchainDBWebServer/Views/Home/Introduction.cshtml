@@ -8,6 +8,51 @@
 <section class="best-features-area">
 	<div class="container">
 		<div class="col-lg-12 table-responsive" style="top: 100px;">
+            <div class="col-12">
+                <div class="section-tittle">
+                    <h2 style="text-align: center;">Những nơi đã áp dụng</h2>
+                </div>
+                <div>
+                    <div class="section-tittle">
+                        <h3 style="text-align: center;">Trường Đại học Đà Lạt</h3>
+                    </div>
+                    @foreach (var item in ViewBag.dhdl)
+                    {
+                    <div class="row"  style="margin-bottom:10px">
+                        <div class="col-lg-7 col-md-6 col-sm-12">
+                            <img style="width:100%" src="@item.imgPath" />
+                        </div>
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <h4>@item.nameProduct</h4>
+                            <p>
+                                @item.details
+                            </p>
+                        </div>
+                    </div>
+
+                    }
+                </div>
+                <div>
+                    <div class="section-tittle">
+                        <h3 style="text-align: center;">Công ty L'ang Farm</h3>
+                    </div>
+                    @foreach (var item in ViewBag.langfarm)
+                    {
+                        <div class="row" style="margin-bottom:10px">
+                            <div class="col-lg-7 col-md-6 col-sm-12">
+                                <img style="width:100%" src="@item.imgPath" />
+                            </div>
+                            <div class="col-lg-5 col-md-6 col-sm-12">
+                                <h4>@item.nameProduct</h4>
+                                <p>
+                                    @item.details
+                                </p>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
 			<!-- Section Tittle -->
 			<div class="col-lg-12 col-md-12">
 				<div class="section-tittle">
@@ -19,60 +64,64 @@
 				</p>
 			</div>
 			<!-- Section caption -->
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th></th>
-						<th>Blockchain điển hình</th>
-						<th>Cơ sở dữ liệu phân tán điển hình</th>
-						<th>BigchainDB</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Tính phi tập trung</td>
-						<td>✓</td>
-						<td> </td>
-						<td>✓</td>
-					</tr>
-					<tr>
-						<td>Byzantine Fault Tolerant</td>
-						<td>✓</td>
-						<td> </td>
-						<td>✓</td>
-					</tr>
-					<tr>
-						<td>Tính bất biến</td>
-						<td>✓</td>
-						<td> </td>
-						<td>✓</td>
-					</tr>
-					<tr>
-						<td>Tài sản do chủ sở hữu kiểm soát</td>
-						<td>✓</td>
-						<td> </td>
-						<td>✓</td>
-					</tr>
-					<tr>
-						<td>Tốc độ giao dịch cao</td>
-						<td> </td>
-						<td>✓</td>
-						<td>✓</td>
-					</tr>
-					<tr>
-						<td> Độ trễ thấp</td>
-						<td> </td>
-						<td>✓</td>
-						<td>✓</td>
-					</tr>
-					<tr>
-						<td>Lập chỉ mục &amp; truy vấn dữ   liệu có cấu trúc</td>
-						<td> </td>
-						<td>✓</td>
-						<td>✓</td>
-					</tr>
-				</tbody>
-			</table>
+            <div class="row">
+                <div class="col-12">
+                    <table style="overflow:unset" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Blockchain điển hình</th>
+                                <th>Cơ sở dữ liệu phân tán điển hình</th>
+                                <th>BigchainDB</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tính phi tập trung</td>
+                                <td>✓</td>
+                                <td> </td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td>Byzantine Fault Tolerant</td>
+                                <td>✓</td>
+                                <td> </td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td>Tính bất biến</td>
+                                <td>✓</td>
+                                <td> </td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td>Tài sản do chủ sở hữu kiểm soát</td>
+                                <td>✓</td>
+                                <td> </td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td>Tốc độ giao dịch cao</td>
+                                <td> </td>
+                                <td>✓</td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td> Độ trễ thấp</td>
+                                <td> </td>
+                                <td>✓</td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td>Lập chỉ mục &amp; truy vấn dữ   liệu có cấu trúc</td>
+                                <td> </td>
+                                <td>✓</td>
+                                <td>✓</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 		</div>
 	</div>
 </section>
@@ -158,18 +207,21 @@
 <section class="best-features-area">
 	<div class="container">
 		<div class="row justify-content-end">
-			<div class="col-lg-12">
-				<!-- Section Tittle -->
-				<div class="row">
-					<div class="col-lg-12 col-md-12">
-						<div class="section-tittle">
-							<h2 style="text-align: center;">Mạng BigchainDB</h2>
-						</div>
-					</div>
-				</div>
-				<!-- Section caption -->
-				<img src="~/img/service/bdb.png" alt="BigchainDB" style="width: 100%; ">
-			</div>
+            <div class="col-lg-12">
+                <!-- Section Tittle -->
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="section-tittle">
+                            <h2 style="text-align: center;">Mạng BigchainDB</h2>
+                        </div>
+                    </div>
+                </div>
+                <div  style="text-align: center; float:none" class="col-12">
+                    <div class="col-lg-2 col-md-12"></div>
+                    <img class="col-lg-8 col-md-12" src="~/img/service/bdb.png" alt="BigchainDB" style="width: 100%;">
+                </div>
+                <!-- Section caption -->
+            </div>
 		</div>
 	</div>
 </section>
