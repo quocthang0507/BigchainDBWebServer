@@ -18,5 +18,6 @@ namespace BigchainDBWebServer.Models
         public string nameProduct { get; set; }
         public string details { get; set; }
         public Nullable<int> isDeleted { get; set; }
+        public Nullable<int> number { get; set; }
     }
 }

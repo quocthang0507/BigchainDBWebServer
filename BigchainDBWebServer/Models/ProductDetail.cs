@@ -23,6 +23,6 @@ namespace BigchainDBWebServer.Models
         public Nullable<int> IsUpBD { get; set; }
         public Nullable<int> checkBuy { get; set; }
         public Nullable<int> idRole { get; set; }
-        public Nullable<int> isClick { get; set; }
+        public Nullable<int> numberhandling { get; set; }
     }
 }
