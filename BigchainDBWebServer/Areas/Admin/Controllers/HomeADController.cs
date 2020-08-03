@@ -113,10 +113,10 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 		[HttpPost]
 		public JsonResult GenerateQRCode(string code)
 		{
-			string linkImg = @"~\imgQR\test\";
+			string linkImg = @"\imgQR\test\";
 			string fileName = code + ".png";
 			linkImg += fileName;
-			string urlPath = this.Server.MapPath(linkImg);
+			string urlPath = this.Server.MapPath("~"+linkImg);
 			//urlPath = System.IO.Path.Combine(urlPath, fileName);
 			ProductDAO dao = new ProductDAO();
 			var qrManager = dao.Model.QRManagers.FirstOrDefault(f => f.idProduct == code && f.isDeleted == 0);
