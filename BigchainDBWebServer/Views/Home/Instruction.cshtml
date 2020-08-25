@@ -1,116 +1,140 @@
 ﻿
 @{
-	ViewBag.Title = "Hướng dẫn sử dụng";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Hướng dẫn sử dụng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <section class="best-features-area">
-	<div class="container">
-		<div class="col-lg-12 table-responsive" style="top: 100px">
-			<!-- Section Tittle -->
-			<div class="col-lg-12 col-md-12">
-				<div class="section-tittle">
-					<h2 style="text-align: center;">Giới thiệu sơ lược về chức năng hệ thống</h2>
-				</div>
-				<p>
-					Hệ thống gồm 2 phần là website và ứng dụng di động:
-				</p>
-				<p>
-					- Website: để cho người dùng cung cấp thông tin của nông sản (gồm có 3 vai trò: nhà sản xuất, nhà vận chuyển, nhà cung cấp) và quản trị viên để kiểm duyệt thông tin và lưu vào blockchain
-				</p>
-				<p>
-					- Ứng dụng di động: để khách hàng khi mua sản phẩm có thể quét mã và thấy được tất cả thông tin của sản phẩm
-				</p>
-			</div>
-			<!-- Section caption -->
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>Vai trò trong website</th>
-						<th>Thông tin nhập</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Nhà sản xuất</td>
-						<td>Ngày trồng, ngày thu hoạch, một số thông tin về quá trình trồng</td>
-					</tr>
-					<tr>
-						<td>Nhà vận chuyển</td>
-						<td>Ngày nhận hàng, ngày chuyển xong</td>
-					</tr>
-					<tr>
-						<td>Nhà cung cấp</td>
-						<td>Ngày mua, ngày nhận được hàng</td>
-					</tr>
-					<tr>
-						<td>Quản trị viên</td>
-						<td>Kiểm tra thông tin đưa vào blockchain, xuất mã QR</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+    <div class="container">
+        <div class="col-lg-12 table-responsive" style="top: 100px">
+            <!-- Section Tittle -->
+            <div class="col-lg-12 col-md-12">
+                <div class="section-tittle">
+                    <h2 style="text-align: center">Link tải ứng dụng và file hướng dẫn cụ thể</h2>
+                </div>
+                <a href="https://drive.google.com/drive/folders/1dJVCXERENWAHmaJ0Oo8SawZvW1ehxIpJ?usp=sharing" target="_blank"><h1 style="text-align:center; color:red">Nhấn vào đây để xem hướng dẫn chi tiết và tải ứng dụng</h1></a>
+                <p style="text-align:center">
+                    Vào link tải ứng dụng (app.apk) về điện thoại sau đó cài đặt vào điện thoại và có thể quét mã thử trong trang giới thiệu
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="best-features-area">
+    <div class="container">
+        <div class="col-lg-12 table-responsive" style="top: 100px">
+            <!-- Section Tittle -->
+            <div class="col-lg-12 col-md-12">
+                <div class="section-tittle">
+                    <h2 style="text-align: center;">Giới thiệu sơ lược về chức năng hệ thống</h2>
+                </div>
+                <p>
+                    Hệ thống gồm 2 phần là website và ứng dụng di động:
+                </p>
+                <p>
+                    - Website: để cho người dùng cung cấp thông tin của nông sản (gồm có 3 vai trò: nhà sản xuất, nhà vận chuyển, nhà cung cấp) và quản trị viên để kiểm duyệt thông tin và lưu vào blockchain
+                </p>
+                <p>
+                    - Ứng dụng di động: để khách hàng khi mua sản phẩm có thể quét mã và thấy được tất cả thông tin của sản phẩm
+                </p>
+            </div>
+            <!-- Section caption -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Vai trò trong hệ thống</th>
+                        <th>Chức năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nhà sản xuất</td>
+                        <td>Nhập thông tin ngày trồng, ngày thu hoạch, một số thông tin về quá trình trồng</td>
+                    </tr>
+                    <tr>
+                        <td>Nhà vận chuyển</td>
+                        <td>Nhập thông tin ngày nhận hàng, ngày chuyển xong</td>
+                    </tr>
+                    <tr>
+                        <td>Nhà cung cấp</td>
+                        <td>Nhập thông tin ngày mua, ngày nhận được hàng</td>
+                    </tr>
+                    <tr>
+                        <td>Quản trị viên</td>
+                        <td>Kiểm tra thông tin đưa vào blockchain, xuất mã QR</td>
+                    </tr>
+                    <tr>
+                        <td>Người dùng</td>
+                        <td>Quét mã truy xuất thông tin</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </section>
 
 <!-- Mô hình hệ thống -->
 <section class="best-features-area">
-	<div class="container">
-		<div class="row justify-content-end">
-			<div class="col-lg-12">
-				<!-- Section Tittle -->
-				<div class="row" style="margin-top:70px">
-					<div class="col-lg-12 col-md-12">
-						<div class="section-tittle">
-							<h2 style="text-align: center">Giới thiệu về quy trình hoạt động của website</h2>
-						</div>
-						<p>
-							Đầu tiên người sản xuất sẽ đăng nhập vào website và nhập thông tin sản phẩm của họ và hệ thống, sau đó quản trị viên
-							sẽ kiểm duyệt thông tin của nhà sản xuất. Sau khi thông tin được kiểm duyệt nó sẽ hiển thị ra cho nhà cung cấp thấy và
-							họ sẽ lựa chọn mua sản phẩm với số lượng bao nhiêu và chọn nhà vận chuyển cho mình. Sau khi nhà cung cấp chọn nhà vận chuyển
-							thì thông tin sẽ được chuyển qua cho nhà vận chuyển và nhà vận chuyển sẽ nhập thông tin và nhận vẩn chuyển sản phẩm đó để hoàn
-							thành việc mua bán. Tất cả thông tin sẽ được chuyển đến cho quản trị viên kiểm duyệt và đưa vào blockchain. Sau đó khi mua sản phẩm
-							người dùng sẽ quét mã và thấy được tất cả thông tin của các quá trình trên.
-						</p>
-						<!-- Section caption -->
-						<img src="~/img/service/model.jpg" alt="use case diagram" style="width: 100%; margin-bottom:5px">
-					</div>
-				</div>
+    <div class="container">
+        <div class="row justify-content-end">
+            <div class="col-lg-12">
+                <!-- Section Tittle -->
+                <div class="row" style="margin-top:70px">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="section-tittle">
+                            <h2 style="text-align: center">Giới thiệu về quy trình hoạt động của website</h2>
+                        </div>
+                        <p>
+                            Đầu tiên người sản xuất sẽ đăng nhập vào website và nhập thông tin sản phẩm của họ và hệ thống, sau đó quản trị viên
+                            sẽ kiểm duyệt thông tin của nhà sản xuất. Sau khi thông tin được kiểm duyệt nó sẽ hiển thị ra cho nhà cung cấp thấy và
+                            họ sẽ lựa chọn mua sản phẩm với số lượng bao nhiêu và chọn nhà vận chuyển cho mình. Sau khi nhà cung cấp chọn nhà vận chuyển
+                            thì thông tin sẽ được chuyển qua cho nhà vận chuyển và nhà vận chuyển sẽ nhập thông tin và nhận vẩn chuyển sản phẩm đó để hoàn
+                            thành việc mua bán. Tất cả thông tin sẽ được chuyển đến cho quản trị viên kiểm duyệt và đưa vào blockchain. Sau đó khi mua sản phẩm
+                            người dùng sẽ quét mã và thấy được tất cả thông tin của các quá trình trên.
+                        </p>
+                        <!-- Section caption -->
+                        <img src="~/img/service/model.jpg" alt="use case diagram" style="width: 100%; margin-bottom:5px">
+                    </div>
+                </div>
 
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 </section>
 <!-- Mô hình hệ thống -->
 <section class="best-features-area">
-	<div class="container">
-		<div class="row justify-content-end">
-			<div class="col-lg-12">
-				<!-- Section Tittle -->
-				<div class="row">
-					<div class="col-lg-12 col-md-12">
-						<div class="section-tittle">
-							<h2 style="text-align: center;">Các bước cụ thể</h2>
-						</div>
-						<p>
-							Bước 1: Đăng nhập với vai trò nhà sản xuất ở trang đăng nhập và nhập thông tin cho sản phẩm ở trang thêm sản phẩm sau khi đăng nhập.
-						</p>
-						<p>
-							Bước 2: Đăng nhập với vai trò quản trị viên kiểm duyệt thông tin mà nhà sản xuất đã nhập bằng cách đọc thông báo hoặc nhấp vào tên nhà sản xuất đó (đăng nhập vào trang admin bằng cách thêm /admin phía sau đường dẫn trang web)
-						</p>
-						<p>
-							Bước 3: Đăng nhập với vai trò nhà cung cấp  để chọn mua sản phẩm bằng cách vào trang thêm sản phẩm sau đó nhập mã sản phẩm vào ô tìm kiếm
-							để tìm sản phẩm cần mua hoặc không nhập gì mà ấn tìm kiếm nó sẽ hiển thị ra tất cả các sản để nhà cung cấp có thể mua. Sau khi mua xong
-							nhà cung cấp sẽ chọn nhà vận chuyển bằng cách nhấn nút chọn nhà vận chuyển. Sản phẩm sẽ được chuyển qua cho nhà vận chuyển thấy.
-						</p>
-						<p>
-							Bước 4: Đăng nhập với vai trò nhà vận chuyển vào trang thêm sản phẩm để nhận vận chuyển bằng cách nhập thông tin và hoàn thành quá trình mua bán.
-						</p>
-						<p>
-							Bước 5: Đăng nhập với vai trò quản trị viên và kiểm duyệt tất cả thông tin và lưu vào blockchain.
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row justify-content-end">
+            <div class="col-lg-12">
+                <!-- Section Tittle -->
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="section-tittle">
+                            <h2 style="text-align: center;">Các bước cụ thể</h2>
+                        </div>
+                        <p>
+                            Bước 1: Đăng nhập với vai trò nhà sản xuất ở trang đăng nhập và nhập thông tin cho sản phẩm ở trang thêm sản phẩm sau khi đăng nhập.
+                        </p>
+                        <p>
+                            Bước 2: Đăng nhập với vai trò quản trị viên kiểm duyệt thông tin mà nhà sản xuất đã nhập bằng cách đọc thông báo hoặc nhấp vào tên nhà sản xuất đó (đăng nhập vào trang admin bằng cách thêm /admin phía sau đường dẫn trang web)
+                        </p>
+                        <p>
+                            Bước 3: Đăng nhập với vai trò nhà cung cấp  để chọn mua sản phẩm bằng cách vào trang thêm sản phẩm sau đó nhập mã sản phẩm vào ô tìm kiếm
+                            để tìm sản phẩm cần mua hoặc không nhập gì mà ấn tìm kiếm nó sẽ hiển thị ra tất cả các sản để nhà cung cấp có thể mua. Sau khi mua xong
+                            nhà cung cấp sẽ chọn nhà vận chuyển bằng cách nhấn nút chọn nhà vận chuyển. Sản phẩm sẽ được chuyển qua cho nhà vận chuyển thấy.
+                        </p>
+                        <p>
+                            Bước 4: Đăng nhập với vai trò nhà vận chuyển vào trang thêm sản phẩm để nhận vận chuyển bằng cách nhập thông tin và hoàn thành quá trình mua bán.
+                        </p>
+                        <p>
+                            Bước 5: Đăng nhập với vai trò quản trị viên và kiểm duyệt tất cả thông tin và lưu vào blockchain.
+                        </p>
+                        <p>
+                            Bước 6: Người dùng sử dụng ứng dụng quét mã truy xuất thông tin.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

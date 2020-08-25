@@ -12,94 +12,28 @@
             margin-top: 15px;
         }
 </style>
-<!--Những nơi đã áp dụng -->
+<!--Mô hình chuỗi cung ứng -->
 <section class="best-features-area">
     <div class="container">
 
         <div class="col-12" style="top: 100px;">
             <div class="section-tittle">
-                <h2 style="text-align: center;">Địa chỉ áp dụng</h2>
+                <h2 style="text-align: center;">Sơ đồ chuỗi cung ứng nông sản</h2>
             </div>
-            <div>
-                <div class="section-tittle">
-                    <h3 style="text-align: center;">Viện công nghiệp nông nghệ cao</h3>
-                </div>
-                @foreach (var item in ViewBag.dhdl)
-                {
-                    if (@item.imgQR == null)
-                    {
-                        <div class="row" style="margin-bottom:10px">
-                            <div class="col-lg-6 col-md-6 col-sm-12 myImgStyle">
-                                <img style="width:80%" src="@item.imgPath" />
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <h4>@item.nameProduct</h4>
-                                <p>
-                                    @item.details
-                                </p>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="row" style="margin-bottom:10px">
-                            <div class="col-lg-5 col-md-12 col-sm-12 myImgStyle">
-                                <img style="width:80%" src="@item.imgPath" />
-                            </div>
-                            <div class="col-lg-4 col-md-8 col-sm-12">
-                                <h4>@item.nameProduct</h4>
-                                <p>
-                                    @item.details
-                                </p>
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-sm-12 myImgStyle">
-                                <img style="width:80%" src="\imgQR\test\NAMDONGCO01.png" />
-                            </div>
-                        </div>
-                    }
-
-                }
-            </div>
-            <div>
-                <div class="section-tittle">
-                    <h3 style="text-align: center;">Công ty L'ang Farm Đà Lạt Lâm Đồng</h3>
-                </div>
-                @foreach (var item in ViewBag.langfarm)
-                {
-                    if (@item.imgQR == null)
-                    {
-                        <div class="row" style="margin-bottom:10px">
-                            <div class="col-lg-6 col-md-6 col-sm-12 myImgStyle">
-                                <img style="width:80%" src="@item.imgPath" />
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <h4>@item.nameProduct</h4>
-                                <p>
-                                    @item.details
-                                </p>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="row" style="margin-bottom:10px">
-                            <div class="col-lg-5 col-md-12 col-sm-12 myImgStyle">
-                                <img style="width:80%" src="@item.imgPath" />
-                            </div>
-                            <div class="col-lg-4 col-md-8 col-sm-12">
-                                <h4>@item.nameProduct</h4>
-                                <p>
-                                    @item.details
-                                </p>
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-sm-12 myImgStyle">
-                                <img style="width:80%" src="@item.imgQR" />
-                            </div>
-                        </div>
-                    }
-                }
+            <p>
+                Ở giai đoạn đầu của chuỗi cung ứng, đối tượng chính là các loại hạt giống và cây trồng, chưa có khả năng thu hoạch
+                ngay tại thời điểm đó. Trải qua thời gian chăm sóc, chúng trở thành nông sản bán thành phẩm. Để đến với tay người tiêu
+                dùng, nông sản cần phải trải qua các giai đoạn như thu hoạch, vận chuyển và buôn bán mới chính thức trở thành sản phẩm
+                tiêu dùng. Toàn bộ quá trình trong chuỗi cung ứng được ghi lại và tổ chức theo từng giai đoạn, do đó, khách hàng, chính
+                là người tiêu dùng có thể nắm bắt được thông tin đó bằng việc quét mã được dán trên nông sản.
+            </p>
+            <!-- Section caption -->
+            <div style="text-align: center; float:none" class="col-12">
+                <div class="col-lg-2 col-md-12"></div>
+                <img class="col-lg-10 col-md-12" src="~/img/service/supply-chain.png" alt="supply chain" style="width: 100%;">
             </div>
         </div>
+
     </div>
 </section>
 
@@ -116,7 +50,9 @@
                         </div>
                         <p>
                             Hệ thống bao gồm 3 khối chức năng, đó là khối lưu trữ dữ liệu BigchainDB, khối quản lý nông sản trên nền tảng
-                            web và khối quét mã trên nền tảng di động. Hình sau minh hoạ trực quan mối liên hệ giữa các khối với nhau.
+                            web và khối quét mã trên nền tảng di động. Các vai trò như nhà sản xuất, nhà vận chuyện, nhà cung cấp sẽ cung cấp
+                            thông tin nông sản trên website và các thông tin đó được lưu vào bigchaindb và người mua hàng
+                            sẽ quét mã để truy xuất thông tin. Hình sau minh hoạ trực quan mối liên hệ giữa các khối với nhau.
                         </p>
                     </div>
                 </div>
@@ -125,42 +61,105 @@
                     <div class="col-lg-2 col-md-12"></div>
                     <img class="col-lg-10 col-md-12" src="~/img/service/model.jpg" alt="use case diagram" style="width: 100%;">
                 </div>
+                <div class="row" style="margin-top:10px">
+                    <div class="col-lg-12 col-md-12">
+                        <p>
+                            Trong hệ thống này sử dụng công nghệ ASP.NET MVC trong việc phát triển ứng dụng nền web và công nghệ Ionic trong việc
+                            xây dựng ứng dụng di động. Website là nơi trực quan để quản trị viên và thành viên có thể quản lý các nông sản, còn ứng
+                            dụng trên trên di động là ứng dụng quét mã QR giúp người dùng có thể truy xuất thông tin nguồn gốc nông sản. Hệ thông bigchaindb
+                            để lưu trữ thông tin nông sản
+                        </p>
+                    </div>
+                </div>
+                <div class="row" style="text-align: center;">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="section-tittle">
+                            <h4 style="text-align: center;">Ứng dụng web</h4>
+                        </div>
+                        <a href="https://dotnet.microsoft.com/apps/aspnet/mvc" target="_blank"><img src="~/img/service/mvc.png" style="width:275px" alt="mvc asp.net" /></a>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="section-tittle">
+                            <h4 style="text-align: center;">Ứng dụng di động</h4>
+                        </div>
+                        <a href="https://ionicframework.com/" target="_blank"><img src="~/img/service/ionic.png" style="width: 275px" alt="ionic" /></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="section-tittle">
+                            <h4 style="text-align: center;">Mạng BigchainDB</h4>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; float:none" class="col-12">
+                    <div class="col-lg-2 col-md-12"></div>
+                    <img class="col-lg-8 col-md-12" src="~/img/service/bdb.png" alt="BigchainDB" style="width: 100%;">
+                </div>
             </div>
         </div>
     </div>
 </section>
-
-
-<!-- Mô hình chuỗi cung ứng nông sản -->
+<!-- Các đặc trưng của BigchainDB -->
 <section class="best-features-area">
     <div class="container">
         <div class="row justify-content-end">
-            <div class="col-lg-12">
+            <div class="col-xl-12 col-lg-12">
                 <!-- Section Tittle -->
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
                         <div class="section-tittle">
-                            <h2 style="text-align: center;">Sơ đồ chuỗi cung ứng nông sản</h2>
+                            <h2 style="text-align: center; margin-bottom: 50px;"><a href="~/Home/Introduction" target="_blank">Những đặc trưng của Blockchain có trong BigchainDB</a></h2>
                         </div>
-                        <p>
-                            Ở giai đoạn đầu của chuỗi cung ứng, đối tượng chính là các loại hạt giống và cây trồng, chưa có khả năng thu hoạch
-                            ngay tại thời điểm đó. Trải qua thời gian chăm sóc, chúng trở thành nông sản bán thành phẩm. Để đến với tay người tiêu
-                            dùng, nông sản cần phải trải qua các giai đoạn như thu hoạch, vận chuyển và buôn bán mới chính thức trở thành sản phẩm
-                            tiêu dùng. Toàn bộ quá trình trong chuỗi cung ứng được ghi lại và tổ chức theo từng giai đoạn, do đó, khách hàng, chính
-                            là người tiêu dùng có thể nắm bắt được thông tin đó bằng việc quét mã được dán trên nông sản.
-                        </p>
                     </div>
                 </div>
                 <!-- Section caption -->
-                <div style="text-align: center; float:none" class="col-12">
-                    <div class="col-lg-2 col-md-12"></div>
-                    <img class="col-lg-10 col-md-12" src="~/img/service/supply-chain.png" alt="supply chain" style="width: 100%;">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6">
+                        <div class="single-features mb-70">
+                            <div>
+                                <img src="~/img/shape/central.png" alt="decentralized" />
+                            </div>
+                            <div class="features-caption">
+                                <p>Tính phi tập trung</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6">
+                        <div class="single-features mb-70">
+                            <div>
+                                <img src="~/img/shape/query.png" alt="query" />
+                            </div>
+                            <div class="features-caption">
+                                <p>Có thể truy vấn</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6">
+                        <div class="single-features mb-70">
+                            <div>
+                                <img src="~/img/shape/immutability.png" alt="immutability" />
+                            </div>
+                            <div class="features-caption">
+                                <p>Tính bất biến</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6">
+                        <div class="single-features mb-70">
+                            <div>
+                                <img src="~/img/shape/asset.png" alt="asset" />
+                            </div>
+                            <div class="features-caption">
+                                <p>Tài sản kỹ thuật số</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
 <!-- Bảng so sánh BigchainDB -->
 <section class="best-features-area">
     <div class="container">
@@ -238,28 +237,6 @@
     </div>
 </section>
 
-<!-- Mô hình mạng BigchainDB -->
-<section class="best-features-area">
-    <div class="container">
-        <div class="row justify-content-end">
-            <div class="col-lg-12">
-                <!-- Section Tittle -->
-                <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="section-tittle">
-                            <h2 style="text-align: center;">Mạng BigchainDB</h2>
-                        </div>
-                    </div>
-                </div>
-                <div style="text-align: center; float:none" class="col-12">
-                    <div class="col-lg-2 col-md-12"></div>
-                    <img class="col-lg-8 col-md-12" src="~/img/service/bdb.png" alt="BigchainDB" style="width: 100%;">
-                </div>
-                <!-- Section caption -->
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- Sơ đồ use case -->
 <section class="best-features-area" style="display: none">
@@ -282,44 +259,6 @@
                 </div>
                 <!-- Section caption -->
                 <img src="~/img/service/use-case-diagram.png" alt="use case diagram" style="width: 100%; ">
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- Website và di động -->
-<section class="best-features-area">
-    <div class="container">
-        <div class="row justify-content-end">
-            <div class="col-lg-12">
-                <!-- Section Tittle -->
-                <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="section-tittle">
-                            <h2 style="text-align: center;">Ứng dụng web và di động</h2>
-                        </div>
-                        <p>
-                            Trong hệ thống này sử dụng công nghệ ASP.NET MVC trong việc phát triển ứng dụng nền web và công nghệ Ionic trong việc
-                            xây dựng ứng dụng di động. Website là nơi trực quan để quản trị viên và thành viên có thể quản lý các nông sản, còn ứng
-                            dụng trên trên di động là ứng dụng quét mã QR giúp người dùng có thể truy xuất thông tin nguồn gốc nông sản
-                        </p>
-                    </div>
-                </div>
-                <div class="row" style="text-align: center;">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="section-tittle">
-                            <h4 style="text-align: center;">Ứng dụng web</h4>
-                        </div>
-                        <a href="https://dotnet.microsoft.com/apps/aspnet/mvc" target="_blank"><img src="~/img/service/mvc.png" alt="mvc asp.net" /></a>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="section-tittle">
-                            <h4 style="text-align: center;">Ứng dụng di động</h4>
-                        </div>
-                        <a href="https://ionicframework.com/" target="_blank"><img src="~/img/service/ionic.png" alt="ionic" /></a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

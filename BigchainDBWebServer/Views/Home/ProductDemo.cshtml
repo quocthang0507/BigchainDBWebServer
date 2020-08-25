@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewBag.Title = "ProductDemo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--Những nơi đã áp dụng -->
+<section class="best-features-area" style="bottom:20px;">
+    <div class="container">
+
+        <div class="col-12" style="top: 100px;">
+            <div class="section-tittle">
+                <h2 style="text-align: center;">Sản phẩm ứng dụng</h2>
+            </div>
+            <div>
+                <div class="section-tittle">
+                    <h3 style="text-align: center;">Viện Nghiên cứu và Ứng dụng Nông nghiệp Công nghệ cao - Trường Đại học Đà Lạt</h3>
+                </div>
+                <div style="overflow-x:auto;">
+                    <table style="overflow:unset" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Hình ảnh</th>
+                                <th style="width:200px">Tên sản phảm</th>
+                                <th>Mô tả</th>
+                                <th>Quét mã</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.dhdl)
+                            {
+                                if (@item.imgQR == null)
+                                {
+                                    <tr>
+                                        <td><img style="width:200px" src="@item.imgPath" /></td>
+                                        <td><h4>@item.nameProduct</h4></td>
+                                        <td>
+                                            <p>
+                                                @item.details
+                                            </p>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td><img style="width:200px" src="@item.imgPath" /></td>
+                                        <td><h4>@item.nameProduct</h4></td>
+                                        <td>
+                                            <p>
+                                                @item.details
+                                            </p>
+                                        </td>
+                                        <td><img style="width:200px" src="@item.imgQR" /></td>
+                                    </tr>
+
+                                }
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <div class="section-tittle">
+                    <h3 style="text-align: center;">Công ty L'ang Farm Đà Lạt Lâm Đồng</h3>
+                </div>
+                <table style="overflow:unset" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Hình ảnh</th>
+                            <th style="width:200px">Tên sản phảm</th>
+                            <th>Mô tả</th>
+                            <th>Quét mã</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.langfarm)
+                        {
+                            if (@item.imgQR == null)
+                            {
+                                <tr>
+                                    <td><img style="width:200px" src="@item.imgPath" /></td>
+                                    <td><h4>@item.nameProduct</h4></td>
+                                    <td>
+                                        <p>
+                                            @item.details
+                                        </p>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td><img style="width:200px" src="@item.imgPath" /></td>
+                                    <td><h4>@item.nameProduct</h4></td>
+                                    <td>
+                                        <p>
+                                            @item.details
+                                        </p>
+                                    </td>
+                                    <td><img style="width:200px" src="@item.imgQR" /></td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+

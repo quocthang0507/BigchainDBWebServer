@@ -1997,7 +1997,8 @@
     <Content Include="img\hero\hero_right.png" />
     <Content Include="img\logo\logo.png" />
     <Content Include="img\logo\logo2_footer.png" />
-    <Content Include="img\logo\testimonial.png" />
+    <Content Include="img\logo\logodlu.png" />
+    <Content Include="img\logo\logoit.png" />
     <Content Include="img\service\bdb.png" />
     <Content Include="img\service\ethereum.png" />
     <Content Include="img\service\hyperledger.png" />
@@ -2312,13 +2313,6 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAD\UserBCDetailsProduct.cshtml" />
-    <EntityDeploy Include="Models\Model.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model.edmx.diagram">
-      <DependentUpon>Model.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\Shared\LoginPage.cshtml" />
     <Content Include="Areas\Admin\Views\UserAD\Login.cshtml" />
     <Content Include="Areas\Admin\Views\UserAD\getNotification.cshtml" />
@@ -2327,6 +2321,14 @@
     <Content Include="Areas\Admin\Views\HomeAD\QRRequestManager.cshtml" />
     <Content Include="ClassDiagram1.cd" />
     <Content Include="files\POSTER.pdf" />
+    <EntityDeploy Include="Models\Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model.edmx.diagram">
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Content>
+    <Content Include="app\app.apk" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\gijgo.min.js" />
@@ -2413,6 +2415,7 @@
     <Content Include="Views\User\NoActiveLogin.cshtml" />
     <Content Include="Views\Product\GetQRCode.cshtml" />
     <Content Include="Views\Home\Introduction.cshtml" />
+    <Content Include="Views\Home\ProductDemo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

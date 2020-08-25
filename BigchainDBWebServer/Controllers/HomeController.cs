@@ -18,12 +18,16 @@ namespace BigchainDBWebServer.Controllers
 
 		public ActionResult Introduction()
 		{
-            DAO.ProductDAO dao = new DAO.ProductDAO();
-            ViewBag.dhdl = dao.GetViewIntro("Viện nông nghiệp công nghệ cao");
-            ViewBag.langfarm = dao.GetViewIntro("L'ang Farm");
+            
 			return View();
 		}
-
+		public ActionResult ProductDemo()
+		{
+			DAO.ProductDAO dao = new DAO.ProductDAO();
+			ViewBag.dhdl = dao.GetViewIntro("Viện nông nghiệp công nghệ cao");
+			ViewBag.langfarm = dao.GetViewIntro("L'ang Farm");
+			return View();
+		}
 		public ActionResult Login()
 		{
 			return View();
