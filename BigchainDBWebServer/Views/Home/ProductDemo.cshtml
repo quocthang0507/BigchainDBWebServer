@@ -10,15 +10,12 @@
 
         <div class="col-12" style="top: 100px;">
             <div class="section-tittle">
-                <h2 style="text-align: center;">Sản phẩm ứng dụng</h2>
+                <h2 style="text-align: center;">Một số sản phẩm đang ứng dụng thử nghiệm</h2>
             </div>
             <div>
-                <div class="section-tittle">
-                    <h3 style="text-align: center;">Viện Nghiên cứu và Ứng dụng Nông nghiệp Công nghệ cao - Trường Đại học Đà Lạt</h3>
-                </div>
                 <div style="overflow-x:auto;">
                     <table style="overflow:unset" class="table table-bordered">
-                        <thead>
+                        <thead style="text-transform: uppercase; text-align: center">
                             <tr>
                                 <th>Hình ảnh</th>
                                 <th style="width:200px">Tên sản phảm</th>
@@ -33,7 +30,7 @@
                                 {
                                     <tr>
                                         <td><img style="width:200px" src="@item.imgPath" /></td>
-                                        <td><h4>@item.nameProduct</h4></td>
+                                        <td style="text-transform: uppercase;"><h5>@item.nameProduct</h5></td>
                                         <td>
                                             <p>
                                                 @item.details
@@ -46,7 +43,7 @@
                                 {
                                     <tr>
                                         <td><img style="width:200px" src="@item.imgPath" /></td>
-                                        <td><h4>@item.nameProduct</h4></td>
+                                        <td style="text-transform: uppercase;"><h5>@item.nameProduct</h5></td>
                                         <td>
                                             <p>
                                                 @item.details
@@ -58,55 +55,38 @@
                                 }
 
                             }
+                            @foreach (var item in ViewBag.langfarm)
+                            {
+                                if (@item.imgQR == null)
+                                {
+                                    <tr>
+                                        <td><img style="width:200px" src="@item.imgPath" /></td>
+                                        <td style="text-transform: uppercase;"><h5>@item.nameProduct</h5></td>
+                                        <td>
+                                            <p>
+                                                @item.details
+                                            </p>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td><img style="width:200px" src="@item.imgPath" /></td>
+                                        <td style="text-transform: uppercase;"><h5>@item.nameProduct</h5></td>
+                                        <td>
+                                            <p>
+                                                @item.details
+                                            </p>
+                                        </td>
+                                        <td><img style="width:200px" src="@item.imgQR" /></td>
+                                    </tr>
+                                }
+                            }
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div>
-                <div class="section-tittle">
-                    <h3 style="text-align: center;">Công ty L'ang Farm Đà Lạt Lâm Đồng</h3>
-                </div>
-                <table style="overflow:unset" class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Hình ảnh</th>
-                            <th style="width:200px">Tên sản phảm</th>
-                            <th>Mô tả</th>
-                            <th>Quét mã</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in ViewBag.langfarm)
-                        {
-                            if (@item.imgQR == null)
-                            {
-                                <tr>
-                                    <td><img style="width:200px" src="@item.imgPath" /></td>
-                                    <td><h4>@item.nameProduct</h4></td>
-                                    <td>
-                                        <p>
-                                            @item.details
-                                        </p>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                            }
-                            else
-                            {
-                                <tr>
-                                    <td><img style="width:200px" src="@item.imgPath" /></td>
-                                    <td><h4>@item.nameProduct</h4></td>
-                                    <td>
-                                        <p>
-                                            @item.details
-                                        </p>
-                                    </td>
-                                    <td><img style="width:200px" src="@item.imgQR" /></td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
