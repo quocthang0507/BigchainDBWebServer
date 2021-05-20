@@ -69,55 +69,55 @@ namespace BigchainDBWebServer.Controllers
 			return 0;
 		}
 
-        // GET: Product
-        public ActionResult Manager()
-        {
-            string idUser = GetIdUser();
-            if (idUser != null)
-            {
-                ProductDAO dao = new ProductDAO();
-                ViewBag.lst = dao.GetAllByUsername(idUser);
-                ViewBag.Roles = CheckRoles(idUser);
-                ViewBag.lstTranfer = dao.GetListTranferUser();
-                //if(CheckRoles(idUser)==1)
-                //{
-                //	ViewBag.number = dao.GetNumberProduct(idUser);
-                //}	
-                return View();
-            }
-            return RedirectToAction("NoActiveLogin", "User");
-        }
+		// GET: Product
+		public ActionResult Manager()
+		{
+			string idUser = GetIdUser();
+			if (idUser != null)
+			{
+				ProductDAO dao = new ProductDAO();
+				ViewBag.lst = dao.GetAllByUsername(idUser);
+				ViewBag.Roles = CheckRoles(idUser);
+				ViewBag.lstTranfer = dao.GetListTranferUser();
+				//if(CheckRoles(idUser)==1)
+				//{
+				//	ViewBag.number = dao.GetNumberProduct(idUser);
+				//}	
+				return View();
+			}
+			return RedirectToAction("NoActiveLogin", "User");
+		}
 
-        public ActionResult AddProduct()
-        {
-            string userName = GetIdUser();
-            if (CheckLogin(userName) && CheckRoles(userName) == 1)
-                return View(); //
-            else
-                return RedirectToAction("AddProductForDiffAc", "Product");
-            //         if (Session["usernameFB"] != null)
-            //{
-            //	userName = Session["usernameFB"].ToString();
-            //}
-            //if (Session["usernameGO"] != null)
-            //{
-            //	userName = Session["usernameGO"].ToString();
-            //	if (CheckLogin(userName) && CheckRoles(Session["usernameGO"].ToString()) == 1)
-            //		return View();//
-            //	else
-            //		return RedirectToAction("AddProductForDiffAc", "Product");
-            //}
-            //if (Session["UserID"] != null)
-            //{
-            //	userName = Session["UserID"].ToString();
-            //	if (CheckLogin(userName) && CheckRoles(Session["UserID"].ToString()) == 1)
-            //		return View();//
-            //	else
-            //		return RedirectToAction("AddProductForDiffAc", "Product");
-            //}
-            //else { return RedirectToAction("NoActiveLogin", "User"); }
+		public ActionResult AddProduct()
+		{
+			string userName = GetIdUser();
+			if (CheckLogin(userName) && CheckRoles(userName) == 1)
+				return View(); //
+			else
+				return RedirectToAction("AddProductForDiffAc", "Product");
+			//         if (Session["usernameFB"] != null)
+			//{
+			//	userName = Session["usernameFB"].ToString();
+			//}
+			//if (Session["usernameGO"] != null)
+			//{
+			//	userName = Session["usernameGO"].ToString();
+			//	if (CheckLogin(userName) && CheckRoles(Session["usernameGO"].ToString()) == 1)
+			//		return View();//
+			//	else
+			//		return RedirectToAction("AddProductForDiffAc", "Product");
+			//}
+			//if (Session["UserID"] != null)
+			//{
+			//	userName = Session["UserID"].ToString();
+			//	if (CheckLogin(userName) && CheckRoles(Session["UserID"].ToString()) == 1)
+			//		return View();//
+			//	else
+			//		return RedirectToAction("AddProductForDiffAc", "Product");
+			//}
+			//else { return RedirectToAction("NoActiveLogin", "User"); }
 
-        }
+		}
 
 		public ActionResult AddProductForDiffAc(string search = null)
 		{
@@ -233,46 +233,46 @@ namespace BigchainDBWebServer.Controllers
 				return Json(new ResultOfRequest(false, "Lỗi lưu dữ liệu!"), JsonRequestBehavior.AllowGet);
 			}
 		}
-        public ActionResult GetQRCode(string idProduct)
-        {
-            ProductDAO dao = new ProductDAO();
-            var item = dao.Model.Products.FirstOrDefault(f => f.id == idProduct);
-            if(item != null)
-            {
-                string fileName = string.Format(@"~\imgQR\test\{0}.png", idProduct);
-                string path = this.Server.MapPath(fileName);
-                if (System.IO.File.Exists(path))
-                {
-                    ViewBag.file = fileName;
-                    return View();
-                }
-                //ViewBag.file = "Khong ton tai file --- " + path;
-            }
-            //else
-                //ViewBag.file = "Khong thay san pham";
-            return RedirectToAction("Index", "Home");
-            //return View();
-        }
-        [HttpPost]
-        public JsonResult RequestQRCode(QRManager qRManager)
-        {
-            string idUser = this.GetIdUser();
-            if (idUser == null)
-                return Json(new ResultOfRequest(false, "Không tồn tại người dùng!"));
-            qRManager.idUserRequest = idUser;
-            ProductDAO dao = new ProductDAO();
-            var result = dao.RequestQRCode(qRManager);
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        private string SaveFileImg(System.Web.HttpPostedFileBase httpPostedFile, string idUser)
-        {
-            if (httpPostedFile == null)
-                return "";
-            string path = "/img/productImg";
-            string fileName = string.Format("{0}_{1}_{2}", idUser, DateTime.Now.ToString("ddMMyyyy_hhmmss"), httpPostedFile.FileName);
-            string fullPath = path + "/" + fileName;
-            httpPostedFile.SaveAs(HttpContext.Server.MapPath(fullPath));
-            return fullPath;
-        }
-    }
+		public ActionResult GetQRCode(string idProduct)
+		{
+			ProductDAO dao = new ProductDAO();
+			var item = dao.Model.Products.FirstOrDefault(f => f.id == idProduct);
+			if (item != null)
+			{
+				string fileName = string.Format(@"~\imgQR\test\{0}.png", idProduct);
+				string path = this.Server.MapPath(fileName);
+				if (System.IO.File.Exists(path))
+				{
+					ViewBag.file = fileName;
+					return View();
+				}
+				//ViewBag.file = "Khong ton tai file --- " + path;
+			}
+			//else
+			//ViewBag.file = "Khong thay san pham";
+			return RedirectToAction("Index", "Home");
+			//return View();
+		}
+		[HttpPost]
+		public JsonResult RequestQRCode(QRManager qRManager)
+		{
+			string idUser = this.GetIdUser();
+			if (idUser == null)
+				return Json(new ResultOfRequest(false, "Không tồn tại người dùng!"));
+			qRManager.idUserRequest = idUser;
+			ProductDAO dao = new ProductDAO();
+			var result = dao.RequestQRCode(qRManager);
+			return Json(result, JsonRequestBehavior.AllowGet);
+		}
+		private string SaveFileImg(System.Web.HttpPostedFileBase httpPostedFile, string idUser)
+		{
+			if (httpPostedFile == null)
+				return "";
+			string path = "/img/productImg";
+			string fileName = string.Format("{0}_{1}_{2}", idUser, DateTime.Now.ToString("ddMMyyyy_hhmmss"), httpPostedFile.FileName);
+			string fullPath = path + "/" + fileName;
+			httpPostedFile.SaveAs(HttpContext.Server.MapPath(fullPath));
+			return fullPath;
+		}
+	}
 }

@@ -65,7 +65,7 @@ namespace BigchainDBWebServer.DAO
 						//checkBuy = 1,
 						idRole = user.idRole,
 					};
-					if (checkNumber(pro.id, int.Parse(item.numberhandling.ToString())))
+					if (CheckNumber(pro.id, int.Parse(item.numberhandling.ToString())))
 					{
 						if (int.Parse(item.numberhandling.ToString()) > 0)
 						{
@@ -78,7 +78,7 @@ namespace BigchainDBWebServer.DAO
 					}
 					else
 					{
-						return new ResultOfRequest(false, "Số lượng nhập phải nhỏ hơn số lượng nông sản: " + getNumber(pro.id));
+						return new ResultOfRequest(false, "Số lượng nhập phải nhỏ hơn số lượng nông sản: " + GetNumber(pro.id));
 					}
 					Model.ProductDetails.Add(temp);
 					if (Model.SaveChanges() > 0)
@@ -163,7 +163,7 @@ namespace BigchainDBWebServer.DAO
 		//        return new ResultOfRequest(true, "Thành công!");
 		//    return new ResultOfRequest(false, "Lỗi lưu!");
 		//}
-		public bool checkNumber(string idProduct, int num)
+		public bool CheckNumber(string idProduct, int num)
 		{
 			ProductDetail process = Model.ProductDetails.FirstOrDefault(f => f.idProduct == idProduct && f.idRole == 1);
 			if (process == null)
@@ -177,14 +177,14 @@ namespace BigchainDBWebServer.DAO
 				return false;
 			}
 		}
-		public int getNumber(string idProduct)
+		public int GetNumber(string idProduct)
 		{
 			ProductDetail process = Model.ProductDetails.FirstOrDefault(f => f.idProduct == idProduct && f.idRole == 1);
 			if (process == null)
 				return -1;
 			return int.Parse(process.numberhandling.ToString());
 		}
-		public int getIDDetail(string idProduct)
+		public int GetIdDetail(string idProduct)
 		{
 			ProductTranfer process = Model.ProductTranfers.FirstOrDefault(f => f.idProduct == idProduct);
 			if (process == null)
@@ -236,7 +236,7 @@ namespace BigchainDBWebServer.DAO
 				return new ResultOfRequest(false, "ID không tồn tại! Kiểm tra lại!");
 			if (process.numberhandling >= num && process.numberhandling > 0)
 			{
-				process.numberhandling = process.numberhandling - num;
+				process.numberhandling -= num;
 				if (Model.SaveChanges() > 0)
 					return new ResultOfRequest(true, "Thành công!");
 			}
@@ -316,7 +316,7 @@ namespace BigchainDBWebServer.DAO
 						//checkBuy = 1,
 						idRole = user.idRole,
 					};
-					if (checkNumber(pro.id, int.Parse(item.numberhandling.ToString())))
+					if (CheckNumber(pro.id, int.Parse(item.numberhandling.ToString())))
 					{
 						if (int.Parse(item.numberhandling.ToString()) > 0)
 						{
@@ -329,7 +329,7 @@ namespace BigchainDBWebServer.DAO
 					}
 					else
 					{
-						return new ResultOfRequest(false, "Số lượng nhập phải nhỏ hơn số lượng nông sản: " + getNumber(pro.id));
+						return new ResultOfRequest(false, "Số lượng nhập phải nhỏ hơn số lượng nông sản: " + GetNumber(pro.id));
 					}
 					Model.ProductDetails.Add(temp);
 					if (Model.SaveChanges() > 0)
@@ -454,20 +454,20 @@ namespace BigchainDBWebServer.DAO
 				return new ResultOfRequest(true, "Tạo thành công!");
 			return new ResultOfRequest(false, "Lỗi cập nhật!");
 		}
-        public List<MyViewIntro> GetViewIntro(string company)
-        {
-            string sql = "select Product.id as idProduct, Product.nameProduct as nameProduct, UserBC.company,Product.details, Product.imgPath, QRManager.linkImg as imgQR from UserBC left join ProductDetail on UserBC.username = ProductDetail.idUser left join Product on ProductDetail.idProduct = Product.id left join QRManager on Product.id = QRManager.idProduct where company=@company";
-            List<MyViewIntro> data = Model.Database.SqlQuery<MyViewIntro>(sql, new SqlParameter("@company", company)).ToList();
-            return data;
-        }
+		public List<MyViewIntro> GetViewIntro(string company)
+		{
+			string sql = "select Product.id as idProduct, Product.nameProduct as nameProduct, UserBC.company,Product.details, Product.imgPath, QRManager.linkImg as imgQR from UserBC left join ProductDetail on UserBC.username = ProductDetail.idUser left join Product on ProductDetail.idProduct = Product.id left join QRManager on Product.id = QRManager.idProduct where company=@company";
+			List<MyViewIntro> data = Model.Database.SqlQuery<MyViewIntro>(sql, new SqlParameter("@company", company)).ToList();
+			return data;
+		}
 	}
-    public class MyViewIntro
-    {
-        public string idProduct { get; set; }
-        public string nameProduct { get; set; }
-        public string company { get; set; }
-        public string details { get; set; }
-        public string imgPath { get; set; }
-        public string imgQR { get; set; }
-    }
+	public class MyViewIntro
+	{
+		public string idProduct { get; set; }
+		public string nameProduct { get; set; }
+		public string company { get; set; }
+		public string details { get; set; }
+		public string imgPath { get; set; }
+		public string imgQR { get; set; }
+	}
 }

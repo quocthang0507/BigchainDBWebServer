@@ -35,11 +35,11 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			return RedirectToAction("Farmer", "HomeAD");
 		}
 
-        // GET: Admin/User
-        public ActionResult Login()
-        {
-            return View();
-        }
+		// GET: Admin/User
+		public ActionResult Login()
+		{
+			return View();
+		}
 
 		public async Task<ActionResult> RegistrationAD()
 		{
@@ -49,43 +49,43 @@ namespace BigchainDBWebServer.Areas.Admin.Controllers
 			{
 				client.BaseAddress = new Uri(Baseurl);
 
-                client.DefaultRequestHeaders.Clear();
+				client.DefaultRequestHeaders.Clear();
 
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage Res = await client.GetAsync("/api/city");
+				HttpResponseMessage Res = await client.GetAsync("/api/city");
 
-                if (Res.IsSuccessStatusCode)
-                {
-                    //Storing the response details recieved from web api   
-                    string SachResponse = Res.Content.ReadAsStringAsync().Result;
-                    Area lstArea = new JavaScriptSerializer().Deserialize<Area>(SachResponse);
-                    lst = lstArea.LtsItem;
-                }
-                this.ViewBag.lst = lst;
-                return View();
-            }
-        }
-        public static string MD5Hash(string text)
-        {
-            MD5 md5 = new MD5CryptoServiceProvider();
+				if (Res.IsSuccessStatusCode)
+				{
+					//Storing the response details recieved from web api   
+					string SachResponse = Res.Content.ReadAsStringAsync().Result;
+					Area lstArea = new JavaScriptSerializer().Deserialize<Area>(SachResponse);
+					lst = lstArea.LtsItem;
+				}
+				this.ViewBag.lst = lst;
+				return View();
+			}
+		}
+		public static string MD5Hash(string text)
+		{
+			MD5 md5 = new MD5CryptoServiceProvider();
 
-            //compute hash from the bytes of text  
-            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(text));
+			//compute hash from the bytes of text  
+			md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(text));
 
-            //get hash result after compute it  
-            byte[] result = md5.Hash;
+			//get hash result after compute it  
+			byte[] result = md5.Hash;
 
-            StringBuilder strBuilder = new StringBuilder();
-            for (int i = 0; i < result.Length; i++)
-            {
-                //change it into 2 hexadecimal digits  
-                //for each byte  
-                strBuilder.Append(result[i].ToString("x2"));
-            }
+			StringBuilder strBuilder = new StringBuilder();
+			for (int i = 0; i < result.Length; i++)
+			{
+				//change it into 2 hexadecimal digits  
+				//for each byte  
+				strBuilder.Append(result[i].ToString("x2"));
+			}
 
-            return strBuilder.ToString();
-        }
+			return strBuilder.ToString();
+		}
 
 		public JsonResult ValidateUser(string userid, string password)
 		{
