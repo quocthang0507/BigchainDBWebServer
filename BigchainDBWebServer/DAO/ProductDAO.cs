@@ -65,7 +65,7 @@ namespace BigchainDBWebServer.DAO
 						//checkBuy = 1,
 						idRole = user.idRole,
 					};
-					if (CheckNumber(pro.id, int.Parse(item.numberhandling.ToString())))
+					if (checkNumber(pro.id, int.Parse(item.numberhandling.ToString())))
 					{
 						if (int.Parse(item.numberhandling.ToString()) > 0)
 						{
@@ -78,7 +78,7 @@ namespace BigchainDBWebServer.DAO
 					}
 					else
 					{
-						return new ResultOfRequest(false, "Số lượng nhập phải nhỏ hơn số lượng nông sản: " + GetNumber(pro.id));
+						return new ResultOfRequest(false, "Số lượng nhập phải nhỏ hơn số lượng nông sản: " + getNumber(pro.id));
 					}
 					Model.ProductDetails.Add(temp);
 					if (Model.SaveChanges() > 0)
@@ -163,7 +163,7 @@ namespace BigchainDBWebServer.DAO
 		//        return new ResultOfRequest(true, "Thành công!");
 		//    return new ResultOfRequest(false, "Lỗi lưu!");
 		//}
-		public bool CheckNumber(string idProduct, int num)
+		public bool checkNumber(string idProduct, int num)
 		{
 			ProductDetail process = Model.ProductDetails.FirstOrDefault(f => f.idProduct == idProduct && f.idRole == 1);
 			if (process == null)
@@ -177,14 +177,14 @@ namespace BigchainDBWebServer.DAO
 				return false;
 			}
 		}
-		public int GetNumber(string idProduct)
+		public int getNumber(string idProduct)
 		{
 			ProductDetail process = Model.ProductDetails.FirstOrDefault(f => f.idProduct == idProduct && f.idRole == 1);
 			if (process == null)
 				return -1;
 			return int.Parse(process.numberhandling.ToString());
 		}
-		public int GetIdDetail(string idProduct)
+		public int getIDDetail(string idProduct)
 		{
 			ProductTranfer process = Model.ProductTranfers.FirstOrDefault(f => f.idProduct == idProduct);
 			if (process == null)
@@ -236,7 +236,7 @@ namespace BigchainDBWebServer.DAO
 				return new ResultOfRequest(false, "ID không tồn tại! Kiểm tra lại!");
 			if (process.numberhandling >= num && process.numberhandling > 0)
 			{
-				process.numberhandling -= num;
+				process.numberhandling = process.numberhandling - num;
 				if (Model.SaveChanges() > 0)
 					return new ResultOfRequest(true, "Thành công!");
 			}
@@ -316,7 +316,7 @@ namespace BigchainDBWebServer.DAO
 						//checkBuy = 1,
 						idRole = user.idRole,
 					};
-					if (CheckNumber(pro.id, int.Parse(item.numberhandling.ToString())))
+					if (checkNumber(pro.id, int.Parse(item.numberhandling.ToString())))
 					{
 						if (int.Parse(item.numberhandling.ToString()) > 0)
 						{
@@ -329,7 +329,7 @@ namespace BigchainDBWebServer.DAO
 					}
 					else
 					{
-						return new ResultOfRequest(false, "Số lượng nhập phải nhỏ hơn số lượng nông sản: " + GetNumber(pro.id));
+						return new ResultOfRequest(false, "Số lượng nhập phải nhỏ hơn số lượng nông sản: " + getNumber(pro.id));
 					}
 					Model.ProductDetails.Add(temp);
 					if (Model.SaveChanges() > 0)
